@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FileSearch, Gauge, FileText, LayoutDashboard } from "lucide-react";
+import { FileSearch, Gauge, FileText, LayoutDashboard, Shield, Lock } from "lucide-react";
 
 const features = [
   {
@@ -29,8 +29,33 @@ const features = [
 ];
 
 const FeaturesSection = () => (
-  <section className="py-24">
-    <div className="container mx-auto px-6">
+  <section className="py-24 relative overflow-hidden">
+    {/* Animated background elements */}
+    <div className="absolute inset-0 pointer-events-none">
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `radial-gradient(circle at 20% 50%, hsl(160 84% 39% / 0.04) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsl(210 100% 56% / 0.04) 0%, transparent 50%)`,
+        }}
+      />
+      {/* Floating compliance shapes */}
+      <div className="absolute top-20 right-10 opacity-[0.04] animate-drift">
+        <Shield className="w-32 h-32 text-primary" />
+      </div>
+      <div className="absolute bottom-20 left-10 opacity-[0.04] animate-drift" style={{ animationDelay: "4s" }}>
+        <Lock className="w-24 h-24 text-secondary" />
+      </div>
+      {/* Subtle grid dots */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `radial-gradient(circle, hsl(160 84% 39% / 0.06) 1px, transparent 1px)`,
+          backgroundSize: "40px 40px",
+        }}
+      />
+    </div>
+
+    <div className="container mx-auto px-6 relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -54,7 +79,7 @@ const FeaturesSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="group rounded-2xl border border-border bg-card p-8 hover:shadow-glow hover:border-primary/30 transition-all"
+            className="group rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-8 hover:shadow-glow hover:border-primary/30 transition-all"
           >
             <div className="w-14 h-14 rounded-xl bg-accent flex items-center justify-center mb-5">
               <f.icon className="w-7 h-7 text-accent-foreground" />
