@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Check, Star } from "lucide-react";
+import { Check, Star, FileCheck, Shield } from "lucide-react";
 
 const plans = [
   {
@@ -26,8 +26,34 @@ const plans = [
 ];
 
 const PricingSection = () => (
-  <section className="py-24">
-    <div className="container mx-auto px-6">
+  <section className="py-24 relative overflow-hidden">
+    {/* Animated background */}
+    <div className="absolute inset-0 pointer-events-none">
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `radial-gradient(circle at 70% 80%, hsl(160 84% 39% / 0.03) 0%, transparent 40%), radial-gradient(circle at 30% 20%, hsl(210 100% 56% / 0.03) 0%, transparent 40%)`,
+        }}
+      />
+      {/* Animated dots grid */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `radial-gradient(circle, hsl(160 84% 39% / 0.05) 1px, transparent 1px)`,
+          backgroundSize: "50px 50px",
+        }}
+      />
+      <div className="absolute top-16 left-[5%] opacity-[0.03] animate-drift" style={{ animationDelay: "2s" }}>
+        <FileCheck className="w-36 h-36 text-primary" />
+      </div>
+      <div className="absolute bottom-16 right-[5%] opacity-[0.03] animate-drift" style={{ animationDelay: "5s" }}>
+        <Shield className="w-28 h-28 text-secondary" />
+      </div>
+      {/* Pulse rings */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-primary/[0.03] animate-pulse-ring" />
+    </div>
+
+    <div className="container mx-auto px-6 relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -50,10 +76,10 @@ const PricingSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className={`relative rounded-2xl border p-8 flex flex-col ${
+            className={`relative rounded-2xl border p-8 flex flex-col backdrop-blur-sm ${
               p.popular
-                ? "border-primary bg-card shadow-glow scale-105"
-                : "border-border bg-card"
+                ? "border-primary bg-card/90 shadow-glow scale-105"
+                : "border-border bg-card/80"
             }`}
           >
             {p.popular && (
