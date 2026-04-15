@@ -4,21 +4,21 @@ import { Check, Star, FileCheck, Shield } from "lucide-react";
 const plans = [
   {
     name: "Starter",
-    price: "$35",
+    price: "$79",
     desc: "The essential toolkit for growing teams to map compliance.",
     features: ["Up to 5 team members", "Unlimited AI mapping", "Basic reports", "Email support"],
     popular: false,
   },
   {
     name: "Pro",
-    price: "$74",
+    price: "$219",
     desc: "Advanced AI workflows and multilingual support to accelerate sales.",
     features: ["Unlimited team members", "Contract-Win Mode", "Urdu & Arabic training videos", "Priority support", "Clean report exports"],
     popular: true,
   },
   {
     name: "Enterprise",
-    price: "$109",
+    price: "$349",
     desc: "Tailored compliance infrastructure and dedicated consulting.",
     features: ["Custom API access", "Dedicated account manager", "On-site audit prep", "Custom training content"],
     popular: false,
