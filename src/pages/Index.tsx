@@ -3,13 +3,17 @@ import Hero from "@/components/Hero";
 import FounderSection from "@/components/FounderSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import HowItWorks from "@/components/HowItWorks";
-import UseCasesSection from "@/components/UseCasesSection";
+import SeeItInAction from "@/components/SeeItInAction";
+import CustomerStories from "@/components/CustomerStories";
+import TrustBar from "@/components/TrustBar";
 import PricingSection from "@/components/PricingSection";
-import BottomCTA from "@/components/BottomCTA";
+import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import StickyFloatingBar from "@/components/StickyFloatingBar";
+import ExitPopup from "@/components/ExitPopup";
 
 const Index = () => (
-  <div className="min-h-screen">
+  <div className="min-h-screen bg-background">
     <Navbar />
     <Hero />
     <FounderSection />
@@ -19,14 +23,29 @@ const Index = () => (
     <div id="how-it-works">
       <HowItWorks />
     </div>
-    <UseCasesSection />
+    
+    <div id="demo">
+      <SeeItInAction />
+    </div>
+    
+    <div id="stories">
+      <CustomerStories />
+    </div>
+
+    <TrustBar />
+
     <div id="pricing">
       <PricingSection />
     </div>
-    <BottomCTA />
+    
+    <FinalCTA />
+    
     <div id="contact">
       <Footer />
     </div>
+    
+    <StickyFloatingBar />
+    <ExitPopup />
   </div>
 );
 

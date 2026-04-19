@@ -6,51 +6,51 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 220 25% 14%;
+    --background: 220 60% 10%; /* #0A1428 Deep Navy */
+    --foreground: 0 0% 100%; /* White text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 25% 14%;
+    --card: 220 39% 11%; /* #111827 slightly lighter for cards */
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 14%;
+    --popover: 220 39% 11%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 160 84% 39%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 190 100% 50%; /* #00D4FF Electric Cyan */
+    --primary-foreground: 220 60% 10%;
 
-    --secondary: 210 100% 56%;
+    --secondary: 160 84% 40%; /* #10B981 Neon Green */
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 160 20% 96%;
-    --muted-foreground: 220 10% 46%;
+    --muted: 220 39% 16%;
+    --muted-foreground: 220 20% 65%;
 
-    --accent: 160 40% 94%;
-    --accent-foreground: 160 84% 25%;
+    --accent: 190 100% 50%;
+    --accent-foreground: 220 60% 10%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 160 84% 39%;
+    --border: 220 40% 18%;
+    --input: 220 40% 18%;
+    --ring: 190 100% 50%;
 
     --radius: 0.75rem;
 
-    --hero-gradient-start: 160 84% 39%;
-    --hero-gradient-mid: 180 70% 35%;
-    --hero-gradient-end: 210 100% 40%;
+    --hero-gradient-start: 220 60% 8%;
+    --hero-gradient-mid: 220 60% 10%;
+    --hero-gradient-end: 220 60% 6%;
 
-    --surface-warm: 40 30% 97%;
-    --surface-cool: 210 40% 97%;
+    --surface-warm: 220 60% 9%;
+    --surface-cool: 220 60% 8%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 220 60% 10%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 190 100% 50%;
+    --sidebar-primary-foreground: 220 60% 10%;
+    --sidebar-accent: 220 39% 16%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 220 40% 18%;
+    --sidebar-ring: 190 100% 50%;
   }
 }
 
@@ -62,7 +62,7 @@
     @apply bg-background text-foreground font-body antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
+    @apply font-display tracking-tight;
   }
 }
 
