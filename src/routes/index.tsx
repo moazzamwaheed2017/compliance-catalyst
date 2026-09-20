@@ -458,7 +458,7 @@ function Index() {
                 <h2 className="mt-3 font-display text-4xl font-extrabold">Ecosystem & Native Connector Network</h2>
               </div>
               <p className="max-w-md text-sm leading-6 text-muted-foreground">
-                ReguLattice seamlessly integrates with your existing AI stack, repositories, and developer environments.
+                Connect live cloud models, local LLMs, code repositories, and IAM policy engines directly to your governance plane.
               </p>
             </div>
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
