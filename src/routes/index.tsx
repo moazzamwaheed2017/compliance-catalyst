@@ -129,24 +129,44 @@ const frameworks = [
 
 const connectorCategories = [
   {
-    category: "Foundation Models & APIs",
-    icon: CpuIcon,
-    items: ["OpenAI", "Anthropic Claude", "Google Gemini Pro", "Ollama (Local LLMs)"],
-  },
-  {
-    category: "Developer AI & Agentic IDEs",
-    icon: Code2,
-    items: ["Claude Code (Admin API Audit Tier)", "Cursor IDE", "Antigravity IDE", "GitHub Copilot", "Phrase Strings"],
-  },
-  {
-    category: "Code & Infrastructure",
-    icon: GitBranch,
-    items: ["GitHub REST API", "IAM Policy Engine", "Vector DB RAG Indexing Pipeline", "Kubernetes Clusters"],
-  },
-  {
-    category: "Governance Databases",
+    category: "Private & Self-Hosted Models",
     icon: Server,
-    items: ["Embedded SQLite / WAL Mode", "Multi-User Concurrency", "Automated Schema Migration", "SOC 2 Type II Event Logging"],
+    items: [
+      "Private On-Prem LLM Clusters",
+      "Self-Hosted Runtimes (vLLM, TGI)",
+      "Fine-Tuned Enterprise Models",
+      "Kubernetes & Air-Gapped Weight Repos",
+    ],
+  },
+  {
+    category: "Local & Open-Source LLMs",
+    icon: CpuIcon,
+    items: [
+      "Ollama (Llama 3, Mistral, Qwen)",
+      "DeepSeek-R1 & Open Weights",
+      "Local Workstation Runtimes",
+      "Edge & On-Device AI Deployments",
+    ],
+  },
+  {
+    category: "Public LLMs & Commercial APIs",
+    icon: Network,
+    items: [
+      "ChatGPT / OpenAI",
+      "Anthropic Claude",
+      "Google Gemini Pro & Ultra",
+      "xAI Grok, Perplexity & Cohere",
+    ],
+  },
+  {
+    category: "Developer AI & Coding Tools",
+    icon: Code2,
+    items: [
+      "Cursor IDE & Windsurf",
+      "Claude Code (Admin API Telemetry)",
+      "Antigravity Agentic IDE",
+      "GitHub Copilot & Coding Assistants",
+    ],
   },
 ];
 
