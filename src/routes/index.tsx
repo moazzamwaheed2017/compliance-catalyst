@@ -290,9 +290,6 @@ function Index() {
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <Button variant="architectural" size="sm" onClick={() => openDemoModal("Access Developer Sandbox")} className="hidden sm:inline-flex">
-              Developer Sandbox
-            </Button>
             <Button variant="ink" size="sm" onClick={() => openDemoModal("Request Access")}>
               Request Access
             </Button>
