@@ -434,11 +434,11 @@ function Index() {
 
         {/* 6. Regulatory Framework & Standards Alignment */}
         <section id="frameworks" className="border-t border-border bg-surface py-24">
-          <div className="mx-auto grid max-w-7xl gap-14 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
-            <div>
+          <div className="mx-auto max-w-5xl px-5 lg:px-8">
+            <div className="text-center mb-12">
               <p className="font-mono text-xs uppercase text-primary">Regulatory Alignment</p>
               <h2 className="mt-3 font-display text-4xl font-extrabold">Regulatory Framework & Standards Alignment</h2>
-              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+              <p className="mt-4 max-w-2xl mx-auto text-sm text-muted-foreground leading-relaxed">
                 ReguLattice maps every asset, telemetry event, and developer tool directly to international compliance standards.
               </p>
             </div>
