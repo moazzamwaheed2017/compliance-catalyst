@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { initTursoTables, turso } from "@/lib/turso";
+import { ensureTablesExist, turso } from "@/lib/turso";
 
 function extractClientIp(headers: Headers): string {
   const forwarded = headers.get("x-forwarded-for");
@@ -36,7 +36,7 @@ async function fetchGeoIpFallback(ip: string): Promise<{ country: string; city: 
       }
     }
   } catch (e) {
-    console.warn("[log-visitor] GeoIP fallback lookup skipped/failed:", e);
+    console.warn("[log-visitor] GeoIP fallback lookup error:", e);
   }
 
   return { country: "Unknown", city: "Unknown", region: "Unknown" };
@@ -47,7 +47,8 @@ export const Route = createFileRoute("/api/public/log-visitor")({
     handlers: {
       POST: async ({ request }) => {
         try {
-          await initTursoTables();
+          // Always ensure tables exist before performing queries
+          await ensureTablesExist();
 
           const headers = request.headers;
           const ip = extractClientIp(headers);
@@ -68,13 +69,13 @@ export const Route = createFileRoute("/api/public/log-visitor")({
               payloadReferrer = String(body.referrer || "");
             }
           } catch {
-            // Body was empty or non-JSON
+            // Body empty or not JSON
           }
 
           const pageUrl = payloadUrl || headers.get("referer") || "/";
           const referrer = payloadReferrer || headers.get("referer") || "Direct";
 
-          // Perform fallback lookup if country is unknown
+          // Fallback geo lookup if headers are missing
           if (country === "Unknown" || country.length < 2) {
             const geo = await fetchGeoIpFallback(ip);
             country = geo.country;
@@ -113,7 +114,7 @@ export const Route = createFileRoute("/api/public/log-visitor")({
             args: [ip, country, city, region, userAgent, pageUrl, referrer, newVisitCount, now],
           });
 
-          console.log(`[Turso Logger] Logged visit from IP: ${ip} (${country}, ${city}) - Visit #${newVisitCount}`);
+          console.log(`[Turso Logger] Successfully logged visit for IP ${ip} (${country}, ${city}) - Visit #${newVisitCount}`);
 
           return new Response(
             JSON.stringify({
@@ -130,7 +131,7 @@ export const Route = createFileRoute("/api/public/log-visitor")({
             { status: 200, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" } }
           );
         } catch (error) {
-          console.error("[log-visitor] Failed to log visitor in Turso DB:", error);
+          console.error("[log-visitor] Error writing to Turso DB:", error);
           return new Response(
             JSON.stringify({ success: false, error: error instanceof Error ? error.message : String(error) }),
             { status: 500, headers: { "Content-Type": "application/json" } }
@@ -139,7 +140,7 @@ export const Route = createFileRoute("/api/public/log-visitor")({
       },
       GET: async () => {
         try {
-          await initTursoTables();
+          await ensureTablesExist();
 
           const totalLogs = await turso.execute("SELECT COUNT(*) as count FROM website_visitors");
           const uniqueIps = await turso.execute("SELECT COUNT(*) as count FROM visitor_ip_stats");

@@ -11,13 +11,9 @@ export const turso = createClient({
   authToken: TURSO_TOKEN,
 });
 
-let isInitialized = false;
-
-export async function initTursoTables() {
-  if (isInitialized) return;
-
+export async function ensureTablesExist() {
   try {
-    // 1. Detailed website_visitors table
+    // 1. Detailed website_visitors log table
     await turso.execute(`
       CREATE TABLE IF NOT EXISTS website_visitors (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -29,7 +25,7 @@ export async function initTursoTables() {
         page_url TEXT DEFAULT '',
         referrer TEXT DEFAULT '',
         ip_visit_count INTEGER DEFAULT 1,
-        visit_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        visit_time TEXT DEFAULT (datetime('now'))
       );
     `);
 
@@ -39,14 +35,11 @@ export async function initTursoTables() {
         ip_address TEXT PRIMARY KEY,
         country TEXT DEFAULT 'Unknown',
         total_visits INTEGER DEFAULT 1,
-        first_visit TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        last_visit TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        first_visit TEXT DEFAULT (datetime('now')),
+        last_visit TEXT DEFAULT (datetime('now'))
       );
     `);
-
-    isInitialized = true;
-    console.log("[Turso DB] Tables initialized successfully");
   } catch (error) {
-    console.error("[Turso DB] Failed to initialize tables:", error);
+    console.error("[Turso DB] Error ensuring tables exist:", error);
   }
 }
