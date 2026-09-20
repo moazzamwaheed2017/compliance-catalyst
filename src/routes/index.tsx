@@ -325,7 +325,7 @@ function Index() {
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-background/70 px-3.5 py-1.5 font-mono text-[10px] uppercase text-primary backdrop-blur-sm">
                 <span className="signal-pulse size-2 rounded-full bg-signal" /> Autonomous AI GRC Data Plane
               </div>
-              <h1 className="max-w-4xl text-balance font-display text-4xl font-extrabold leading-[1.02] sm:text-5xl lg:text-7xl">
+              <h1 className="max-w-4xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-4xl lg:text-5xl">
                 The Autonomous GRC Data Plane for AI Systems & Agentic Workflows
               </h1>
               <p className="mt-7 max-w-3xl text-pretty text-base leading-8 text-muted-foreground md:text-xl">
