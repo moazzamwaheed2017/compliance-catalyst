@@ -1,4 +1,3 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": ".output/public"
+  "buildCommand": "NITRO_PRESET=vercel vite build"
 }
