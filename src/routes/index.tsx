@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Check, CheckCircle2, Cpu, Eye, Fingerprint, Instagram, Linkedin, Loader2, Lock, Mail, Network, Radio, ShieldCheck, Terminal, Workflow, X, Code2, Layers, Cpu as CpuIcon, GitBranch, Server } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 import logoAsset from "@/assets/regulattice-logo.jpg";
@@ -250,6 +250,21 @@ function Index() {
     notes: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    try {
+      fetch("/api/public/log-visitor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          url: window.location.href,
+          referrer: document.referrer || "Direct",
+        }),
+      }).catch((err) => console.warn("Visitor logging notice:", err));
+    } catch {
+      // Ignore client side fetch error
+    }
+  }, []);
 
   const openDemoModal = (type: string) => {
     setRequestType(type);
