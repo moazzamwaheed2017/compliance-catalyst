@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -119,6 +120,22 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const location = useLocation();
+
+  useEffect(() => {
+    try {
+      fetch("/api/public/log-visitor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          url: window.location.href,
+          referrer: document.referrer || "Direct",
+        }),
+      }).catch((err) => console.warn("[Visitor Tracker] Log notice:", err));
+    } catch {
+      // Ignore client side fetch error
+    }
+  }, [location.pathname, location.search]);
 
   return (
     <QueryClientProvider client={queryClient}>
