@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Check, CheckCircle2, Cpu, Eye, Fingerprint, Instagram, Linkedin, Loader2, Lock, Mail, Network, Radio, ShieldCheck, Terminal, Workflow, X, AlertTriangle, Code2, Layers, Cpu as CpuIcon, GitBranch, Server } from "lucide-react";
+import { ArrowRight, Check, CheckCircle2, Cpu, Eye, Fingerprint, Instagram, Linkedin, Loader2, Lock, Mail, Network, Radio, ShieldCheck, Terminal, Workflow, X, Code2, Layers, Cpu as CpuIcon, GitBranch, Server } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -20,9 +20,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "ReguLattice | Autonomous GRC Data Plane for AI Systems" },
-      { name: "description", content: "Continuously discover deployed AI footprints and developer IDE tools, verify evidence with dual-pass model consensus, stream real-time telemetry through a live Flight Recorder, and execute gated risk remediations—built for EU AI Act, ISO/IEC 42001, and NIST AI RMF." },
+      { name: "description", content: "Continuously discover deployed AI footprints, verify evidence with dual-pass model consensus, stream real-time telemetry through a live Flight Recorder, and execute gated risk remediations—built for EU AI Act, ISO/IEC 42001, and NIST AI RMF." },
       { property: "og:title", content: "ReguLattice | Autonomous GRC Data Plane for AI Systems" },
-      { property: "og:description", content: "Continuous, verifiable governance for enterprise AI systems and agentic developer workflows." },
+      { property: "og:description", content: "Continuous, verifiable governance for enterprise AI systems." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -42,15 +42,6 @@ const trustBadges = [
   { title: "ISO/IEC 42001 Certified Schema", desc: "AIMS Control Verification & A.10 Supplier Controls" },
   { title: "NIST AI RMF Compliant", desc: "Govern, Map, Measure, Manage Functions" },
   { title: "Real-Time Flight Recorder Telemetry", desc: "SOC 2 Type II Event Logging" },
-];
-
-const comparisons = [
-  { capability: "Inventory & Shadow AI", oldWay: "Manual annual questionnaires", newWay: "Real-Time Gateway & Developer Tool Auto-Discovery" },
-  { capability: "Evidence Verification", oldWay: "Static PDF uploads & self-attestations", newWay: "Dual-Pass RAG & Semantic Policy Consensus" },
-  { capability: "Telemetry & Observability", oldWay: "Sampled annual audits", newWay: "Unified Telemetry Flight Recorder (5s Live Event Stream)" },
-  { capability: "Developer AI Governance", oldWay: "Unmonitored copy-paste policy", newWay: "Claude Code Audit Telemetry & Agentic IDE Egress Rules" },
-  { capability: "Risk Remediation", oldWay: "Email threads & Jira tickets", newWay: "Gated Autonomy Kanban with Dual-Role Approvals" },
-  { capability: "Continuous Learning", oldWay: "Manual policy updates", newWay: "Field-Level Audit Trail & RLHF Feedback Loop" },
 ];
 
 const aiPillars = [
@@ -289,11 +280,9 @@ function Index() {
       <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-xl">
         <nav className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 lg:px-8" aria-label="Main navigation">
           <Brand />
-          <div className="hidden items-center gap-5 text-xs font-mono uppercase text-muted-foreground lg:flex">
-            <a className="transition-colors hover:text-primary" href="#platform">Platform</a>
-            <a className="transition-colors hover:text-primary" href="#architecture">Architecture</a>
+          <div className="hidden items-center gap-6 text-xs font-mono uppercase text-muted-foreground lg:flex">
             <a className="transition-colors hover:text-primary" href="#pillars">Pillars</a>
-            <a className="transition-colors hover:text-primary" href="#developer-ai">Developer AI</a>
+            <a className="transition-colors hover:text-primary" href="#architecture">Architecture</a>
             <a className="transition-colors hover:text-primary" href="#frameworks">Frameworks</a>
             <a className="transition-colors hover:text-primary" href="#connectors">Connectors</a>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] text-primary">
@@ -367,38 +356,6 @@ function Index() {
           </div>
         </section>
 
-        {/* 3. Category Shift: Why GRC Must Evolve for AI */}
-        <section id="platform" className="border-t border-border bg-surface py-24 backdrop-blur-sm">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <p className="font-mono text-xs uppercase text-primary">Category Shift</p>
-            <h2 className="mt-3 max-w-3xl font-display text-4xl font-extrabold md:text-5xl">Static GRC Tools Are Breaking Under AI Velocity</h2>
-            <p className="mt-5 max-w-3xl leading-7 text-muted-foreground">
-              Annual surveys, spreadsheets, and generic LLM wrappers cannot track environments that change daily across cloud IAM, code repositories, shadow SaaS APIs, and agentic developer IDEs like Cursor, Antigravity, and Claude Code.
-            </p>
-
-            <div className="mt-12 overflow-hidden rounded-sm border border-border bg-border">
-              <div className="grid grid-cols-3 gap-px bg-border font-mono text-[11px] uppercase">
-                <div className="bg-muted/70 p-5 font-semibold text-muted-foreground">Capability</div>
-                <div className="bg-muted p-5 font-semibold text-muted-foreground">Traditional GRC</div>
-                <div className="bg-accent p-5 font-semibold text-primary">ReguLattice Autonomous Data Plane</div>
-              </div>
-              {comparisons.map(({ capability, oldWay, newWay }) => (
-                <div key={capability} className="grid grid-cols-3 gap-px border-t border-border bg-border">
-                  <div className="flex items-center bg-background p-5 text-sm font-semibold text-foreground">{capability}</div>
-                  <div className="flex items-start gap-3 bg-background p-5 text-sm text-muted-foreground">
-                    <X className="mt-0.5 size-4 shrink-0 text-muted-foreground/70" />
-                    <span>{oldWay}</span>
-                  </div>
-                  <div className="flex items-start gap-3 bg-surface p-5 text-sm font-medium text-foreground">
-                    <Check className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <span>{newWay}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* 4. The Four Core Pillars of ReguLattice */}
         <section id="pillars" className="border-t border-border bg-background py-24">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
@@ -441,122 +398,6 @@ function Index() {
         <section id="architecture" className="py-28 bg-surface border-t border-border relative">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <ArchitectureDiagram />
-          </div>
-        </section>
-
-        {/* 5. Developer AI Tools & Agentic IDE Governance */}
-        <section id="developer-ai" className="border-t border-border bg-background py-24">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <div className="max-w-3xl">
-              <p className="font-mono text-xs uppercase text-primary">Engineering AI Controls</p>
-              <h2 className="mt-3 font-display text-4xl font-extrabold md:text-5xl">Developer AI Tools & Agentic IDE Governance</h2>
-            </div>
-
-            {/* Alert Callout Block */}
-            <div className="mt-8 rounded-xl border border-primary/30 bg-primary/5 p-6 md:p-8 backdrop-blur-md">
-              <div className="flex items-start gap-4">
-                <div className="rounded-lg bg-primary/20 p-2 text-primary">
-                  <AlertTriangle className="size-6" />
-                </div>
-                <div>
-                  <h3 className="font-display text-lg font-bold text-foreground">Governing the AI your engineering teams actually use.</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    Organizations spend heavily to audit models they build internally, while engineers paste proprietary source code into coding assistants and support teams paste customer data into chat assistants. ReguLattice closes this gap under <strong className="text-foreground">ISO 42001 Clause A.10.x</strong>.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Sub-sections A & B Grid */}
-            <div className="mt-12 grid gap-8 lg:grid-cols-2">
-              {/* Sub-section A */}
-              <div className="rounded-xl border border-border bg-card p-8 space-y-5">
-                <div className="flex items-center gap-3">
-                  <div className="flex size-10 items-center justify-center rounded-lg border border-primary/30 bg-primary/10 text-primary">
-                    <Terminal className="size-5" />
-                  </div>
-                  <div>
-                    <span className="font-mono text-[10px] uppercase text-primary font-bold">Sub-System A</span>
-                    <h3 className="font-display text-xl font-bold text-foreground">Claude Code Audit-Tier Analytics</h3>
-                  </div>
-                </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  ReguLattice connects directly to Anthropic's Organization Admin API (<code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-primary">claude_code_admin</code>) to provide verifiable, audit-tier usage telemetry:
-                </p>
-                <ul className="space-y-3 text-xs text-muted-foreground">
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <div>
-                      <strong className="font-semibold text-foreground">Developer Session Metrics:</strong> Track total active Claude Code sessions across engineering orgs.
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <div>
-                      <strong className="font-semibold text-foreground">Codebase Impact:</strong> Aggregate lines of code added, lines removed, commits, and Pull Requests generated by Claude Code.
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <div>
-                      <strong className="font-semibold text-foreground">Model Breakdown:</strong> Measure usage across <code className="font-mono text-primary">claude-3-5-sonnet</code>, <code className="font-mono text-primary">claude-3-7-sonnet</code>, and hybrid r1 models.
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <div>
-                      <strong className="font-semibold text-foreground">Privacy-First Design:</strong> Actor identities and code content remain inside your organization—ReguLattice records audit counts and model usage without ingesting developer PII.
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Sub-section B */}
-              <div className="rounded-xl border border-border bg-card p-8 space-y-5">
-                <div className="flex items-center gap-3">
-                  <div className="flex size-10 items-center justify-center rounded-lg border border-primary/30 bg-primary/10 text-primary">
-                    <Code2 className="size-5" />
-                  </div>
-                  <div>
-                    <span className="font-mono text-[10px] uppercase text-primary font-bold">Sub-System B</span>
-                    <h3 className="font-display text-xl font-bold text-foreground">Agentic IDE & Coding Assistant Governance</h3>
-                  </div>
-                </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  Classify and govern developer AI tools (Cursor, Antigravity, GitHub Copilot) in your active inventory register:
-                </p>
-                <ul className="space-y-3 text-xs text-muted-foreground">
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <div>
-                      <strong className="font-semibold text-foreground">Tool Taxonomy:</strong> Categorize tools by <code className="font-mono text-primary">agentic_ide</code>, <code className="font-mono text-primary">coding_assistant</code>, <code className="font-mono text-primary">chat_assistant</code>, or <code className="font-mono text-primary">embedded_feature</code>.
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <div>
-                      <strong className="font-semibold text-foreground">Data Exposure Boundaries:</strong> Enforce policies based on exposure risk (<code className="font-mono text-primary">source_code</code>, <code className="font-mono text-primary">customer_pii</code>, <code className="font-mono text-primary">internal_docs</code>).
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
-                    <div>
-                      <strong className="font-semibold text-foreground">Egress Path Controls:</strong> Track whether data stays local (<code className="font-mono text-primary">local_llm</code>), stays in enterprise boundaries (<code className="font-mono text-primary">enterprise_tenant</code>), or leaves the organization (<code className="font-mono text-primary">cloud_api</code>).
-                    </div>
-                  </li>
-                </ul>
-
-                <div className="pt-2 border-t border-border">
-                  <div className="font-mono text-[11px] font-bold text-primary uppercase mb-2">Automated ISO 42001 Control Mapping</div>
-                  <div className="grid grid-cols-2 gap-2 font-mono text-[10px] text-muted-foreground">
-                    <div className="rounded border border-border bg-background p-2"><strong className="text-foreground">A.6.2.6:</strong> Operational monitoring for agentic code tools</div>
-                    <div className="rounded border border-border bg-background p-2"><strong className="text-foreground">A.6.2.8:</strong> Automated event logging for AI generation</div>
-                    <div className="rounded border border-border bg-background p-2"><strong className="text-foreground">A.7.2 / A.7.3:</strong> Data acquisition & egress boundary enforcement</div>
-                    <div className="rounded border border-border bg-background p-2"><strong className="text-foreground">A.10.3:</strong> Third-party AI supplier risk management</div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -688,9 +529,8 @@ function Index() {
             </div>
 
             <div className="flex flex-wrap items-center justify-start gap-x-8 gap-y-3 font-mono text-[11px] uppercase text-muted-foreground">
-              <a href="#platform" className="transition-colors hover:text-primary">Platform</a>
               <a href="#pillars" className="transition-colors hover:text-primary">Pillars</a>
-              <a href="#developer-ai" className="transition-colors hover:text-primary">Developer AI</a>
+              <a href="#architecture" className="transition-colors hover:text-primary">Architecture</a>
               <a href="#frameworks" className="transition-colors hover:text-primary">Frameworks</a>
               <a href="#connectors" className="transition-colors hover:text-primary">Connectors</a>
             </div>
