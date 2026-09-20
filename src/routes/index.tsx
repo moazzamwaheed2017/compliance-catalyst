@@ -325,7 +325,7 @@ function Index() {
                 Agentic Workflows
               </h1>
               <p className="mt-7 max-w-3xl text-pretty text-base leading-8 text-muted-foreground md:text-xl">
-                Continuously discover deployed AI footprints and developer IDE tools, verify evidence with dual-pass model consensus, stream real-time telemetry through a live Flight Recorder, and execute gated risk remediations—built for <strong className="font-semibold text-foreground">EU AI Act</strong>, <strong className="font-semibold text-foreground">ISO/IEC 42001</strong>, and <strong className="font-semibold text-foreground">NIST AI RMF</strong>.
+                Continuously discover deployed AI footprints and developer IDE tools, verify evidence with dual-pass model consensus, stream real-time telemetry through a live Flight Recorder, and execute gated risk remediations. Built for <strong className="font-semibold text-foreground">EU AI Act</strong>, <strong className="font-semibold text-foreground">ISO/IEC 42001</strong>, and <strong className="font-semibold text-foreground">NIST AI RMF</strong>.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Button variant="hero" size="lg" onClick={() => openDemoModal("Schedule Technical Demo")}>
