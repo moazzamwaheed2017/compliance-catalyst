@@ -129,44 +129,24 @@ const frameworks = [
 
 const connectorCategories = [
   {
-    category: "Private & Self-Hosted Models",
-    icon: Server,
-    items: [
-      "Private On-Prem LLM Clusters",
-      "Self-Hosted Runtimes (vLLM, TGI)",
-      "Fine-Tuned Enterprise Models",
-      "Kubernetes & Air-Gapped Weight Repos",
-    ],
-  },
-  {
-    category: "Local & Open-Source LLMs",
+    category: "Foundation Models & APIs",
     icon: CpuIcon,
-    items: [
-      "Ollama (Llama 3, Mistral, Qwen)",
-      "DeepSeek-R1 & Open Weights",
-      "Local Workstation Runtimes",
-      "Edge & On-Device AI Deployments",
-    ],
+    items: ["OpenAI", "Anthropic Claude", "Google Gemini Pro", "Ollama (Local LLMs)"],
   },
   {
-    category: "Public LLMs & Commercial APIs",
-    icon: Network,
-    items: [
-      "ChatGPT / OpenAI",
-      "Anthropic Claude",
-      "Google Gemini Pro & Ultra",
-      "xAI Grok, Perplexity & Cohere",
-    ],
-  },
-  {
-    category: "Developer AI & Coding Tools",
+    category: "Developer AI & Agentic IDEs",
     icon: Code2,
-    items: [
-      "Cursor IDE & Windsurf",
-      "Claude Code (Admin API Telemetry)",
-      "Antigravity Agentic IDE",
-      "GitHub Copilot & Coding Assistants",
-    ],
+    items: ["Claude Code (Admin API Audit Tier)", "Cursor IDE", "Antigravity IDE", "GitHub Copilot", "Phrase Strings"],
+  },
+  {
+    category: "Code & Infrastructure",
+    icon: GitBranch,
+    items: ["GitHub REST API", "IAM Policy Engine", "Vector DB RAG Indexing Pipeline", "Kubernetes Clusters"],
+  },
+  {
+    category: "Governance Databases",
+    icon: Server,
+    items: ["Embedded SQLite / WAL Mode", "Multi-User Concurrency", "Automated Schema Migration", "SOC 2 Type II Event Logging"],
   },
 ];
 
@@ -468,11 +448,11 @@ function Index() {
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <div>
-                <p className="font-mono text-xs uppercase text-primary">Model-Agnostic Integration Stack</p>
+                <p className="font-mono text-xs uppercase text-primary">Native Integrations</p>
                 <h2 className="mt-3 font-display text-4xl font-extrabold">Ecosystem & Native Connector Network</h2>
               </div>
               <p className="max-w-md text-sm leading-6 text-muted-foreground">
-                ReguLattice is completely model-agnostic—continuously discovering, monitoring, and governing private deployed models, local runtimes, public APIs (ChatGPT, Claude, Gemini, Grok), and developer AI platforms across your entire stack.
+                ReguLattice seamlessly integrates with your existing AI stack, repositories, and developer environments.
               </p>
             </div>
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
