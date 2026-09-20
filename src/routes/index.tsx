@@ -19,10 +19,10 @@ import { Textarea } from "@/components/ui/textarea";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ReguLattice | Autonomous AI GRC Data Plane" },
-      { name: "description", content: "Continuously discover deployed AI footprints, verify evidence with dual-pass model consensus, and stream live event telemetry through a gated risk remediation pipeline." },
-      { property: "og:title", content: "ReguLattice | Autonomous AI GRC Data Plane" },
-      { property: "og:description", content: "Continuous, verifiable governance for enterprise AI systems." },
+      { title: "ReguLattice | Enterprise AI Tool & Shadow AI Governance Data Plane" },
+      { name: "description", content: "Continuously discover, monitor, and govern AI development tools (Cursor, Copilot, Windsurf), AI video & media tools (Runway, HeyGen), and enterprise LLM footprints." },
+      { property: "og:title", content: "ReguLattice | Enterprise AI Tool & Shadow AI Governance Data Plane" },
+      { property: "og:description", content: "Continuous, verifiable governance for developer AI tools, generative media, and enterprise AI models." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -31,43 +31,43 @@ export const Route = createFileRoute("/")({
 });
 
 const metrics = [
-  { value: ">$10B", label: "AI Infrastructure Governed" },
+  { value: "50+", label: "AI Tools & IDEs Monitored" },
   { value: "<5s", label: "Real-Time Telemetry Stream" },
   { value: "100%", label: "EU AI Act Art. 14 Oversight" },
-  { value: "0%", label: "Unapproved Autonomy Drift" },
+  { value: "0%", label: "Code & PII Data Leakage" },
 ];
 
 const comparisons = [
-  { capability: "Inventory Discovery", oldWay: "Manual annual questionnaires & spreadsheets", newWay: "Real-Time Gateway & API Auto-Discovery" },
-  { capability: "Evidence Verification", oldWay: "Static PDF uploads & vendor claims", newWay: "Dual-Pass RAG & Semantic Consensus Verification" },
-  { capability: "Monitoring", oldWay: "Periodic audit sampling & logs", newWay: "Unified Telemetry Flight Recorder (Live Event Stream)" },
-  { capability: "Remediation", oldWay: "Ad-hoc Slack messages & email threads", newWay: "Gated Autonomy Kanban with Multi-Role Approvals" },
-  { capability: "Feedback Loop", oldWay: "Untracked manual overrides", newWay: "Field-Level Audit Trail & RLHF Learning Loop" },
+  { capability: "Tool & AI Discovery", oldWay: "Manual annual questionnaires & spreadsheets", newWay: "Real-Time Gateway, IDE & API Tool Auto-Discovery (Cursor, Copilot, SaaS)" },
+  { capability: "Data Leakage Risk", oldWay: "Untracked code & PII uploads to external AI tools", newWay: "Dual-Pass RAG & Data Exfiltration Policy Verification" },
+  { capability: "Monitoring", oldWay: "Periodic audit sampling & static log reviews", newWay: "Unified Telemetry Flight Recorder (Live Event & Prompt Stream)" },
+  { capability: "Remediation", oldWay: "Ad-hoc Slack messages & email policy warnings", newWay: "Gated Autonomy Kanban with Multi-Role Approvals" },
+  { capability: "Feedback Loop", oldWay: "Untracked manual overrides & exception lists", newWay: "Field-Level Audit Trail & RLHF Learning Loop" },
 ];
 
 const aiAgents = [
   {
     id: "01",
     tag: "DISCOVERY AGENT",
-    title: "Continuous Footprint Auto-Discovery",
+    title: "Continuous Tool & Footprint Auto-Discovery",
     icon: Network,
-    description: "Scans cloud infrastructure, SaaS endpoints, and code repositories to map every active AI model and API credential in real-time.",
+    description: "Scans developer IDEs, browser endpoints, cloud accounts, and SSO logs to map every active AI tool and API credential in real-time.",
     features: [
-      "OpenAI, Anthropic, Gemini, Ollama & GitHub Live API Validation",
-      "Automatic detection of orphan models and shadow AI deployments",
-      "Instant schema credential verification and taxonomy mapping",
+      "Live tracking of Cursor, Copilot, Windsurf & Claude Code usage",
+      "Discovery of shadow AI video/media tools (Runway, HeyGen, Midjourney)",
+      "Instant API key validation & data destination risk scoring",
     ],
   },
   {
     id: "02",
     tag: "VERIFICATION AGENT",
-    title: "Dual-Pass Evidence & Policy Verification",
+    title: "Dual-Pass Data Leakage & Policy Verification",
     icon: Eye,
-    description: "Eliminates mapping hallucinations using deterministic vector chunking and secondary model consensus evaluation.",
+    description: "Verifies if proprietary codebases, customer PII, or internal documents are leaking into external LLMs or third-party AI video/audio endpoints.",
     features: [
       "Primary vector search across EU AI Act, ISO 42001 & NIST AI RMF",
-      "Cross-model verification pass to flag compliance contradictions",
-      "Automated PASS/FAIL scoring with full lineage provenance",
+      "Data leakage cross-checks against third-party AI tool privacy policies",
+      "Automated PASS/FAIL evidence scoring with full lineage provenance",
     ],
   },
   {
@@ -75,9 +75,9 @@ const aiAgents = [
     tag: "TELEMETRY AGENT",
     title: "Unified Flight Recorder Telemetry Log",
     icon: Radio,
-    description: "Provides continuous 5-second operational event telemetry capturing model drift, tool calls, and prompt behavior.",
+    description: "Streams real-time 5-second operational event telemetry capturing code generation, prompt drift, and tool invocations across your workforce.",
     features: [
-      "Categorized stream: INFO, WARN, SECURITY_ALERT, and HALLUCINATION_FLAG",
+      "Categorized stream: INFO, WARN, SECURITY_ALERT, and DATA_LEAK_FLAG",
       "One-click human triage to confirm systemic errors or mark false positives",
       "Built-in audit trail for EU AI Act Article 73 post-market monitoring",
     ],
@@ -87,9 +87,9 @@ const aiAgents = [
     tag: "REMEDIATION AGENT",
     title: "Gated Autonomy Remediation Pipeline",
     icon: Workflow,
-    description: "Enforces strict human oversight over high-risk remediations via multi-approver role gates before execution.",
+    description: "Enforces strict human oversight and automated access gating over high-risk AI tools via role-based approval workflows.",
     features: [
-      "Kanban board tracking open risk items and SLA countdown timers",
+      "Kanban board tracking unapproved AI tool requests & open risk items",
       "Dual sign-off gates: Compliance Officer & AI Safety Engineer",
       "Field-level audit trail feeding RLHF feedback loops to refine policies",
     ],
@@ -100,7 +100,7 @@ const frameworks = [
   {
     name: "EU Artificial Intelligence Act",
     articles: "Art. 9 (Risk Mgmt), Art. 14 (Human Oversight), Art. 73 (Post-Market Monitoring)",
-    description: "Automated risk management, mandatory human-in-the-loop authorization gates, and continuous event telemetry logging.",
+    description: "Automated risk management for high-risk AI tools, mandatory human oversight gates for developer AI autonomy, and event telemetry logging.",
   },
   {
     name: "ISO/IEC 42001:2023",
@@ -110,20 +110,20 @@ const frameworks = [
   {
     name: "NIST AI RMF 1.0",
     articles: "GOVERN, MAP, MEASURE, and MANAGE Functions",
-    description: "Complete mapping across AI Risk Management Framework functions for trustworthy and accountable AI governance.",
+    description: "Complete mapping across AI Risk Management Framework functions for trustworthy AI tool usage and accountable AI governance.",
   },
   {
     name: "ISO 23894:2023",
     articles: "Causal Risk & Residual Impact Assessment",
-    description: "Quantitative causal risk modeling and automated residual risk scoring for enterprise AI deployments.",
+    description: "Quantitative causal risk modeling and automated residual risk scoring for workplace and developer AI tools.",
   },
 ];
 
 const integrations = [
-  { category: "Cloud Models & LLMs", items: ["OpenAI (GPT-4o)", "Anthropic (Claude 3.5)", "Google Gemini Pro", "Ollama (Llama 3 / Mistral)"] },
-  { category: "Repositories & Infra", items: ["GitHub REST API", "IAM Policy Engine", "Vector DB RAG Pipeline", "Kubernetes Clusters"] },
-  { category: "Identity & Access", items: ["Okta SSO", "Entra ID (Azure AD)", "Google Workspace", "Role-Based Access Control"] },
-  { category: "Observability & CI/CD", items: ["Datadog Telemetry", "MLflow Registry", "Hugging Face", "GitHub Actions CI/CD"] },
+  { category: "AI Coding & Dev Tools", items: ["Cursor IDE", "GitHub Copilot", "Windsurf IDE", "Replit Agent", "Claude Code", "Augment"] },
+  { category: "AI Media & Video Generation", items: ["Runway Gen-3", "HeyGen AI", "Synthesia", "Midjourney", "ElevenLabs", "Pika AI"] },
+  { category: "AI Productivity & LLMs", items: ["ChatGPT Enterprise", "Claude 3.5 Sonnet", "Perplexity AI", "Notion AI", "Fireflies.ai", "Poe"] },
+  { category: "Infra, IAM & Repos", items: ["GitHub REST API", "Okta SSO", "Entra ID (Azure AD)", "AWS CloudTrail", "CASB Gateway", "Kubernetes"] },
 ];
 
 function Brand({ compact = false }: { compact?: boolean }) {
@@ -155,20 +155,20 @@ function ArchitectureDiagram() {
     <div className="relative mx-auto max-w-5xl rounded-xl border border-border bg-card/60 p-6 md:p-10 backdrop-blur-md">
       <div className="text-center mb-8">
         <span className="font-mono text-xs uppercase text-primary tracking-widest">Non-Invasive Architecture</span>
-        <h3 className="mt-2 font-display text-2xl font-bold">The Continuous Control Loop</h3>
-        <p className="mt-1 text-xs text-muted-foreground">Plugs into your existing stack without code modification or rip-and-replace.</p>
+        <h3 className="mt-2 font-display text-2xl font-bold">The Continuous AI Tool Control Loop</h3>
+        <p className="mt-1 text-xs text-muted-foreground">Plugs into your enterprise stack, dev environments, and SSO without code modification or workflow friction.</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3 items-center text-center">
         <div className="space-y-3 rounded-lg border border-border bg-background/80 p-5 text-left">
           <div className="font-mono text-[11px] uppercase text-primary font-semibold flex items-center gap-2">
-            <Cpu className="size-4" /> Live AI Stack Inputs
+            <Cpu className="size-4" /> Enterprise AI Tool Inputs
           </div>
           <ul className="space-y-2 text-xs text-muted-foreground">
-            <li className="flex items-center gap-2"><Check className="size-3 text-primary shrink-0" /> Cloud LLMs (OpenAI, Anthropic, Gemini)</li>
-            <li className="flex items-center gap-2"><Check className="size-3 text-primary shrink-0" /> Local Models (Ollama, HuggingFace)</li>
-            <li className="flex items-center gap-2"><Check className="size-3 text-primary shrink-0" /> Repos & CI/CD (GitHub, GitLab)</li>
-            <li className="flex items-center gap-2"><Check className="size-3 text-primary shrink-0" /> Identity & IAM (Okta, Entra ID)</li>
+            <li className="flex items-center gap-2"><Check className="size-3 text-primary shrink-0" /> Dev Tools (Cursor, Copilot, Windsurf)</li>
+            <li className="flex items-center gap-2"><Check className="size-3 text-primary shrink-0" /> Video & Media (Runway, HeyGen, Synthesia)</li>
+            <li className="flex items-center gap-2"><Check className="size-3 text-primary shrink-0" /> LLM Apps (ChatGPT, Claude, Perplexity)</li>
+            <li className="flex items-center gap-2"><Check className="size-3 text-primary shrink-0" /> SSO & Gateway (Okta, Entra ID, CASB)</li>
           </ul>
         </div>
 
@@ -177,11 +177,11 @@ function ArchitectureDiagram() {
             <ShieldCheck className="size-6" />
           </div>
           <h4 className="font-display text-base font-bold text-foreground">ReguLattice Data Plane</h4>
-          <p className="mt-1 text-[11px] font-mono text-primary">Continuous Governance Engine</p>
+          <p className="mt-1 text-[11px] font-mono text-primary">AI Tool & Shadow AI Governance</p>
           <div className="mt-3 flex justify-center gap-1.5 font-mono text-[9px] uppercase">
-            <span className="rounded border border-primary/30 bg-background/60 px-2 py-1 text-muted-foreground">Discovery</span>
-            <span className="rounded border border-primary/30 bg-background/60 px-2 py-1 text-muted-foreground">Dual-Pass</span>
-            <span className="rounded border border-primary/30 bg-background/60 px-2 py-1 text-muted-foreground">Telemetry</span>
+            <span className="rounded border border-primary/30 bg-background/60 px-2 py-1 text-muted-foreground">Tool Discovery</span>
+            <span className="rounded border border-primary/30 bg-background/60 px-2 py-1 text-muted-foreground">Leak Prevention</span>
+            <span className="rounded border border-primary/30 bg-background/60 px-2 py-1 text-muted-foreground">Flight Recorder</span>
           </div>
         </div>
 
@@ -190,10 +190,10 @@ function ArchitectureDiagram() {
             <Terminal className="size-4" /> Verified Compliance Outputs
           </div>
           <ul className="space-y-2 text-xs text-muted-foreground">
-            <li className="flex items-center gap-2"><CheckCircle2 className="size-3 text-primary shrink-0" /> EU AI Act Art. 9, 14 & 73 Audit Logs</li>
-            <li className="flex items-center gap-2"><CheckCircle2 className="size-3 text-primary shrink-0" /> ISO/IEC 42001 Verified Controls</li>
-            <li className="flex items-center gap-2"><CheckCircle2 className="size-3 text-primary shrink-0" /> Flight Recorder Event Stream</li>
-            <li className="flex items-center gap-2"><CheckCircle2 className="size-3 text-primary shrink-0" /> Gated Human Approval Sign-Offs</li>
+            <li className="flex items-center gap-2"><CheckCircle2 className="size-3 text-primary shrink-0" /> Shadow AI Discovery Inventory</li>
+            <li className="flex items-center gap-2"><CheckCircle2 className="size-3 text-primary shrink-0" /> Zero Code Leakage Policy Enforcement</li>
+            <li className="flex items-center gap-2"><CheckCircle2 className="size-3 text-primary shrink-0" /> Flight Recorder Prompt & Event Stream</li>
+            <li className="flex items-center gap-2"><CheckCircle2 className="size-3 text-primary shrink-0" /> EU AI Act Art. 9, 14 & 73 Audit Reports</li>
           </ul>
         </div>
       </div>
@@ -272,13 +272,13 @@ function Index() {
           <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1fr_360px]">
             <div className="max-w-4xl">
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-background/70 px-3.5 py-1.5 font-mono text-[10px] uppercase text-primary backdrop-blur-sm">
-                <span className="signal-pulse size-2 rounded-full bg-signal" /> Active AI Governance Data Plane
+                <span className="signal-pulse size-2 rounded-full bg-signal" /> Active AI Tool & Shadow AI Governance Data Plane
               </div>
               <h1 className="max-w-4xl text-balance font-display text-5xl font-extrabold leading-[0.95] sm:text-6xl lg:text-8xl">
-                The Autonomous GRC <span className="text-primary">Data Plane</span> for Enterprise AI
+                Govern Developer AI Tools & <span className="text-primary">Shadow AI</span> at Scale
               </h1>
               <p className="mt-7 max-w-3xl text-pretty text-lg leading-8 text-muted-foreground md:text-xl">
-                Continuously discover deployed AI footprints, verify evidence with dual-pass model consensus, and stream live event telemetry through a gated risk remediation pipeline—built for <strong className="font-medium text-foreground">EU AI Act, ISO 42001, and NIST AI RMF.</strong>
+                Continuously discover, monitor, and govern AI coding assistants (<strong className="text-foreground font-semibold">Cursor, Copilot, Windsurf</strong>), AI video & media tools (<strong className="text-foreground font-semibold">Runway, HeyGen, Midjourney</strong>), and enterprise LLMs. Prevent code leakage and satisfy <strong className="font-medium text-foreground">EU AI Act, ISO 42001, and NIST AI RMF.</strong>
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Button variant="hero" size="lg" onClick={() => openDemoModal("Schedule Technical Demo")}>
