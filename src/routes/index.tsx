@@ -152,8 +152,8 @@ const connectorCategories = [
     category: "Public LLMs & Commercial APIs",
     icon: Network,
     items: [
-      "ChatGPT / OpenAI (GPT-4o, o3-mini)",
-      "Anthropic Claude (3.5 / 3.7 Sonnet)",
+      "ChatGPT / OpenAI",
+      "Anthropic Claude",
       "Google Gemini Pro & Ultra",
       "xAI Grok, Perplexity & Cohere",
     ],
