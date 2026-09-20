@@ -30,12 +30,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const metrics = [
-  { value: ">$10B", label: "AI Infrastructure Governed" },
-  { value: "<5s", label: "Real-Time Telemetry Stream" },
-  { value: "100%", label: "EU AI Act Art. 14 Oversight" },
-  { value: "0%", label: "Unapproved Autonomy Drift" },
-];
 
 const trustBadges = [
   { title: "EU AI Act Ready", desc: "Art. 9 (Risk Mgmt), Art. 14 (Human Oversight), Art. 73 (Post-Market Monitoring)" },
@@ -325,8 +319,10 @@ function Index() {
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-background/70 px-3.5 py-1.5 font-mono text-[10px] uppercase text-primary backdrop-blur-sm">
                 <span className="signal-pulse size-2 rounded-full bg-signal" /> Autonomous AI GRC Data Plane
               </div>
-              <h1 className="max-w-4xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-4xl lg:text-5xl">
-                The Autonomous GRC Data Plane for AI Systems & Agentic Workflows
+              <h1 className="max-w-4xl font-display text-3xl font-black leading-[1.12] tracking-tight sm:text-4xl lg:text-5xl">
+                The <span className="text-primary">Autonomous GRC Data Plane</span> <br />
+                for AI Systems &amp; <br />
+                Agentic Workflows
               </h1>
               <p className="mt-7 max-w-3xl text-pretty text-base leading-8 text-muted-foreground md:text-xl">
                 Continuously discover deployed AI footprints and developer IDE tools, verify evidence with dual-pass model consensus, stream real-time telemetry through a live Flight Recorder, and execute gated risk remediations—built for <strong className="font-semibold text-foreground">EU AI Act</strong>, <strong className="font-semibold text-foreground">ISO/IEC 42001</strong>, and <strong className="font-semibold text-foreground">NIST AI RMF</strong>.
@@ -350,17 +346,7 @@ function Index() {
             </div>
           </div>
 
-          {/* Metric Bar */}
-          <div className="mx-auto mt-16 max-w-7xl rounded-lg border border-border bg-card/70 p-6 backdrop-blur-md">
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-border">
-              {metrics.map((metric) => (
-                <div key={metric.label} className="pt-4 md:pt-0 md:px-6 text-center first:pt-0 first:px-0">
-                  <div className="font-display text-3xl font-extrabold text-primary">{metric.value}</div>
-                  <div className="mt-1 font-mono text-[11px] uppercase text-muted-foreground">{metric.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+
 
           {/* Trust Badges & Regulatory Compliance */}
           <div className="mx-auto mt-12 grid max-w-7xl gap-px border-y border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
