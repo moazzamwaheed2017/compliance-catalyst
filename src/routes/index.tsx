@@ -250,73 +250,90 @@ function ArchitectureDiagram() {
 
 // ReguLattice Gemini & Claude Autonomous GRC Video Showcase
 function DemoVideoShowcase() {
-  const [activeTab, setActiveTab] = useState<"all" | "gemini" | "claude">("all");
+  const [activeTab, setActiveTab] = useState<"dual" | "gemini" | "claude">("dual");
 
   return (
-    <section id="demo-video" className="border-t border-border bg-gradient-to-b from-card via-background to-card py-24 relative overflow-hidden">
-      {/* Background radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[600px] bg-primary/5 blur-[120px] pointer-events-none rounded-full" />
+    <section id="demo-video" className="border-t border-border bg-gradient-to-b from-background via-card/50 to-background py-28 relative overflow-hidden">
+      {/* Dynamic ambient radial glowing background */}
+      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[750px] blur-[140px] pointer-events-none rounded-full transition-all duration-700 ${
+        activeTab === "gemini" ? "bg-sky-500/15" : activeTab === "claude" ? "bg-amber-500/15" : "bg-primary/10"
+      }`} />
 
       <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-12 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 font-mono text-[10px] uppercase font-bold text-primary backdrop-blur-sm shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-            <span className="signal-pulse size-1.5 rounded-full bg-signal" /> Live Model Telemetry &amp; Governance
+        {/* Section Header */}
+        <div className="text-center mb-14 max-w-3xl mx-auto">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 font-mono text-[11px] uppercase font-bold text-primary backdrop-blur-md shadow-[0_0_20px_rgba(59,130,246,0.25)]">
+            <span className="signal-pulse size-2 rounded-full bg-emerald-400" /> LIVE TELEMETRY FLIGHT RECORDER STREAM
           </span>
-          <h2 className="mt-4 font-display text-3xl font-extrabold text-foreground sm:text-5xl tracking-tight">
+          <h2 className="mt-4 font-display text-4xl font-extrabold text-foreground sm:text-5xl tracking-tight">
             ReguLattice Autonomous GRC in Action
           </h2>
           <p className="mt-4 text-base text-muted-foreground leading-relaxed">
             Real-time compliance monitoring, evidence verification, and gated remediation across model runtimes.
           </p>
 
-          {/* Model Switcher Tabs */}
-          <div className="mt-8 inline-flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-border/80 bg-background/80 p-1.5 backdrop-blur-md shadow-lg">
+          {/* Futuristic Control Console Switcher */}
+          <div className="mt-8 inline-flex items-center gap-2 rounded-2xl border border-border/80 bg-background/90 p-2 backdrop-blur-xl shadow-2xl">
             <button
-              onClick={() => setActiveTab(activeTab === "gemini" ? "all" : "gemini")}
-              className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-semibold transition-all duration-300 ${
+              onClick={() => setActiveTab("dual")}
+              className={`flex items-center gap-2.5 rounded-xl px-5 py-2.5 text-xs font-bold transition-all duration-300 ${
+                activeTab === "dual"
+                  ? "bg-primary text-primary-foreground shadow-[var(--shadow-glow)] scale-105"
+                  : "text-muted-foreground hover:text-foreground hover:bg-card/60"
+              }`}
+            >
+              <Layers className="size-4" />
+              <span>Unified Command Center</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("gemini")}
+              className={`flex items-center gap-2.5 rounded-xl px-5 py-2.5 text-xs font-bold transition-all duration-300 ${
                 activeTab === "gemini"
-                  ? "bg-sky-500 text-white shadow-[0_0_20px_rgba(14,165,233,0.4)] scale-105"
+                  ? "bg-sky-500 text-white shadow-[0_0_25px_rgba(14,165,233,0.4)] scale-105"
                   : "text-muted-foreground hover:text-foreground hover:bg-card/60"
               }`}
             >
               <Cpu className="size-4 text-sky-400" />
-              <span>Gemini Use Case</span>
+              <span>Gemini Governance</span>
             </button>
 
             <button
-              onClick={() => setActiveTab(activeTab === "claude" ? "all" : "claude")}
-              className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-semibold transition-all duration-300 ${
+              onClick={() => setActiveTab("claude")}
+              className={`flex items-center gap-2.5 rounded-xl px-5 py-2.5 text-xs font-bold transition-all duration-300 ${
                 activeTab === "claude"
-                  ? "bg-amber-500 text-white shadow-[0_0_20px_rgba(245,158,11,0.4)] scale-105"
+                  ? "bg-amber-500 text-white shadow-[0_0_25px_rgba(245,158,11,0.4)] scale-105"
                   : "text-muted-foreground hover:text-foreground hover:bg-card/60"
               }`}
             >
               <ShieldCheck className="size-4 text-amber-400" />
-              <span>Claude Use Case</span>
+              <span>Claude Governance</span>
             </button>
           </div>
         </div>
 
-        {/* Video Showcase Container */}
-        {activeTab === "all" ? (
+        {/* Console Theater View */}
+        {activeTab === "dual" ? (
           <div className="grid gap-8 lg:grid-cols-2 items-stretch">
-            {/* Gemini Video Card */}
-            <div className="group relative flex flex-col justify-between rounded-2xl border border-sky-500/30 bg-card/90 p-5 sm:p-6 backdrop-blur-md shadow-[0_0_30px_rgba(14,165,233,0.1)] transition-all duration-300 hover:border-sky-500/60 hover:shadow-[0_0_40px_rgba(14,165,233,0.2)]">
+            {/* Gemini Console Card */}
+            <div className="group relative flex flex-col justify-between rounded-3xl border border-sky-500/30 bg-card/95 p-6 backdrop-blur-xl shadow-[0_0_30px_rgba(14,165,233,0.12)] transition-all duration-500 hover:border-sky-500/70 hover:shadow-[0_0_50px_rgba(14,165,233,0.25)] hover:-translate-y-1">
               <div>
+                {/* macOS Style Window Header */}
                 <div className="flex items-center justify-between border-b border-border/80 pb-4 mb-4">
-                  <div className="flex items-center gap-2.5">
-                    <span className="size-2 rounded-full bg-sky-400 animate-pulse" />
-                    <span className="font-mono text-xs font-bold text-sky-400 uppercase tracking-wider">
-                      Google Gemini Governance
+                  <div className="flex items-center gap-2">
+                    <div className="size-3 rounded-full bg-red-500/80" />
+                    <div className="size-3 rounded-full bg-yellow-500/80" />
+                    <div className="size-3 rounded-full bg-green-500/80" />
+                    <span className="ml-2 font-mono text-[11px] font-bold text-sky-400 uppercase tracking-wider">
+                      gemini-telemetry-plane.v1
                     </span>
                   </div>
-                  <span className="rounded-full border border-sky-500/30 bg-sky-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-sky-400 uppercase">
-                    Gemini 1.5 Pro / Flash
+                  <span className="rounded-full border border-sky-500/30 bg-sky-500/10 px-3 py-0.5 font-mono text-[10px] font-bold text-sky-400 uppercase">
+                    Gemini 1.5 Pro
                   </span>
                 </div>
 
-                <div className="relative overflow-hidden rounded-xl border border-border/80 bg-black/80 shadow-2xl group-hover:border-sky-500/40 transition-colors">
+                <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-black/90 shadow-2xl group-hover:border-sky-500/50 transition-all">
                   <video
                     src="/gemini-usecase.mp4"
                     controls
@@ -324,43 +341,52 @@ function DemoVideoShowcase() {
                     muted
                     loop
                     playsInline
-                    className="w-full aspect-video rounded-xl object-cover"
+                    className="w-full aspect-video rounded-2xl object-cover"
                   >
                     Your browser does not support video playback.
                   </video>
-                  <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-white/10 rounded-md px-2.5 py-1 text-[10px] font-mono text-white/90">
-                    ● Gemini Live Telemetry Log
+                  <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-md border border-white/10 rounded-lg px-3 py-1 text-[10px] font-mono text-white/90 flex items-center gap-2">
+                    <span className="size-2 rounded-full bg-sky-400 animate-ping" />
+                    <span>STREAMING: REAL-TIME PROMPT TELEMETRY</span>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-5 space-y-2.5 border-t border-border/60 pt-4">
-                <h4 className="font-display text-base font-bold text-foreground flex items-center gap-2">
-                  <CheckCircle2 className="size-4 text-sky-400" />
-                  Gemini Enterprise Compliance Inspection
-                </h4>
+              <div className="mt-6 space-y-3 border-t border-border/60 pt-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-display text-base font-bold text-foreground flex items-center gap-2">
+                    <CheckCircle2 className="size-4 text-sky-400" />
+                    Gemini Prompt &amp; Egress Guardrails
+                  </h4>
+                  <span className="font-mono text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-semibold">
+                    STATUS: PASSED
+                  </span>
+                </div>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Real-time prompt telemetry inspection, continuous data egress protection, and ISO/IEC 42001 automated compliance audit trail logging for Gemini model instances.
+                  Autonomous discovery and telemetry inspection of Gemini endpoints with continuous data egress monitoring and ISO/IEC 42001 audit compliance.
                 </p>
               </div>
             </div>
 
-            {/* Claude Video Card */}
-            <div className="group relative flex flex-col justify-between rounded-2xl border border-amber-500/30 bg-card/90 p-5 sm:p-6 backdrop-blur-md shadow-[0_0_30px_rgba(245,158,11,0.1)] transition-all duration-300 hover:border-amber-500/60 hover:shadow-[0_0_40px_rgba(245,158,11,0.2)]">
+            {/* Claude Console Card */}
+            <div className="group relative flex flex-col justify-between rounded-3xl border border-amber-500/30 bg-card/95 p-6 backdrop-blur-xl shadow-[0_0_30px_rgba(245,158,11,0.12)] transition-all duration-500 hover:border-amber-500/70 hover:shadow-[0_0_50px_rgba(245,158,11,0.25)] hover:-translate-y-1">
               <div>
+                {/* macOS Style Window Header */}
                 <div className="flex items-center justify-between border-b border-border/80 pb-4 mb-4">
-                  <div className="flex items-center gap-2.5">
-                    <span className="size-2 rounded-full bg-amber-400 animate-pulse" />
-                    <span className="font-mono text-xs font-bold text-amber-400 uppercase tracking-wider">
-                      Anthropic Claude Governance
+                  <div className="flex items-center gap-2">
+                    <div className="size-3 rounded-full bg-red-500/80" />
+                    <div className="size-3 rounded-full bg-yellow-500/80" />
+                    <div className="size-3 rounded-full bg-green-500/80" />
+                    <span className="ml-2 font-mono text-[11px] font-bold text-amber-400 uppercase tracking-wider">
+                      claude-verification-plane.v1
                     </span>
                   </div>
-                  <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-amber-400 uppercase">
+                  <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-0.5 font-mono text-[10px] font-bold text-amber-400 uppercase">
                     Claude 3.5 Sonnet
                   </span>
                 </div>
 
-                <div className="relative overflow-hidden rounded-xl border border-border/80 bg-black/80 shadow-2xl group-hover:border-amber-500/40 transition-colors">
+                <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-black/90 shadow-2xl group-hover:border-amber-500/50 transition-all">
                   <video
                     src="/claude-usecase.mp4"
                     controls
@@ -368,43 +394,53 @@ function DemoVideoShowcase() {
                     muted
                     loop
                     playsInline
-                    className="w-full aspect-video rounded-xl object-cover"
+                    className="w-full aspect-video rounded-2xl object-cover"
                   >
                     Your browser does not support video playback.
                   </video>
-                  <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-white/10 rounded-md px-2.5 py-1 text-[10px] font-mono text-white/90">
-                    ● Claude Live Flight Recorder Log
+                  <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-md border border-white/10 rounded-lg px-3 py-1 text-[10px] font-mono text-white/90 flex items-center gap-2">
+                    <span className="size-2 rounded-full bg-amber-400 animate-ping" />
+                    <span>STREAMING: DUAL-PASS RAG VERIFICATION</span>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-5 space-y-2.5 border-t border-border/60 pt-4">
-                <h4 className="font-display text-base font-bold text-foreground flex items-center gap-2">
-                  <CheckCircle2 className="size-4 text-amber-400" />
-                  Claude Dual-Pass Verification &amp; Gated Autonomy
-                </h4>
+              <div className="mt-6 space-y-3 border-t border-border/60 pt-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-display text-base font-bold text-foreground flex items-center gap-2">
+                    <CheckCircle2 className="size-4 text-amber-400" />
+                    Claude Evidence &amp; Gated Human Sign-off
+                  </h4>
+                  <span className="font-mono text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-semibold">
+                    STATUS: VERIFIED
+                  </span>
+                </div>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Dual-pass semantic evidence evaluation, automated policy contradiction check, and EU AI Act Article 14 multi-role human approval remediation workflow.
+                  Dual-pass RAG evaluation for policy drift detection, contradiction checks, and EU AI Act Article 14 gated human override approval pipelines.
                 </p>
               </div>
             </div>
           </div>
         ) : (
-          /* Isolated Featured View for Gemini or Claude */
-          <div className="max-w-4xl mx-auto">
+          /* Single Featured Focus View */
+          <div className="max-w-5xl mx-auto">
             <div className={`relative rounded-3xl border ${
-              activeTab === "gemini" ? "border-sky-500/50 shadow-[0_0_50px_rgba(14,165,233,0.25)]" : "border-amber-500/50 shadow-[0_0_50px_rgba(245,158,11,0.25)]"
-            } bg-card/95 p-6 sm:p-8 backdrop-blur-xl transition-all duration-500`}>
+              activeTab === "gemini" ? "border-sky-500/60 shadow-[0_0_60px_rgba(14,165,233,0.3)]" : "border-amber-500/60 shadow-[0_0_60px_rgba(245,158,11,0.3)]"
+            } bg-card/95 p-6 sm:p-10 backdrop-blur-2xl transition-all duration-500`}>
               <div className="flex items-center justify-between border-b border-border/80 pb-4 mb-6">
                 <div className="flex items-center gap-3">
-                  <span className={`size-2.5 rounded-full ${activeTab === "gemini" ? "bg-sky-400" : "bg-amber-400"} animate-pulse`} />
-                  <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground">
-                    {activeTab === "gemini" ? "Google Gemini Governance & Telemetry Use Case" : "Anthropic Claude Evidence & Oversight Use Case"}
+                  <div className="flex items-center gap-2">
+                    <div className="size-3 rounded-full bg-red-500/80" />
+                    <div className="size-3 rounded-full bg-yellow-500/80" />
+                    <div className="size-3 rounded-full bg-green-500/80" />
+                  </div>
+                  <h3 className="font-display text-xl sm:text-2xl font-extrabold text-foreground ml-2">
+                    {activeTab === "gemini" ? "Google Gemini Model Governance & Audit Flight Deck" : "Anthropic Claude Dual-Pass Evidence & Remediations"}
                   </h3>
                 </div>
                 <span className={`rounded-full border ${
-                  activeTab === "gemini" ? "border-sky-500/30 bg-sky-500/10 text-sky-400" : "border-amber-500/30 bg-amber-500/10 text-amber-400"
-                } px-3 py-1 font-mono text-xs font-bold uppercase`}>
+                  activeTab === "gemini" ? "border-sky-500/40 bg-sky-500/15 text-sky-400" : "border-amber-500/40 bg-amber-500/15 text-amber-400"
+                } px-4 py-1 font-mono text-xs font-bold uppercase`}>
                   {activeTab === "gemini" ? "Gemini 1.5 Pro" : "Claude 3.5 Sonnet"}
                 </span>
               </div>
@@ -423,18 +459,18 @@ function DemoVideoShowcase() {
                 </video>
               </div>
 
-              <div className="mt-6 grid gap-4 sm:grid-cols-3 pt-2">
-                <div className="rounded-xl border border-border/60 bg-background/60 p-4 text-xs">
-                  <strong className="font-mono text-[11px] text-primary uppercase block mb-1">Model Telemetry</strong>
-                  <span className="text-muted-foreground">Continuous 5s event stream capturing live prompt &amp; model state.</span>
+              <div className="mt-8 grid gap-4 sm:grid-cols-3 pt-2">
+                <div className="rounded-2xl border border-border/80 bg-background/80 p-5 backdrop-blur-md">
+                  <strong className="font-mono text-[11px] text-primary uppercase tracking-wider block mb-1">01 / Telemetry Agent</strong>
+                  <p className="text-xs text-muted-foreground leading-relaxed">Continuous 5s flight recorder logs capturing prompt events &amp; model drift.</p>
                 </div>
-                <div className="rounded-xl border border-border/60 bg-background/60 p-4 text-xs">
-                  <strong className="font-mono text-[11px] text-primary uppercase block mb-1">Evidence Mapping</strong>
-                  <span className="text-muted-foreground">Automatic vector chunk mapping to EU AI Act &amp; ISO 42001 controls.</span>
+                <div className="rounded-2xl border border-border/80 bg-background/80 p-5 backdrop-blur-md">
+                  <strong className="font-mono text-[11px] text-primary uppercase tracking-wider block mb-1">02 / Evidence Engine</strong>
+                  <p className="text-xs text-muted-foreground leading-relaxed">Automatic vector similarity mapping against ISO 42001 &amp; EU AI Act controls.</p>
                 </div>
-                <div className="rounded-xl border border-border/60 bg-background/60 p-4 text-xs">
-                  <strong className="font-mono text-[11px] text-primary uppercase block mb-1">Gated Oversight</strong>
-                  <span className="text-muted-foreground">Multi-role human sign-off before high-risk policy remediations.</span>
+                <div className="rounded-2xl border border-border/80 bg-background/80 p-5 backdrop-blur-md">
+                  <strong className="font-mono text-[11px] text-primary uppercase tracking-wider block mb-1">03 / Gated Approval</strong>
+                  <p className="text-xs text-muted-foreground leading-relaxed">Mandatory multi-role human sign-off before high-risk automated remediations.</p>
                 </div>
               </div>
             </div>
@@ -668,80 +704,89 @@ function Index() {
         <DemoVideoShowcase />
 
         {/* 6. Regulatory Framework & Standards Alignment */}
-        <section id="frameworks" className="border-t border-border bg-surface py-24 relative overflow-hidden">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
-              {/* Left Side: Fixed/Sticky Section Title & Overview */}
-              <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-5">
-                <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 font-mono text-[10px] uppercase font-bold text-primary backdrop-blur-sm">
-                  <span className="signal-pulse size-1.5 rounded-full bg-signal" /> Regulatory Alignment
-                </span>
-                <h2 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl text-foreground">
-                  Regulatory Framework &amp; Standards Alignment
-                </h2>
-                <p className="text-base text-muted-foreground leading-relaxed">
-                  ReguLattice maps every asset, telemetry event, and developer tool directly to international compliance standards.
-                </p>
-              </div>
+        <section id="frameworks" className="border-t border-border bg-surface py-28 relative overflow-hidden">
+          {/* Ambient lighting backdrop */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
 
-              {/* Right Side: Vertical Scroll Container (Scrollbar Hidden) */}
-              <div
-                ref={frameworksScrollRef}
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "ArrowDown") {
-                    e.preventDefault();
-                    scrollFrameworks("down");
-                  } else if (e.key === "ArrowUp") {
-                    e.preventDefault();
-                    scrollFrameworks("up");
-                  }
-                }}
-                className="lg:col-span-7 space-y-6 max-h-[620px] overflow-y-auto pr-2 outline-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-              >
-                {frameworks.map((fw) => {
-                  const Icon = fw.icon;
-                  return (
-                    <div
-                      key={fw.id}
-                      className="group relative rounded-2xl border border-border bg-card/95 p-6 sm:p-8 backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:shadow-[var(--shadow-glow)]"
-                    >
-                      <div className="flex items-center justify-between border-b border-border/80 pb-4">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
+            {/* Header */}
+            <div className="text-center mb-16 max-w-3xl mx-auto">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 font-mono text-[10px] uppercase font-bold text-primary backdrop-blur-sm shadow-[var(--shadow-glow)]">
+                <span className="signal-pulse size-1.5 rounded-full bg-signal" /> GLOBAL COMPLIANCE MAPPING
+              </span>
+              <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight sm:text-5xl text-foreground">
+                Regulatory Framework &amp; Standards Alignment
+              </h2>
+              <p className="mt-4 text-base text-muted-foreground leading-relaxed">
+                ReguLattice maps every asset, telemetry event, and developer tool directly to international compliance standards.
+              </p>
+            </div>
+
+            {/* 3-Card Glassmorphism Flight Deck Matrix */}
+            <div className="grid gap-8 lg:grid-cols-3 items-stretch">
+              {frameworks.map((fw) => {
+                const Icon = fw.icon;
+                return (
+                  <div
+                    key={fw.id}
+                    className="group relative flex flex-col justify-between rounded-3xl border border-border/80 bg-card/90 p-7 sm:p-8 backdrop-blur-xl transition-all duration-500 hover:border-primary/60 hover:shadow-[0_0_40px_rgba(59,130,246,0.2)] hover:-translate-y-2"
+                  >
+                    <div>
+                      {/* Top Bar */}
+                      <div className="flex items-center justify-between border-b border-border/80 pb-5">
                         <div className="flex items-center gap-3">
-                          <span className="font-mono text-xs font-bold text-primary">{fw.id}</span>
-                          <span className="rounded border border-primary/30 bg-primary/10 px-2.5 py-1 font-mono text-[10px] font-bold text-primary uppercase">
+                          <span className="font-mono text-sm font-extrabold text-primary">{fw.id}</span>
+                          <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-0.5 font-mono text-[10px] font-bold text-primary uppercase">
                             {fw.badge}
                           </span>
                         </div>
-                        <div className="flex size-9 items-center justify-center rounded-xl border border-border bg-background text-primary transition-colors group-hover:border-primary/40 group-hover:bg-primary/10">
-                          <Icon className="size-4" />
+                        <div className="flex size-11 items-center justify-center rounded-2xl border border-border bg-background text-primary transition-all duration-300 group-hover:border-primary/50 group-hover:bg-primary/10 group-hover:scale-110">
+                          <Icon className="size-5" />
                         </div>
                       </div>
 
-                      <div className="mt-5">
-                        <h3 className="font-display text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+                      {/* Content Header */}
+                      <div className="mt-6">
+                        <h3 className="font-display text-2xl font-extrabold text-foreground group-hover:text-primary transition-colors">
                           {fw.name}
                         </h3>
-                        <p className="mt-2 font-mono text-xs text-primary/90 font-medium">
+                        <p className="mt-2 font-mono text-xs text-primary/90 font-semibold leading-relaxed">
                           {fw.articles}
                         </p>
                       </div>
 
-                      <div className="mt-6 space-y-3">
+                      {/* Audit Checklist Items */}
+                      <div className="mt-7 space-y-3.5">
                         {fw.controls.map((ctrl) => (
-                          <div key={ctrl.code} className="flex items-start gap-3 rounded-lg border border-border/60 bg-background/60 p-3.5 text-xs transition-colors hover:border-border">
-                            <Check className="mt-0.5 size-4 shrink-0 text-primary" />
+                          <div
+                            key={ctrl.code}
+                            className="flex items-start gap-3.5 rounded-xl border border-border/60 bg-background/60 p-4 text-xs transition-all duration-300 hover:border-primary/40 hover:bg-background"
+                          >
+                            <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                              <Check className="size-3" />
+                            </div>
                             <div>
-                              <strong className="font-mono text-[11px] font-bold text-foreground">{ctrl.code}:</strong>{" "}
+                              <strong className="font-mono text-[11px] font-bold uppercase text-foreground block mb-0.5">
+                                {ctrl.code}
+                              </strong>
                               <span className="text-muted-foreground leading-relaxed">{ctrl.text}</span>
                             </div>
                           </div>
                         ))}
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+
+                    {/* Bottom Active Status Footer */}
+                    <div className="mt-8 flex items-center justify-between border-t border-border/60 pt-4 font-mono text-[10px]">
+                      <span className="text-muted-foreground">COMPLIANCE ENGINE</span>
+                      <span className="text-emerald-400 font-bold flex items-center gap-1.5">
+                        <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        100% MAPPED
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
