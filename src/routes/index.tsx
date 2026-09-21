@@ -293,7 +293,7 @@ function DemoVideoShowcase() {
 
   return (
     <section id="demo-video" className="border-t border-border bg-gradient-to-b from-card via-background to-card py-20 relative overflow-hidden">
-      <div className="mx-auto max-w-5xl px-5 lg:px-8 relative z-10">
+      <div className="mx-auto max-w-6xl px-5 lg:px-8 relative z-10">
         {/* Simple Section Header */}
         <div className="text-center mb-10 max-w-3xl mx-auto">
           <span className="rounded border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] font-bold text-primary uppercase">
@@ -343,7 +343,7 @@ function DemoVideoShowcase() {
                   playsInline
                   preload="auto"
                   onEnded={handleVideoEnded}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                  className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${
                     isActive ? "opacity-100 z-10 pointer-events-auto" : "opacity-0 z-0 pointer-events-none"
                   }`}
                 >
