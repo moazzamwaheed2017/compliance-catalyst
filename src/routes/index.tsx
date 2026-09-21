@@ -503,9 +503,6 @@ function Index() {
             <a className="transition-colors hover:text-primary" href="#architecture">Architecture</a>
             <a className="transition-colors hover:text-primary" href="#frameworks">Frameworks</a>
             <a className="transition-colors hover:text-primary" href="#connectors">Connectors</a>
-            <a className="transition-colors hover:text-primary flex items-center gap-1 text-primary font-bold" href="#sandbox">
-              <Sparkles className="size-3" /> Sandbox Trial
-            </a>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] text-primary">
               <span className="signal-pulse size-1.5 rounded-full bg-signal" /> Live Lattice Status: Active
             </span>
@@ -739,70 +736,6 @@ function Index() {
           </div>
         </section>
 
-        {/* 7.5 Developer Sandbox & 14-Day Free Trial Section */}
-        <section id="sandbox" className="border-t border-border bg-gradient-to-b from-background via-card/50 to-background py-20 relative overflow-hidden">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
-            <div className="rounded-2xl border border-primary/30 bg-card/90 p-8 shadow-2xl md:p-12 relative overflow-hidden">
-              <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 size-64 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
-              <div className="grid gap-8 lg:grid-cols-12 items-center">
-                <div className="lg:col-span-7">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] font-bold text-primary uppercase mb-4">
-                    <Sparkles className="size-3" /> 14-Day Free Developer Trial
-                  </div>
-                  <h2 className="font-display text-3xl font-extrabold text-foreground sm:text-4xl">
-                    Developer Sandbox &amp; Trial Environment
-                  </h2>
-                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-                    Test ReguLattice GRC APIs, telemetry flight recorders, and gated remediation hooks with zero setup friction. Every sandbox comes with a full 14-day trial period, pre-loaded test schemas (EU AI Act &amp; ISO 42001), and instant API keys.
-                  </p>
-                  <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                    <div className="flex items-center gap-2 text-foreground font-medium">
-                      <CheckCircle2 className="size-4 text-primary shrink-0" />
-                      Instant API &amp; SDK Key Provisioning
-                    </div>
-                    <div className="flex items-center gap-2 text-foreground font-medium">
-                      <CheckCircle2 className="size-4 text-primary shrink-0" />
-                      14 Days Full Access (No Credit Card)
-                    </div>
-                    <div className="flex items-center gap-2 text-foreground font-medium">
-                      <CheckCircle2 className="size-4 text-primary shrink-0" />
-                      Pre-configured Policy &amp; Egress Schemas
-                    </div>
-                    <div className="flex items-center gap-2 text-foreground font-medium">
-                      <CheckCircle2 className="size-4 text-primary shrink-0" />
-                      Live Telemetry Flight Recorder Access
-                    </div>
-                  </div>
-                </div>
-                <div className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center">
-                  <div className="w-full max-w-sm rounded-xl border border-border bg-background/80 p-6 text-center backdrop-blur-md">
-                    <div className="font-mono text-xs text-primary font-bold uppercase tracking-wider">
-                      Developer Sandbox
-                    </div>
-                    <div className="mt-2 font-display text-2xl font-black text-foreground">
-                      14-Day Free Trial
-                    </div>
-                    <p className="mt-1 text-[11px] text-muted-foreground">
-                      Get full platform access in under 60 seconds.
-                    </p>
-                    <Button
-                      variant="hero"
-                      size="lg"
-                      className="mt-6 w-full"
-                      onClick={() => openDemoModal("Access Developer Sandbox (14-Day Trial)")}
-                    >
-                      Start 14-Day Trial <ArrowRight className="ml-1.5 size-4" />
-                    </Button>
-                    <span className="mt-3 block text-[10px] text-muted-foreground font-mono">
-                      No credit card required · Instant setup
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* 8. Footer Call-to-Action & Sandbox Access */}
         <section id="demo" className="relative overflow-hidden border-t border-border py-28 bg-surface">
           <div className="lattice-grid absolute inset-0 opacity-50" aria-hidden="true" />
@@ -853,7 +786,6 @@ function Index() {
               <a href="#architecture" className="transition-colors hover:text-primary">Architecture</a>
               <a href="#frameworks" className="transition-colors hover:text-primary">Frameworks</a>
               <a href="#connectors" className="transition-colors hover:text-primary">Connectors</a>
-              <a href="#sandbox" className="transition-colors hover:text-primary">Sandbox Trial</a>
             </div>
           </div>
 
