@@ -419,16 +419,34 @@ function Index() {
           </div>
         </section>
 
-        {/* Gated Autonomy Highlight Banner */}
-        <section className="bg-foreground py-24 text-background">
-          <div className="mx-auto max-w-5xl px-5 text-center lg:px-8">
-            <div className="mx-auto mb-8 flex size-14 items-center justify-center border border-signal">
-              <Fingerprint className="size-6 text-signal" />
+        {/* ReguLattice Usecase Video Showcase */}
+        <section id="demo-video" className="border-t border-border bg-card py-20">
+          <div className="mx-auto max-w-5xl px-5 lg:px-8">
+            <div className="text-center mb-8">
+              <span className="rounded border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] font-bold text-primary uppercase">
+                Platform Demo &amp; Usecase
+              </span>
+              <h2 className="mt-3 font-display text-3xl font-extrabold text-foreground sm:text-4xl">
+                ReguLattice Autonomous GRC in Action
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Watch how ReguLattice continuously discovers AI assets, verifies evidence, and enforces gated autonomy.
+              </p>
             </div>
-            <blockquote className="text-pretty font-display text-2xl italic leading-relaxed md:text-4xl">
-              “Full AI autonomy in compliance violates European AI Act Article 14 human oversight mandates. Manual GRC creates unacceptable engineering bottlenecks. ReguLattice engineered <strong className="not-italic text-signal">Gated Autonomy</strong>—models draft, verify, and route evidence, but execution requires human authorization.”
-            </blockquote>
-            <p className="mt-8 font-mono text-[10px] uppercase tracking-widest text-signal">Human authorization remains the control boundary</p>
+
+            <div className="relative overflow-hidden rounded-xl border border-border bg-background shadow-2xl">
+              <video
+                src="/regulattice-usecase-1.mp4"
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-auto rounded-xl object-cover"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
           </div>
         </section>
 
