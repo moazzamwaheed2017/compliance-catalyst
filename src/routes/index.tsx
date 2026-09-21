@@ -250,7 +250,7 @@ function ArchitectureDiagram() {
 
 // ReguLattice Gemini & Claude Autonomous GRC Video Showcase
 function DemoVideoShowcase() {
-  const [activeTab, setActiveTab] = useState<"dual" | "gemini" | "claude">("dual");
+  const [activeTab, setActiveTab] = useState<"all" | "gemini" | "claude">("all");
 
   return (
     <section id="demo-video" className="border-t border-border bg-gradient-to-b from-card via-background to-card py-24 relative overflow-hidden">
@@ -267,26 +267,14 @@ function DemoVideoShowcase() {
             ReguLattice Autonomous GRC in Action
           </h2>
           <p className="mt-4 text-base text-muted-foreground leading-relaxed">
-            Real-time compliance monitoring, evidence verification, and gated remediation across <strong className="text-foreground">Google Gemini</strong> and <strong className="text-foreground">Anthropic Claude</strong> model runtimes.
+            Real-time compliance monitoring, evidence verification, and gated remediation across model runtimes.
           </p>
 
           {/* Model Switcher Tabs */}
           <div className="mt-8 inline-flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-border/80 bg-background/80 p-1.5 backdrop-blur-md shadow-lg">
             <button
-              onClick={() => setActiveTab("dual")}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all duration-300 ${
-                activeTab === "dual"
-                  ? "bg-primary text-primary-foreground shadow-[var(--shadow-glow)] scale-105"
-                  : "text-muted-foreground hover:text-foreground hover:bg-card/60"
-              }`}
-            >
-              <Layers className="size-4" />
-              <span>Dual View (Gemini &amp; Claude)</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab("gemini")}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all duration-300 ${
+              onClick={() => setActiveTab(activeTab === "gemini" ? "all" : "gemini")}
+              className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-semibold transition-all duration-300 ${
                 activeTab === "gemini"
                   ? "bg-sky-500 text-white shadow-[0_0_20px_rgba(14,165,233,0.4)] scale-105"
                   : "text-muted-foreground hover:text-foreground hover:bg-card/60"
@@ -297,8 +285,8 @@ function DemoVideoShowcase() {
             </button>
 
             <button
-              onClick={() => setActiveTab("claude")}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all duration-300 ${
+              onClick={() => setActiveTab(activeTab === "claude" ? "all" : "claude")}
+              className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-semibold transition-all duration-300 ${
                 activeTab === "claude"
                   ? "bg-amber-500 text-white shadow-[0_0_20px_rgba(245,158,11,0.4)] scale-105"
                   : "text-muted-foreground hover:text-foreground hover:bg-card/60"
@@ -311,7 +299,7 @@ function DemoVideoShowcase() {
         </div>
 
         {/* Video Showcase Container */}
-        {activeTab === "dual" ? (
+        {activeTab === "all" ? (
           <div className="grid gap-8 lg:grid-cols-2 items-stretch">
             {/* Gemini Video Card */}
             <div className="group relative flex flex-col justify-between rounded-2xl border border-sky-500/30 bg-card/90 p-5 sm:p-6 backdrop-blur-md shadow-[0_0_30px_rgba(14,165,233,0.1)] transition-all duration-300 hover:border-sky-500/60 hover:shadow-[0_0_40px_rgba(14,165,233,0.2)]">
