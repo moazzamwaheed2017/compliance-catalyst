@@ -91,32 +91,41 @@ const aiPillars = [
 
 const frameworks = [
   {
+    id: "01",
     name: "EU Artificial Intelligence Act",
-    articles: "Art. 9 (Risk Management), Art. 14 (Human Oversight), Art. 73 (Post-Market Monitoring)",
+    badge: "EU MANDATE",
+    articles: "Art. 9 (Risk Mgmt) · Art. 14 (Human Oversight) · Art. 73 (Post-Market Logs)",
+    icon: ShieldCheck,
     controls: [
-      "Article 9 (Risk Management System): Continuous risk identification and remediation pipeline.",
-      "Article 14 (Human Oversight): Two-stage approval override gates on all automated remediations.",
-      "Article 73 (Post-Market Monitoring): Unified Telemetry Flight Recorder capturing live model events.",
+      { code: "Article 9", text: "Continuous Risk Management System with automated identification & mitigation pipelines." },
+      { code: "Article 14", text: "Mandatory Human Oversight & two-stage approval override gates on high-risk AI actions." },
+      { code: "Article 73", text: "Unified Telemetry Flight Recorder for 5s real-time post-market incident audit logs." },
     ],
   },
   {
-    name: "ISO/IEC 42001 (AIMS Management System)",
+    id: "02",
+    name: "ISO/IEC 42001 (AIMS)",
+    badge: "INTERNATIONAL STANDARD",
     articles: "AIMS Control Verification & Clause A.10 Supplier Risk Controls",
+    icon: Layers,
     controls: [
-      "Control A.2.2 / A.3.2: Organizational AI policies & roles.",
-      "Control A.6.2.6 / A.6.2.8: Operational monitoring and event logging.",
-      "Control A.7.2 / A.7.3: Data provenance & egress boundaries.",
-      "Control A.10.2 / A.10.3: Third-party supplier and developer tool governance.",
+      { code: "Control A.2 / A.3", text: "Organizational AI governance policies, role assignments & accountability trees." },
+      { code: "Control A.6.2", text: "Operational monitoring, model activity logging & automated prompt telemetry." },
+      { code: "Control A.7.2 / A.7.3", text: "Data provenance, acquisition rights & strict egress boundary enforcement." },
+      { code: "Control A.10.2 / A.10.3", text: "Third-party AI supplier risk management & agentic developer tool registries." },
     ],
   },
   {
+    id: "03",
     name: "NIST AI RMF 1.0",
-    articles: "GOVERN, MAP, MEASURE, and MANAGE Functions",
+    badge: "US FRAMEWORK",
+    articles: "GOVERN · MAP · MEASURE · MANAGE Functions",
+    icon: Lock,
     controls: [
-      "GOVERN: Institutional policies and AI tool adoption registries.",
-      "MAP: AI asset inventory and data exposure categorizations.",
-      "MEASURE: Dual-pass semantic evidence evaluation.",
-      "MANAGE: Gated autonomy risk remediation Kanban.",
+      { code: "GOVERN", text: "Institutional policies, AI inventory cataloging & risk tolerance definitions." },
+      { code: "MAP", text: "AI asset categorization, context boundary mapping & data exposure scoring." },
+      { code: "MEASURE", text: "Dual-pass semantic evidence scoring, multi-model consensus & RAG validation." },
+      { code: "MANAGE", text: "Gated autonomy risk remediation Kanban with continuous human feedback loops." },
     ],
   },
 ];
@@ -451,33 +460,63 @@ function Index() {
         </section>
 
         {/* 6. Regulatory Framework & Standards Alignment */}
-        <section id="frameworks" className="border-t border-border bg-surface py-24">
-          <div className="mx-auto max-w-5xl px-5 lg:px-8">
-            <div className="text-center mb-12">
-              <p className="font-mono text-xs uppercase text-primary">Regulatory Alignment</p>
-              <h2 className="mt-3 font-display text-4xl font-extrabold">Regulatory Framework & Standards Alignment</h2>
-              <p className="mt-4 max-w-2xl mx-auto text-sm text-muted-foreground leading-relaxed">
-                ReguLattice maps every asset, telemetry event, and developer tool directly to international compliance standards.
+        <section id="frameworks" className="border-t border-border bg-surface py-24 relative overflow-hidden">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8">
+            <div className="text-center mb-16 max-w-3xl mx-auto">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 font-mono text-[10px] uppercase font-bold text-primary backdrop-blur-sm">
+                <span className="signal-pulse size-1.5 rounded-full bg-signal" /> Regulatory Alignment
+              </span>
+              <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
+                Supported Compliance Frameworks &amp; Standards
+              </h2>
+              <p className="mt-4 text-base text-muted-foreground leading-relaxed">
+                ReguLattice automatically maps every asset, telemetry event, and developer tool directly to international compliance standards.
               </p>
             </div>
-            <div className="divide-y divide-border border-y border-border">
-              {frameworks.map((fw, i) => (
-                <div key={fw.name} className="py-6 space-y-3">
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs text-primary font-bold">0{i + 1}</span>
-                    <h3 className="font-display text-xl font-bold text-foreground">{fw.name}</h3>
-                  </div>
-                  <div className="font-mono text-xs text-primary">{fw.articles}</div>
-                  <div className="space-y-1.5 text-xs text-muted-foreground">
-                    {fw.controls.map((ctrl) => (
-                      <div key={ctrl} className="flex items-start gap-2">
-                        <Check className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                        <span>{ctrl}</span>
+
+            <div className="grid gap-8 lg:grid-cols-3">
+              {frameworks.map((fw) => {
+                const Icon = fw.icon;
+                return (
+                  <div
+                    key={fw.id}
+                    className="group relative flex flex-col justify-between rounded-2xl border border-border bg-card/90 p-8 backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:shadow-[var(--shadow-glow)] hover:-translate-y-1"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between border-b border-border/80 pb-5">
+                        <span className="rounded border border-primary/30 bg-primary/10 px-2.5 py-1 font-mono text-[10px] font-bold text-primary uppercase">
+                          {fw.badge}
+                        </span>
+                        <div className="flex size-10 items-center justify-center rounded-xl border border-border bg-background text-primary transition-colors group-hover:border-primary/40 group-hover:bg-primary/10">
+                          <Icon className="size-5" />
+                        </div>
                       </div>
-                    ))}
+
+                      <div className="mt-6">
+                        <span className="font-mono text-xs font-bold text-primary">{fw.id}</span>
+                        <h3 className="mt-1 font-display text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+                          {fw.name}
+                        </h3>
+                        <p className="mt-2 font-mono text-[11px] leading-tight text-primary/90 font-medium">
+                          {fw.articles}
+                        </p>
+                      </div>
+
+                      <div className="mt-7 space-y-3.5">
+                        {fw.controls.map((ctrl) => (
+                          <div key={ctrl.code} className="flex items-start gap-3 rounded-lg border border-border/60 bg-background/60 p-3 text-xs transition-colors hover:border-border">
+                            <Check className="mt-0.5 size-4 shrink-0 text-primary" />
+                            <div>
+                              <strong className="font-mono text-[11px] uppercase font-bold text-foreground">{ctrl.code}:</strong>{" "}
+                              <span className="text-muted-foreground leading-relaxed">{ctrl.text}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
