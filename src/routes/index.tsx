@@ -513,25 +513,6 @@ function Index() {
                 <p className="text-base text-muted-foreground leading-relaxed">
                   ReguLattice maps every asset, telemetry event, and developer tool directly to international compliance standards.
                 </p>
-
-                {/* Up/Down Navigation Buttons */}
-                <div className="flex items-center gap-3 pt-2">
-                  <span className="text-xs font-mono text-muted-foreground">Use Up / Down keys or:</span>
-                  <button
-                    onClick={() => scrollFrameworks("up")}
-                    aria-label="Scroll Up"
-                    className="flex size-9 items-center justify-center rounded-lg border border-border bg-card text-foreground transition-all hover:border-primary hover:bg-primary/10 hover:text-primary active:scale-95"
-                  >
-                    <ChevronUp className="size-4" />
-                  </button>
-                  <button
-                    onClick={() => scrollFrameworks("down")}
-                    aria-label="Scroll Down"
-                    className="flex size-9 items-center justify-center rounded-lg border border-border bg-card text-foreground transition-all hover:border-primary hover:bg-primary/10 hover:text-primary active:scale-95"
-                  >
-                    <ChevronDown className="size-4" />
-                  </button>
-                </div>
               </div>
 
               {/* Right Side: Vertical Scroll Container (Scrollbar Hidden) */}
