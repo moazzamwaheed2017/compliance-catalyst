@@ -94,38 +94,38 @@ const frameworks = [
     id: "01",
     name: "EU Artificial Intelligence Act",
     badge: "EU MANDATE",
-    articles: "Art. 9 (Risk Mgmt) · Art. 14 (Human Oversight) · Art. 73 (Post-Market Logs)",
+    articles: "Art. 9 (Risk Management), Art. 14 (Human Oversight), Art. 73 (Post-Market Monitoring)",
     icon: ShieldCheck,
     controls: [
-      { code: "Article 9", text: "Continuous Risk Management System with automated identification & mitigation pipelines." },
-      { code: "Article 14", text: "Mandatory Human Oversight & two-stage approval override gates on high-risk AI actions." },
-      { code: "Article 73", text: "Unified Telemetry Flight Recorder for 5s real-time post-market incident audit logs." },
+      { code: "Article 9 (Risk Management System)", text: "Continuous risk identification and remediation pipeline." },
+      { code: "Article 14 (Human Oversight)", text: "Two-stage approval override gates on all automated remediations." },
+      { code: "Article 73 (Post-Market Monitoring)", text: "Unified Telemetry Flight Recorder capturing live model events." },
     ],
   },
   {
     id: "02",
-    name: "ISO/IEC 42001 (AIMS)",
+    name: "ISO/IEC 42001 (AIMS Management System)",
     badge: "INTERNATIONAL STANDARD",
     articles: "AIMS Control Verification & Clause A.10 Supplier Risk Controls",
     icon: Layers,
     controls: [
-      { code: "Control A.2 / A.3", text: "Organizational AI governance policies, role assignments & accountability trees." },
-      { code: "Control A.6.2", text: "Operational monitoring, model activity logging & automated prompt telemetry." },
-      { code: "Control A.7.2 / A.7.3", text: "Data provenance, acquisition rights & strict egress boundary enforcement." },
-      { code: "Control A.10.2 / A.10.3", text: "Third-party AI supplier risk management & agentic developer tool registries." },
+      { code: "Control A.2.2 / A.3.2", text: "Organizational AI policies & roles." },
+      { code: "Control A.6.2.6 / A.6.2.8", text: "Operational monitoring and event logging." },
+      { code: "Control A.7.2 / A.7.3", text: "Data provenance & egress boundaries." },
+      { code: "Control A.10.2 / A.10.3", text: "Third-party supplier and developer tool governance." },
     ],
   },
   {
     id: "03",
     name: "NIST AI RMF 1.0",
     badge: "US FRAMEWORK",
-    articles: "GOVERN · MAP · MEASURE · MANAGE Functions",
+    articles: "GOVERN, MAP, MEASURE, and MANAGE Functions",
     icon: Lock,
     controls: [
-      { code: "GOVERN", text: "Institutional policies, AI inventory cataloging & risk tolerance definitions." },
-      { code: "MAP", text: "AI asset categorization, context boundary mapping & data exposure scoring." },
-      { code: "MEASURE", text: "Dual-pass semantic evidence scoring, multi-model consensus & RAG validation." },
-      { code: "MANAGE", text: "Gated autonomy risk remediation Kanban with continuous human feedback loops." },
+      { code: "GOVERN", text: "Institutional policies and AI tool adoption registries." },
+      { code: "MAP", text: "AI asset inventory and data exposure categorizations." },
+      { code: "MEASURE", text: "Dual-pass semantic evidence evaluation." },
+      { code: "MANAGE", text: "Gated autonomy risk remediation Kanban." },
     ],
   },
 ];
@@ -462,61 +462,65 @@ function Index() {
         {/* 6. Regulatory Framework & Standards Alignment */}
         <section id="frameworks" className="border-t border-border bg-surface py-24 relative overflow-hidden">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <div className="text-center mb-16 max-w-3xl mx-auto">
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 font-mono text-[10px] uppercase font-bold text-primary backdrop-blur-sm">
-                <span className="signal-pulse size-1.5 rounded-full bg-signal" /> Regulatory Alignment
-              </span>
-              <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
-                Supported Compliance Frameworks &amp; Standards
-              </h2>
-              <p className="mt-4 text-base text-muted-foreground leading-relaxed">
-                ReguLattice automatically maps every asset, telemetry event, and developer tool directly to international compliance standards.
-              </p>
-            </div>
+            <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
+              {/* Left Side: Fixed/Sticky Section Title & Overview */}
+              <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-5">
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 font-mono text-[10px] uppercase font-bold text-primary backdrop-blur-sm">
+                  <span className="signal-pulse size-1.5 rounded-full bg-signal" /> Regulatory Alignment
+                </span>
+                <h2 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl text-foreground">
+                  Regulatory Framework &amp; Standards Alignment
+                </h2>
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  ReguLattice maps every asset, telemetry event, and developer tool directly to international compliance standards.
+                </p>
+              </div>
 
-            <div className="grid gap-8 lg:grid-cols-3">
-              {frameworks.map((fw) => {
-                const Icon = fw.icon;
-                return (
-                  <div
-                    key={fw.id}
-                    className="group relative flex flex-col justify-between rounded-2xl border border-border bg-card/90 p-8 backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:shadow-[var(--shadow-glow)] hover:-translate-y-1"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between border-b border-border/80 pb-5">
-                        <span className="rounded border border-primary/30 bg-primary/10 px-2.5 py-1 font-mono text-[10px] font-bold text-primary uppercase">
-                          {fw.badge}
-                        </span>
-                        <div className="flex size-10 items-center justify-center rounded-xl border border-border bg-background text-primary transition-colors group-hover:border-primary/40 group-hover:bg-primary/10">
-                          <Icon className="size-5" />
+              {/* Right Side: Vertical Scroll Container */}
+              <div className="lg:col-span-7 space-y-6 max-h-[620px] overflow-y-auto pr-2 custom-scrollbar">
+                {frameworks.map((fw) => {
+                  const Icon = fw.icon;
+                  return (
+                    <div
+                      key={fw.id}
+                      className="group relative rounded-2xl border border-border bg-card/95 p-6 sm:p-8 backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:shadow-[var(--shadow-glow)]"
+                    >
+                      <div className="flex items-center justify-between border-b border-border/80 pb-4">
+                        <div className="flex items-center gap-3">
+                          <span className="font-mono text-xs font-bold text-primary">{fw.id}</span>
+                          <span className="rounded border border-primary/30 bg-primary/10 px-2.5 py-1 font-mono text-[10px] font-bold text-primary uppercase">
+                            {fw.badge}
+                          </span>
+                        </div>
+                        <div className="flex size-9 items-center justify-center rounded-xl border border-border bg-background text-primary transition-colors group-hover:border-primary/40 group-hover:bg-primary/10">
+                          <Icon className="size-4" />
                         </div>
                       </div>
 
-                      <div className="mt-6">
-                        <span className="font-mono text-xs font-bold text-primary">{fw.id}</span>
-                        <h3 className="mt-1 font-display text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+                      <div className="mt-5">
+                        <h3 className="font-display text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
                           {fw.name}
                         </h3>
-                        <p className="mt-2 font-mono text-[11px] leading-tight text-primary/90 font-medium">
+                        <p className="mt-2 font-mono text-xs text-primary/90 font-medium">
                           {fw.articles}
                         </p>
                       </div>
 
-                      <div className="mt-7 space-y-3.5">
+                      <div className="mt-6 space-y-3">
                         {fw.controls.map((ctrl) => (
-                          <div key={ctrl.code} className="flex items-start gap-3 rounded-lg border border-border/60 bg-background/60 p-3 text-xs transition-colors hover:border-border">
+                          <div key={ctrl.code} className="flex items-start gap-3 rounded-lg border border-border/60 bg-background/60 p-3.5 text-xs transition-colors hover:border-border">
                             <Check className="mt-0.5 size-4 shrink-0 text-primary" />
                             <div>
-                              <strong className="font-mono text-[11px] uppercase font-bold text-foreground">{ctrl.code}:</strong>{" "}
+                              <strong className="font-mono text-[11px] font-bold text-foreground">{ctrl.code}:</strong>{" "}
                               <span className="text-muted-foreground leading-relaxed">{ctrl.text}</span>
                             </div>
                           </div>
                         ))}
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
