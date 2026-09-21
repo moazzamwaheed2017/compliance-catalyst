@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Check, CheckCircle2, Cpu, Eye, Fingerprint, Instagram, Linkedin, Loader2, Lock, Mail, Network, Radio, ShieldCheck, Terminal, Workflow, X, Code2, Layers, Cpu as CpuIcon, GitBranch, Server, ChevronUp, ChevronDown } from "lucide-react";
+import { ArrowRight, Check, CheckCircle2, Cpu, Eye, Fingerprint, Instagram, Linkedin, Loader2, Lock, Mail, Network, Radio, ShieldCheck, Terminal, Workflow, X, Code2, Layers, Cpu as CpuIcon, GitBranch, Server, ChevronUp, ChevronDown, Sparkles } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 
@@ -473,7 +473,11 @@ function Index() {
       const data = await response.json();
 
       if (response.ok && data.ok) {
-        toast.success(`Request sent! Notification dispatched to the ReguLattice Team.`);
+        toast.success(
+          requestType.includes("Sandbox")
+            ? "14-Day Developer Sandbox Trial requested! Check your email shortly for API keys."
+            : "Request sent! Notification dispatched to the ReguLattice Team."
+        );
         setDialogOpen(false);
         setFormData({ name: "", email: "", company: "", role: "", notes: "" });
       } else {
@@ -499,6 +503,9 @@ function Index() {
             <a className="transition-colors hover:text-primary" href="#architecture">Architecture</a>
             <a className="transition-colors hover:text-primary" href="#frameworks">Frameworks</a>
             <a className="transition-colors hover:text-primary" href="#connectors">Connectors</a>
+            <a className="transition-colors hover:text-primary flex items-center gap-1 text-primary font-bold" href="#sandbox">
+              <Sparkles className="size-3" /> Sandbox Trial
+            </a>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] text-primary">
               <span className="signal-pulse size-1.5 rounded-full bg-signal" /> Live Lattice Status: Active
             </span>
@@ -527,12 +534,12 @@ function Index() {
               <p className="mt-7 max-w-3xl text-pretty text-base leading-8 text-muted-foreground md:text-xl">
                 Continuously discover deployed AI footprints and developer IDE tools, verify evidence with dual-pass model consensus, stream real-time telemetry through a live Flight Recorder, and execute gated risk remediations. Built for <strong className="font-semibold text-foreground">EU AI Act</strong>, <strong className="font-semibold text-foreground">ISO/IEC 42001</strong>, and <strong className="font-semibold text-foreground">NIST AI RMF</strong>.
               </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Button variant="hero" size="lg" onClick={() => openDemoModal("Schedule Technical Demo")}>
                   Schedule Technical Demo <ArrowRight className="ml-1 size-4" />
                 </Button>
-                <Button variant="architectural" size="lg" onClick={() => openDemoModal("Access Developer Sandbox")}>
-                  Access Developer Sandbox <Code2 className="ml-1 size-4" />
+                <Button variant="architectural" size="lg" onClick={() => openDemoModal("Access Developer Sandbox (14-Day Trial)")}>
+                  Access Developer Sandbox (14-Day Trial) <Code2 className="ml-1 size-4" />
                 </Button>
               </div>
             </div>
@@ -732,6 +739,70 @@ function Index() {
           </div>
         </section>
 
+        {/* 7.5 Developer Sandbox & 14-Day Free Trial Section */}
+        <section id="sandbox" className="border-t border-border bg-gradient-to-b from-background via-card/50 to-background py-20 relative overflow-hidden">
+          <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
+            <div className="rounded-2xl border border-primary/30 bg-card/90 p-8 shadow-2xl md:p-12 relative overflow-hidden">
+              <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 size-64 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
+              <div className="grid gap-8 lg:grid-cols-12 items-center">
+                <div className="lg:col-span-7">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] font-bold text-primary uppercase mb-4">
+                    <Sparkles className="size-3" /> 14-Day Free Developer Trial
+                  </div>
+                  <h2 className="font-display text-3xl font-extrabold text-foreground sm:text-4xl">
+                    Developer Sandbox &amp; Trial Environment
+                  </h2>
+                  <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                    Test ReguLattice GRC APIs, telemetry flight recorders, and gated remediation hooks with zero setup friction. Every sandbox comes with a full 14-day trial period, pre-loaded test schemas (EU AI Act &amp; ISO 42001), and instant API keys.
+                  </p>
+                  <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <div className="flex items-center gap-2 text-foreground font-medium">
+                      <CheckCircle2 className="size-4 text-primary shrink-0" />
+                      Instant API &amp; SDK Key Provisioning
+                    </div>
+                    <div className="flex items-center gap-2 text-foreground font-medium">
+                      <CheckCircle2 className="size-4 text-primary shrink-0" />
+                      14 Days Full Access (No Credit Card)
+                    </div>
+                    <div className="flex items-center gap-2 text-foreground font-medium">
+                      <CheckCircle2 className="size-4 text-primary shrink-0" />
+                      Pre-configured Policy &amp; Egress Schemas
+                    </div>
+                    <div className="flex items-center gap-2 text-foreground font-medium">
+                      <CheckCircle2 className="size-4 text-primary shrink-0" />
+                      Live Telemetry Flight Recorder Access
+                    </div>
+                  </div>
+                </div>
+                <div className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center">
+                  <div className="w-full max-w-sm rounded-xl border border-border bg-background/80 p-6 text-center backdrop-blur-md">
+                    <div className="font-mono text-xs text-primary font-bold uppercase tracking-wider">
+                      Developer Sandbox
+                    </div>
+                    <div className="mt-2 font-display text-2xl font-black text-foreground">
+                      14-Day Free Trial
+                    </div>
+                    <p className="mt-1 text-[11px] text-muted-foreground">
+                      Get full platform access in under 60 seconds.
+                    </p>
+                    <Button
+                      variant="hero"
+                      size="lg"
+                      className="mt-6 w-full"
+                      onClick={() => openDemoModal("Access Developer Sandbox (14-Day Trial)")}
+                    >
+                      Start 14-Day Trial <ArrowRight className="ml-1.5 size-4" />
+                    </Button>
+                    <span className="mt-3 block text-[10px] text-muted-foreground font-mono">
+                      No credit card required · Instant setup
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* 8. Footer Call-to-Action & Sandbox Access */}
         <section id="demo" className="relative overflow-hidden border-t border-border py-28 bg-surface">
           <div className="lattice-grid absolute inset-0 opacity-50" aria-hidden="true" />
@@ -743,12 +814,12 @@ function Index() {
             <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
               Experience continuous AI footprint discovery, live Flight Recorder telemetry, and gated risk remediation in our interactive environment.
             </p>
-            <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+            <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row sm:items-center">
               <Button variant="hero" size="lg" onClick={() => openDemoModal("Schedule Technical Demo")}>
                 Schedule Technical Demo <ArrowRight className="ml-1 size-4" />
               </Button>
-              <Button variant="architectural" size="lg" onClick={() => openDemoModal("Access Developer Sandbox")}>
-                Access Developer Sandbox <Code2 className="ml-1 size-4" />
+              <Button variant="architectural" size="lg" onClick={() => openDemoModal("Access Developer Sandbox (14-Day Trial)")}>
+                Access Developer Sandbox (14-Day Trial) <Code2 className="ml-1 size-4" />
               </Button>
             </div>
           </div>
@@ -782,6 +853,7 @@ function Index() {
               <a href="#architecture" className="transition-colors hover:text-primary">Architecture</a>
               <a href="#frameworks" className="transition-colors hover:text-primary">Frameworks</a>
               <a href="#connectors" className="transition-colors hover:text-primary">Connectors</a>
+              <a href="#sandbox" className="transition-colors hover:text-primary">Sandbox Trial</a>
             </div>
           </div>
 
@@ -804,6 +876,20 @@ function Index() {
               Complete details below to submit your request. An instant notification will be sent directly to the <strong className="text-foreground">ReguLattice Team</strong>.
             </DialogDescription>
           </DialogHeader>
+
+          {requestType.includes("Sandbox") && (
+            <div className="mt-2 rounded-xl border border-primary/30 bg-primary/10 p-3.5 text-xs flex items-center gap-3 text-primary">
+              <div className="size-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                <Sparkles className="size-4 text-primary" />
+              </div>
+              <div>
+                <div className="font-bold text-foreground">14-Day Free Developer Sandbox Trial</div>
+                <div className="text-[11px] text-muted-foreground mt-0.5">
+                  Includes full access to ReguLattice GRC API, live telemetry Flight Recorder, and pre-loaded test schemas. Zero credit card required.
+                </div>
+              </div>
+            </div>
+          )}
 
           <form onSubmit={handleFormSubmit} className="space-y-4 pt-2">
             <div className="space-y-1.5">
@@ -872,9 +958,13 @@ function Index() {
                   <>
                     <Loader2 className="size-4 animate-spin mr-2" /> Sending Notification...
                   </>
+                ) : requestType.includes("Sandbox") ? (
+                  <>
+                    Start 14-Day Free Sandbox Trial <ArrowRight className="ml-2 size-4" />
+                  </>
                 ) : (
                   <>
-                    Submit Request & Dispatch Email <ArrowRight className="ml-2 size-4" />
+                    Submit Request &amp; Dispatch Email <ArrowRight className="ml-2 size-4" />
                   </>
                 )}
               </Button>
