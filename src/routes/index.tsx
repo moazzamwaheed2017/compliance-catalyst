@@ -308,7 +308,7 @@ function DemoVideoShowcase() {
         </div>
 
         {/* Video Player Container */}
-        <div className="relative overflow-hidden rounded-2xl border border-border bg-black shadow-2xl transition-all duration-500">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-2xl transition-all duration-500">
           {/* Top Bar showing active video title */}
           <div className="flex items-center justify-between border-b border-border/80 bg-card/90 px-5 py-3 backdrop-blur-md relative z-20">
             <div className="flex items-center gap-3">
@@ -328,7 +328,7 @@ function DemoVideoShowcase() {
           </div>
 
           {/* Dual Video Stack for 0ms transition gap */}
-          <div className="relative aspect-video w-full rounded-b-2xl bg-black overflow-hidden">
+          <div className="relative aspect-video w-full rounded-b-2xl bg-card overflow-hidden">
             {demoVideos.map((item, idx) => {
               const isActive = videoIndex === idx;
               return (
