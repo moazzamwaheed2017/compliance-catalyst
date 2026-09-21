@@ -248,6 +248,214 @@ function ArchitectureDiagram() {
   );
 }
 
+function DemoVideoShowcase() {
+  const [activeTab, setActiveTab] = useState<"dual" | "gemini" | "claude">("dual");
+
+  return (
+    <section id="demo-video" className="border-t border-border bg-gradient-to-b from-card via-background to-card py-24 relative overflow-hidden">
+      {/* Background radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[600px] bg-primary/5 blur-[120px] pointer-events-none rounded-full" />
+
+      <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-12 max-w-3xl mx-auto">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 font-mono text-[10px] uppercase font-bold text-primary backdrop-blur-sm shadow-[0_0_15px_rgba(59,130,246,0.2)]">
+            <span className="signal-pulse size-1.5 rounded-full bg-signal" /> Live Model Telemetry &amp; Governance
+          </span>
+          <h2 className="mt-4 font-display text-3xl font-extrabold text-foreground sm:text-5xl tracking-tight">
+            ReguLattice Autonomous GRC in Action
+          </h2>
+          <p className="mt-4 text-base text-muted-foreground leading-relaxed">
+            Real-time compliance monitoring, evidence verification, and gated remediation across <strong className="text-foreground">Google Gemini</strong> and <strong className="text-foreground">Anthropic Claude</strong> model runtimes.
+          </p>
+
+          {/* Model Switcher Tabs */}
+          <div className="mt-8 inline-flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-border/80 bg-background/80 p-1.5 backdrop-blur-md shadow-lg">
+            <button
+              onClick={() => setActiveTab("dual")}
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all duration-300 ${
+                activeTab === "dual"
+                  ? "bg-primary text-primary-foreground shadow-[var(--shadow-glow)] scale-105"
+                  : "text-muted-foreground hover:text-foreground hover:bg-card/60"
+              }`}
+            >
+              <Layers className="size-4" />
+              <span>Dual View (Gemini &amp; Claude)</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("gemini")}
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all duration-300 ${
+                activeTab === "gemini"
+                  ? "bg-sky-500 text-white shadow-[0_0_20px_rgba(14,165,233,0.4)] scale-105"
+                  : "text-muted-foreground hover:text-foreground hover:bg-card/60"
+              }`}
+            >
+              <Cpu className="size-4 text-sky-400" />
+              <span>Gemini Use Case</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("claude")}
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all duration-300 ${
+                activeTab === "claude"
+                  ? "bg-amber-500 text-white shadow-[0_0_20px_rgba(245,158,11,0.4)] scale-105"
+                  : "text-muted-foreground hover:text-foreground hover:bg-card/60"
+              }`}
+            >
+              <ShieldCheck className="size-4 text-amber-400" />
+              <span>Claude Use Case</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Video Showcase Container */}
+        {activeTab === "dual" ? (
+          <div className="grid gap-8 lg:grid-cols-2 items-stretch">
+            {/* Gemini Video Card */}
+            <div className="group relative flex flex-col justify-between rounded-2xl border border-sky-500/30 bg-card/90 p-5 sm:p-6 backdrop-blur-md shadow-[0_0_30px_rgba(14,165,233,0.1)] transition-all duration-300 hover:border-sky-500/60 hover:shadow-[0_0_40px_rgba(14,165,233,0.2)]">
+              <div>
+                <div className="flex items-center justify-between border-b border-border/80 pb-4 mb-4">
+                  <div className="flex items-center gap-2.5">
+                    <span className="size-2 rounded-full bg-sky-400 animate-pulse" />
+                    <span className="font-mono text-xs font-bold text-sky-400 uppercase tracking-wider">
+                      Google Gemini Governance
+                    </span>
+                  </div>
+                  <span className="rounded-full border border-sky-500/30 bg-sky-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-sky-400 uppercase">
+                    Gemini 1.5 Pro / Flash
+                  </span>
+                </div>
+
+                <div className="relative overflow-hidden rounded-xl border border-border/80 bg-black/80 shadow-2xl group-hover:border-sky-500/40 transition-colors">
+                  <video
+                    src="/gemini-usecase.mp4"
+                    controls
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full aspect-video rounded-xl object-cover"
+                  >
+                    Your browser does not support video playback.
+                  </video>
+                  <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-white/10 rounded-md px-2.5 py-1 text-[10px] font-mono text-white/90">
+                    ● Gemini Live Telemetry Log
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-5 space-y-2.5 border-t border-border/60 pt-4">
+                <h4 className="font-display text-base font-bold text-foreground flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-sky-400" />
+                  Gemini Enterprise Compliance Inspection
+                </h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Real-time prompt telemetry inspection, continuous data egress protection, and ISO/IEC 42001 automated compliance audit trail logging for Gemini model instances.
+                </p>
+              </div>
+            </div>
+
+            {/* Claude Video Card */}
+            <div className="group relative flex flex-col justify-between rounded-2xl border border-amber-500/30 bg-card/90 p-5 sm:p-6 backdrop-blur-md shadow-[0_0_30px_rgba(245,158,11,0.1)] transition-all duration-300 hover:border-amber-500/60 hover:shadow-[0_0_40px_rgba(245,158,11,0.2)]">
+              <div>
+                <div className="flex items-center justify-between border-b border-border/80 pb-4 mb-4">
+                  <div className="flex items-center gap-2.5">
+                    <span className="size-2 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="font-mono text-xs font-bold text-amber-400 uppercase tracking-wider">
+                      Anthropic Claude Governance
+                    </span>
+                  </div>
+                  <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-amber-400 uppercase">
+                    Claude 3.5 Sonnet
+                  </span>
+                </div>
+
+                <div className="relative overflow-hidden rounded-xl border border-border/80 bg-black/80 shadow-2xl group-hover:border-amber-500/40 transition-colors">
+                  <video
+                    src="/claude-usecase.mp4"
+                    controls
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full aspect-video rounded-xl object-cover"
+                  >
+                    Your browser does not support video playback.
+                  </video>
+                  <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-white/10 rounded-md px-2.5 py-1 text-[10px] font-mono text-white/90">
+                    ● Claude Live Flight Recorder Log
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-5 space-y-2.5 border-t border-border/60 pt-4">
+                <h4 className="font-display text-base font-bold text-foreground flex items-center gap-2">
+                  <CheckCircle2 className="size-4 text-amber-400" />
+                  Claude Dual-Pass Verification &amp; Gated Autonomy
+                </h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Dual-pass semantic evidence evaluation, automated policy contradiction check, and EU AI Act Article 14 multi-role human approval remediation workflow.
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* Isolated Featured View for Gemini or Claude */
+          <div className="max-w-4xl mx-auto">
+            <div className={`relative rounded-3xl border ${
+              activeTab === "gemini" ? "border-sky-500/50 shadow-[0_0_50px_rgba(14,165,233,0.25)]" : "border-amber-500/50 shadow-[0_0_50px_rgba(245,158,11,0.25)]"
+            } bg-card/95 p-6 sm:p-8 backdrop-blur-xl transition-all duration-500`}>
+              <div className="flex items-center justify-between border-b border-border/80 pb-4 mb-6">
+                <div className="flex items-center gap-3">
+                  <span className={`size-2.5 rounded-full ${activeTab === "gemini" ? "bg-sky-400" : "bg-amber-400"} animate-pulse`} />
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground">
+                    {activeTab === "gemini" ? "Google Gemini Governance & Telemetry Use Case" : "Anthropic Claude Evidence & Oversight Use Case"}
+                  </h3>
+                </div>
+                <span className={`rounded-full border ${
+                  activeTab === "gemini" ? "border-sky-500/30 bg-sky-500/10 text-sky-400" : "border-amber-500/30 bg-amber-500/10 text-amber-400"
+                } px-3 py-1 font-mono text-xs font-bold uppercase`}>
+                  {activeTab === "gemini" ? "Gemini 1.5 Pro" : "Claude 3.5 Sonnet"}
+                </span>
+              </div>
+
+              <div className="relative overflow-hidden rounded-2xl border border-border bg-black shadow-2xl">
+                <video
+                  src={activeTab === "gemini" ? "/gemini-usecase.mp4" : "/claude-usecase.mp4"}
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full aspect-video rounded-2xl object-cover"
+                >
+                  Your browser does not support video playback.
+                </video>
+              </div>
+
+              <div className="mt-6 grid gap-4 sm:grid-cols-3 pt-2">
+                <div className="rounded-xl border border-border/60 bg-background/60 p-4 text-xs">
+                  <strong className="font-mono text-[11px] text-primary uppercase block mb-1">Model Telemetry</strong>
+                  <span className="text-muted-foreground">Continuous 5s event stream capturing live prompt &amp; model state.</span>
+                </div>
+                <div className="rounded-xl border border-border/60 bg-background/60 p-4 text-xs">
+                  <strong className="font-mono text-[11px] text-primary uppercase block mb-1">Evidence Mapping</strong>
+                  <span className="text-muted-foreground">Automatic vector chunk mapping to EU AI Act &amp; ISO 42001 controls.</span>
+                </div>
+                <div className="rounded-xl border border-border/60 bg-background/60 p-4 text-xs">
+                  <strong className="font-mono text-[11px] text-primary uppercase block mb-1">Gated Oversight</strong>
+                  <span className="text-muted-foreground">Multi-role human sign-off before high-risk policy remediations.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 function Index() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [requestType, setRequestType] = useState("Schedule Technical Demo");
@@ -467,36 +675,8 @@ function Index() {
           </div>
         </section>
 
-        {/* ReguLattice Usecase Video Showcase */}
-        <section id="demo-video" className="border-t border-border bg-card py-20">
-          <div className="mx-auto max-w-5xl px-5 lg:px-8">
-            <div className="text-center mb-8">
-              <span className="rounded border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] font-bold text-primary uppercase">
-                Platform Demo &amp; Usecase
-              </span>
-              <h2 className="mt-3 font-display text-3xl font-extrabold text-foreground sm:text-4xl">
-                ReguLattice Autonomous GRC in Action
-              </h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Watch how ReguLattice continuously discovers AI assets, verifies evidence, and enforces gated autonomy.
-              </p>
-            </div>
-
-            <div className="relative overflow-hidden rounded-xl border border-border bg-background shadow-2xl">
-              <video
-                src="/regulattice-usecase-1.mp4"
-                controls
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-auto rounded-xl object-cover"
-              >
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </div>
-        </section>
+        {/* ReguLattice Usecase Video Showcase (Gemini & Claude) */}
+        <DemoVideoShowcase />
 
         {/* 6. Regulatory Framework & Standards Alignment */}
         <section id="frameworks" className="border-t border-border bg-surface py-24 relative overflow-hidden">
