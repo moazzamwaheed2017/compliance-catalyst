@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Check, CheckCircle2, Cpu, Eye, Fingerprint, Instagram, Linkedin, Loader2, Lock, Mail, Network, Radio, ShieldCheck, Terminal, Workflow, X, Code2, Layers, Cpu as CpuIcon, GitBranch, Server } from "lucide-react";
-import { useState, useEffect } from "react";
+import { ArrowRight, Check, CheckCircle2, Cpu, Eye, Fingerprint, Instagram, Linkedin, Loader2, Lock, Mail, Network, Radio, ShieldCheck, Terminal, Workflow, X, Code2, Layers, Cpu as CpuIcon, GitBranch, Server, ChevronUp, ChevronDown } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 
 import logoAsset from "@/assets/regulattice-logo.jpg";
@@ -259,6 +259,45 @@ function Index() {
     notes: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const frameworksScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollFrameworks = (direction: "up" | "down") => {
+    if (frameworksScrollRef.current) {
+      const scrollAmount = 240;
+      frameworksScrollRef.current.scrollBy({
+        top: direction === "down" ? scrollAmount : -scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const activeTag = document.activeElement?.tagName.toLowerCase();
+      if (activeTag === "input" || activeTag === "textarea") return;
+
+      if (e.key === "ArrowDown") {
+        if (frameworksScrollRef.current) {
+          const rect = frameworksScrollRef.current.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            e.preventDefault();
+            scrollFrameworks("down");
+          }
+        }
+      } else if (e.key === "ArrowUp") {
+        if (frameworksScrollRef.current) {
+          const rect = frameworksScrollRef.current.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            e.preventDefault();
+            scrollFrameworks("up");
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     try {
@@ -474,10 +513,42 @@ function Index() {
                 <p className="text-base text-muted-foreground leading-relaxed">
                   ReguLattice maps every asset, telemetry event, and developer tool directly to international compliance standards.
                 </p>
+
+                {/* Up/Down Navigation Buttons */}
+                <div className="flex items-center gap-3 pt-2">
+                  <span className="text-xs font-mono text-muted-foreground">Use Up / Down keys or:</span>
+                  <button
+                    onClick={() => scrollFrameworks("up")}
+                    aria-label="Scroll Up"
+                    className="flex size-9 items-center justify-center rounded-lg border border-border bg-card text-foreground transition-all hover:border-primary hover:bg-primary/10 hover:text-primary active:scale-95"
+                  >
+                    <ChevronUp className="size-4" />
+                  </button>
+                  <button
+                    onClick={() => scrollFrameworks("down")}
+                    aria-label="Scroll Down"
+                    className="flex size-9 items-center justify-center rounded-lg border border-border bg-card text-foreground transition-all hover:border-primary hover:bg-primary/10 hover:text-primary active:scale-95"
+                  >
+                    <ChevronDown className="size-4" />
+                  </button>
+                </div>
               </div>
 
-              {/* Right Side: Vertical Scroll Container */}
-              <div className="lg:col-span-7 space-y-6 max-h-[620px] overflow-y-auto pr-2 custom-scrollbar">
+              {/* Right Side: Vertical Scroll Container (Scrollbar Hidden) */}
+              <div
+                ref={frameworksScrollRef}
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "ArrowDown") {
+                    e.preventDefault();
+                    scrollFrameworks("down");
+                  } else if (e.key === "ArrowUp") {
+                    e.preventDefault();
+                    scrollFrameworks("up");
+                  }
+                }}
+                className="lg:col-span-7 space-y-6 max-h-[620px] overflow-y-auto pr-2 outline-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              >
                 {frameworks.map((fw) => {
                   const Icon = fw.icon;
                   return (
