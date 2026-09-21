@@ -269,7 +269,7 @@ const demoVideos = [
 
 function DemoVideoShowcase() {
   const [videoIndex, setVideoIndex] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const currentVideo = demoVideos[videoIndex];
 
@@ -278,12 +278,17 @@ function DemoVideoShowcase() {
   };
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load();
-      videoRef.current.play().catch(() => {
-        // Handle autoplay policy if muted is required
-      });
-    }
+    demoVideos.forEach((_, idx) => {
+      const v = videoRefs.current[idx];
+      if (v) {
+        if (idx === videoIndex) {
+          v.currentTime = 0;
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      }
+    });
   }, [videoIndex]);
 
   return (
@@ -305,7 +310,7 @@ function DemoVideoShowcase() {
         {/* Video Player Container */}
         <div className="relative overflow-hidden rounded-2xl border border-border bg-black shadow-2xl transition-all duration-500">
           {/* Top Bar showing active video title */}
-          <div className="flex items-center justify-between border-b border-border/80 bg-card/90 px-5 py-3 backdrop-blur-md">
+          <div className="flex items-center justify-between border-b border-border/80 bg-card/90 px-5 py-3 backdrop-blur-md relative z-20">
             <div className="flex items-center gap-3">
               <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
               <span className="font-mono text-xs font-bold text-foreground">
@@ -322,18 +327,31 @@ function DemoVideoShowcase() {
             </div>
           </div>
 
-          <video
-            ref={videoRef}
-            src={currentVideo.src}
-            controls
-            autoPlay
-            muted
-            playsInline
-            onEnded={handleVideoEnded}
-            className="w-full aspect-video rounded-b-2xl object-cover"
-          >
-            Your browser does not support the video tag.
-          </video>
+          {/* Dual Video Stack for 0ms transition gap */}
+          <div className="relative aspect-video w-full rounded-b-2xl bg-black overflow-hidden">
+            {demoVideos.map((item, idx) => {
+              const isActive = videoIndex === idx;
+              return (
+                <video
+                  key={item.id}
+                  ref={(el) => {
+                    videoRefs.current[idx] = el;
+                  }}
+                  src={item.src}
+                  controls
+                  muted
+                  playsInline
+                  preload="auto"
+                  onEnded={handleVideoEnded}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                    isActive ? "opacity-100 z-10 pointer-events-auto" : "opacity-0 z-0 pointer-events-none"
+                  }`}
+                >
+                  Your browser does not support the video tag.
+                </video>
+              );
+            })}
+          </div>
         </div>
 
         {/* Video Footer Info & Auto-Rotation Indicators */}
