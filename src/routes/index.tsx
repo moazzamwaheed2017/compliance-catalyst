@@ -586,105 +586,180 @@ function Index() {
     <div id="top" className="min-h-screen bg-background text-foreground selection:bg-primary/20">
       <LatticeBackground />
 
-      {/* 1. Navigation Header */}
-      <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-xl">
-        <nav className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 lg:px-8" aria-label="Main navigation">
+      {/* 1. Navigation Header (Variance Style Floating Bar) */}
+      <header className="sticky top-0 z-50 border-b border-border/80 bg-background/80 backdrop-blur-2xl transition-all">
+        <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8" aria-label="Main navigation">
           <Brand />
-          <div className="hidden items-center gap-6 text-xs font-mono uppercase text-muted-foreground lg:flex">
-            <a className="transition-colors hover:text-primary" href="#pillars">Pillars</a>
-            <a className="transition-colors hover:text-primary" href="#architecture">Architecture</a>
-            <a className="transition-colors hover:text-primary" href="#frameworks">Frameworks</a>
-            <a className="transition-colors hover:text-primary" href="#connectors">Connectors</a>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] text-primary">
-              <span className="signal-pulse size-1.5 rounded-full bg-signal" /> Live Lattice Status: Active
-            </span>
+          
+          <div className="hidden items-center gap-8 text-xs font-mono uppercase text-muted-foreground lg:flex">
+            <a className="transition-colors hover:text-foreground" href="#pillars">Pillars</a>
+            <a className="transition-colors hover:text-foreground" href="#architecture">Architecture</a>
+            <a className="transition-colors hover:text-foreground" href="#demo-video">Demo &amp; Showcase</a>
+            <a className="transition-colors hover:text-foreground" href="#frameworks">Frameworks</a>
+            <a className="transition-colors hover:text-foreground" href="#connectors">Connectors</a>
           </div>
-          <div className="flex items-center gap-3">
-            <Button variant="ink" size="sm" onClick={() => openDemoModal("Request Access")}>
-              Request Access
+
+          <div className="flex items-center gap-4">
+            <span className="hidden items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[11px] font-mono text-emerald-400 sm:inline-flex">
+              <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+              Lattice Data Plane: Active
+            </span>
+            <Button variant="hero" size="sm" onClick={() => openDemoModal("Schedule Technical Demo")} className="rounded-full px-5">
+              Get a Demo
             </Button>
           </div>
         </nav>
       </header>
 
       <main className="relative z-10">
-        {/* 2. Hero Section */}
-        <section className="relative overflow-hidden px-5 pb-16 pt-20 md:pb-24 md:pt-28 lg:px-8">
-          <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1fr_360px]">
-            <div className="max-w-4xl">
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-background/70 px-3.5 py-1.5 font-mono text-[10px] uppercase text-primary backdrop-blur-sm">
-                <span className="signal-pulse size-2 rounded-full bg-signal" /> Autonomous AI GRC Data Plane
+        {/* 2. Hero Section (Variance Style Minimalist High-Trust Layout) */}
+        <section className="relative overflow-hidden px-5 pt-16 pb-20 md:pt-24 md:pb-28 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            {/* Top Announcement Pill (Variance Style) */}
+            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 backdrop-blur-md shadow-[0_0_20px_rgba(59,130,246,0.2)]">
+              <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground font-mono uppercase">
+                NEW
+              </span>
+              <span className="font-mono text-xs text-primary font-medium">
+                Announcing ReguLattice Autonomous GRC Data Plane 2.0 &rarr;
+              </span>
+            </div>
+
+            <div className="grid gap-14 lg:grid-cols-12 lg:items-center">
+              {/* Hero Left Content */}
+              <div className="lg:col-span-7 space-y-7">
+                <h1 className="font-display text-4xl font-black leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl text-foreground">
+                  Trust AI agents with <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-emerald-400">
+                    enterprise compliance
+                  </span>{" "}
+                  &amp; governance
+                </h1>
+
+                <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-xl">
+                  Delegate continuous AI discovery, evidence verification, and gated remediation to autonomous GRC agents—from L1 telemetry to L3 human approval.
+                </p>
+
+                <div className="flex flex-col gap-4 sm:flex-row pt-2">
+                  <Button variant="hero" size="lg" onClick={() => openDemoModal("Schedule Technical Demo")} className="rounded-full px-8 text-sm">
+                    Schedule Technical Demo <ArrowRight className="ml-2 size-4" />
+                  </Button>
+                  <Button variant="architectural" size="lg" onClick={() => openDemoModal("Access Developer Sandbox")} className="rounded-full px-8 text-sm border-border/80">
+                    Explore Architecture <Code2 className="ml-2 size-4" />
+                  </Button>
+                </div>
               </div>
-              <h1 className="max-w-4xl font-display text-3xl font-black leading-[1.12] tracking-tight sm:text-4xl lg:text-5xl">
-                The <span className="text-primary">Autonomous GRC Data Plane</span> <br />
-                for AI Systems &amp; <br />
-                Agentic Workflows
-              </h1>
-              <p className="mt-7 max-w-3xl text-pretty text-base leading-8 text-muted-foreground md:text-xl">
-                Continuously discover deployed AI footprints and developer IDE tools, verify evidence with dual-pass model consensus, stream real-time telemetry through a live Flight Recorder, and execute gated risk remediations. Built for <strong className="font-semibold text-foreground">EU AI Act</strong>, <strong className="font-semibold text-foreground">ISO/IEC 42001</strong>, and <strong className="font-semibold text-foreground">NIST AI RMF</strong>.
+
+              {/* Hero Right: Live AI Governance Evidence Card (Variance Signature Showcase) */}
+              <div className="lg:col-span-5">
+                <div className="relative rounded-3xl border border-border/80 bg-card/95 p-6 backdrop-blur-2xl shadow-[0_0_40px_rgba(0,0,0,0.5)] transition-all hover:border-primary/50">
+                  {/* Card macOS Window Header */}
+                  <div className="flex items-center justify-between border-b border-border/80 pb-4 mb-5">
+                    <div className="flex items-center gap-2">
+                      <div className="size-2.5 rounded-full bg-red-500/80" />
+                      <div className="size-2.5 rounded-full bg-yellow-500/80" />
+                      <div className="size-2.5 rounded-full bg-emerald-500/80" />
+                      <span className="ml-2 font-mono text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                        LIVE CASE RECORDER · GRC-942
+                      </span>
+                    </div>
+                    <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-emerald-400 uppercase">
+                      AUDITABLE
+                    </span>
+                  </div>
+
+                  <div className="space-y-4 font-mono text-xs">
+                    <div className="rounded-xl border border-destructive/30 bg-destructive/10 p-3.5 text-destructive">
+                      <strong className="block text-[11px] font-bold uppercase mb-1">Alert: Shadow AI Endpoint Detected</strong>
+                      <span className="text-[11px] leading-relaxed text-destructive/90">
+                        Unapproved model runtime operating outside organization policy (<code className="text-foreground bg-black/40 px-1 rounded">vLLM-llama3-70b</code>).
+                      </span>
+                    </div>
+
+                    <div className="space-y-2 text-muted-foreground text-[11px] bg-background/60 p-4 rounded-xl border border-border/60">
+                      <div className="flex items-start gap-2">
+                        <Check className="size-3.5 text-primary shrink-0 mt-0.5" />
+                        <span>Egress boundary check: Prompt payload contains unmasked client PII</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <Check className="size-3.5 text-primary shrink-0 mt-0.5" />
+                        <span>EU AI Act Article 14 Human Oversight override gate triggered</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <Check className="size-3.5 text-primary shrink-0 mt-0.5" />
+                        <span>6 telemetry logs, 4 policy citations (ISO 42001 &amp; NIST AI RMF)</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between border-t border-border/60 pt-3 text-[10px]">
+                      <span className="text-muted-foreground">REMEDIATION STATUS</span>
+                      <span className="font-bold text-sky-400 bg-sky-500/10 px-2.5 py-1 rounded-md border border-sky-500/30">
+                        ARTICLE 14 GATED SIGN-OFF ACTIVE
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Variance Trust Bar: Built for regulated institutions */}
+            <div className="mt-20 border-y border-border/80 py-8 text-center">
+              <p className="font-mono text-xs uppercase text-muted-foreground tracking-widest mb-6">
+                Built for enterprise AI teams and institutions regulated by
               </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Button variant="hero" size="lg" onClick={() => openDemoModal("Schedule Technical Demo")}>
-                  Schedule Technical Demo <ArrowRight className="ml-1 size-4" />
-                </Button>
-                <Button variant="architectural" size="lg" onClick={() => openDemoModal("Access Developer Sandbox")}>
-                  Access Developer Sandbox <Code2 className="ml-1 size-4" />
-                </Button>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-5xl mx-auto">
+                {trustBadges.map((badge) => (
+                  <div key={badge.title} className="rounded-2xl border border-border/80 bg-card/60 p-4 backdrop-blur-md transition-all hover:border-primary/40 hover:bg-card">
+                    <div className="font-mono text-xs font-bold text-foreground uppercase">{badge.title}</div>
+                    <div className="mt-1 font-mono text-[10px] text-muted-foreground">{badge.desc}</div>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="relative hidden lg:block" aria-hidden="true">
-              <div className="node-float relative mx-auto size-80">
-                <div className="absolute inset-5 rotate-45 border border-primary/30" />
-                <div className="absolute inset-14 rotate-12 border border-primary/50" />
-                <div className="absolute inset-24 -rotate-12 border border-signal/70" />
-                <img src={logoAsset} alt="ReguLattice AI Shield Logo" className="absolute inset-16 size-48 rounded-sm object-cover opacity-90 shadow-[var(--shadow-glow)]" />
-              </div>
-            </div>
-          </div>
-
-
-
-          {/* Trust Badges & Regulatory Compliance */}
-          <div className="mx-auto mt-12 grid max-w-7xl gap-px border-y border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-            {trustBadges.map((badge) => (
-              <div key={badge.title} className="bg-background/85 px-5 py-4 text-left font-mono text-[11px]">
-                <div className="font-bold text-foreground uppercase">{badge.title}</div>
-                <div className="mt-1 text-[10px] italic text-muted-foreground">{badge.desc}</div>
-              </div>
-            ))}
           </div>
         </section>
 
-        {/* 4. The Four Core Pillars of ReguLattice */}
-        <section id="pillars" className="border-t border-border bg-background py-24">
+        {/* 4. The Four Core Pillars of ReguLattice (Variance Feature Modular Grid) */}
+        <section id="pillars" className="border-t border-border bg-card/40 py-28">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
-            <div className="max-w-3xl">
-              <p className="font-mono text-xs uppercase text-primary">Platform Core Architecture</p>
-              <h2 className="mt-3 font-display text-4xl font-extrabold md:text-5xl">The Four Core Pillars of ReguLattice</h2>
-              <p className="mt-5 text-muted-foreground">Specialized compliance engines working in sync to inspect, verify, monitor, and remediate your AI footprint.</p>
+            <div className="text-center mb-16 max-w-3xl mx-auto">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 font-mono text-[10px] uppercase font-bold text-primary backdrop-blur-sm shadow-[var(--shadow-glow)]">
+                <span className="signal-pulse size-1.5 rounded-full bg-signal" /> PLATFORM CORE ARCHITECTURE
+              </span>
+              <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight sm:text-5xl text-foreground">
+                Built for consistency and accuracy of detection
+              </h2>
+              <p className="mt-4 text-base text-muted-foreground leading-relaxed">
+                ReguLattice specialized compliance engines collect evidence, reduce audit cycles by 10&times;, and enforce strict human oversight.
+              </p>
             </div>
 
-            <div className="mt-14 grid gap-8 md:grid-cols-2">
+            <div className="grid gap-8 md:grid-cols-2">
               {aiPillars.map((pillar) => {
                 const Icon = pillar.icon;
                 return (
-                  <article key={pillar.id} className="group relative rounded-xl border border-border bg-card p-8 transition-all hover:border-primary hover:shadow-[var(--shadow-glow)]">
-                    <div className="flex items-center justify-between">
-                      <span className="rounded border border-primary/30 bg-primary/10 px-2.5 py-1 font-mono text-[10px] font-bold text-primary">{pillar.tag}</span>
-                      <Icon className="size-6 text-primary" />
-                    </div>
-                    <h3 className="mt-6 font-display text-2xl font-bold text-foreground">{pillar.title}</h3>
-                    <p className="mt-3 text-sm leading-6 text-muted-foreground">{pillar.description}</p>
-                    <div className="mt-6 space-y-3">
-                      {pillar.bullets.map((item) => (
-                        <div key={item.label} className="flex items-start gap-2.5 text-xs">
-                          <Check className="mt-0.5 size-4 shrink-0 text-primary" />
-                          <div>
-                            <strong className="font-semibold text-foreground">{item.label}:</strong>{" "}
-                            <span className="text-muted-foreground">{item.text}</span>
-                          </div>
+                  <article key={pillar.id} className="group relative flex flex-col justify-between rounded-3xl border border-border/80 bg-card/90 p-8 sm:p-10 backdrop-blur-xl transition-all duration-500 hover:border-primary/60 hover:shadow-[0_0_40px_rgba(59,130,246,0.2)] hover:-translate-y-1">
+                    <div>
+                      <div className="flex items-center justify-between border-b border-border/80 pb-5 mb-6">
+                        <span className="rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 font-mono text-[10px] font-bold text-primary uppercase">{pillar.tag}</span>
+                        <div className="flex size-11 items-center justify-center rounded-2xl border border-border bg-background text-primary transition-transform group-hover:scale-110">
+                          <Icon className="size-5" />
                         </div>
-                      ))}
+                      </div>
+                      <h3 className="font-display text-2xl font-extrabold text-foreground group-hover:text-primary transition-colors">{pillar.title}</h3>
+                      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{pillar.description}</p>
+                      
+                      <div className="mt-8 space-y-3.5">
+                        {pillar.bullets.map((item) => (
+                          <div key={item.label} className="flex items-start gap-3 rounded-xl border border-border/60 bg-background/60 p-3.5 text-xs transition-colors hover:border-border">
+                            <Check className="mt-0.5 size-4 shrink-0 text-primary" />
+                            <div>
+                              <strong className="font-semibold text-foreground">{item.label}:</strong>{" "}
+                              <span className="text-muted-foreground leading-relaxed">{item.text}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </article>
                 );
@@ -693,36 +768,33 @@ function Index() {
           </div>
         </section>
 
-        {/* Architecture Section */}
+        {/* 5. Continuous Control Loop Architecture Section */}
         <section id="architecture" className="py-28 bg-surface border-t border-border relative">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <ArchitectureDiagram />
           </div>
         </section>
 
-        {/* ReguLattice Usecase Video Showcase (Gemini & Claude) */}
+        {/* ReguLattice Usecase Video Showcase (Gemini & Claude Studio Console) */}
         <DemoVideoShowcase />
 
-        {/* 6. Regulatory Framework & Standards Alignment */}
+        {/* 6. Regulatory Framework & Standards Alignment (Variance Security & Audit Matrix) */}
         <section id="frameworks" className="border-t border-border bg-surface py-28 relative overflow-hidden">
-          {/* Ambient lighting backdrop */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
 
           <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
-            {/* Header */}
             <div className="text-center mb-16 max-w-3xl mx-auto">
               <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 font-mono text-[10px] uppercase font-bold text-primary backdrop-blur-sm shadow-[var(--shadow-glow)]">
                 <span className="signal-pulse size-1.5 rounded-full bg-signal" /> GLOBAL COMPLIANCE MAPPING
               </span>
               <h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight sm:text-5xl text-foreground">
-                Regulatory Framework &amp; Standards Alignment
+                Built for regulators and auditors
               </h2>
               <p className="mt-4 text-base text-muted-foreground leading-relaxed">
-                ReguLattice maps every asset, telemetry event, and developer tool directly to international compliance standards.
+                Every decision comes with a complete evidence trail, cited sources, and audit-ready compliance traces.
               </p>
             </div>
 
-            {/* 3-Card Glassmorphism Flight Deck Matrix */}
             <div className="grid gap-8 lg:grid-cols-3 items-stretch">
               {frameworks.map((fw) => {
                 const Icon = fw.icon;
@@ -732,7 +804,6 @@ function Index() {
                     className="group relative flex flex-col justify-between rounded-3xl border border-border/80 bg-card/90 p-7 sm:p-8 backdrop-blur-xl transition-all duration-500 hover:border-primary/60 hover:shadow-[0_0_40px_rgba(59,130,246,0.2)] hover:-translate-y-2"
                   >
                     <div>
-                      {/* Top Bar */}
                       <div className="flex items-center justify-between border-b border-border/80 pb-5">
                         <div className="flex items-center gap-3">
                           <span className="font-mono text-sm font-extrabold text-primary">{fw.id}</span>
@@ -745,7 +816,6 @@ function Index() {
                         </div>
                       </div>
 
-                      {/* Content Header */}
                       <div className="mt-6">
                         <h3 className="font-display text-2xl font-extrabold text-foreground group-hover:text-primary transition-colors">
                           {fw.name}
@@ -755,7 +825,6 @@ function Index() {
                         </p>
                       </div>
 
-                      {/* Audit Checklist Items */}
                       <div className="mt-7 space-y-3.5">
                         {fw.controls.map((ctrl) => (
                           <div
@@ -776,7 +845,6 @@ function Index() {
                       </div>
                     </div>
 
-                    {/* Bottom Active Status Footer */}
                     <div className="mt-8 flex items-center justify-between border-t border-border/60 pt-4 font-mono text-[10px]">
                       <span className="text-muted-foreground">COMPLIANCE ENGINE</span>
                       <span className="text-emerald-400 font-bold flex items-center gap-1.5">
@@ -792,12 +860,12 @@ function Index() {
         </section>
 
         {/* 7. Ecosystem & Native Connector Network */}
-        <section id="connectors" className="py-24 border-t border-border bg-background">
+        <section id="connectors" className="py-28 border-t border-border bg-background">
           <div className="mx-auto max-w-7xl px-5 lg:px-8">
             <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <div>
                 <p className="font-mono text-xs uppercase text-primary">Native Integrations</p>
-                <h2 className="mt-3 font-display text-4xl font-extrabold">Ecosystem & Native Connector Network</h2>
+                <h2 className="mt-3 font-display text-4xl font-extrabold">Ecosystem &amp; Native Connector Network</h2>
               </div>
               <p className="max-w-md text-sm leading-6 text-muted-foreground">
                 Connect live cloud models, local LLMs, code repositories, and IAM policy engines directly to your governance plane.
@@ -807,16 +875,16 @@ function Index() {
               {connectorCategories.map((group, i) => {
                 const Icon = group.icon;
                 return (
-                  <article key={group.category} className="rounded-xl border border-border bg-card/90 p-6 transition-all hover:border-primary hover:shadow-[var(--shadow-glow)]">
+                  <article key={group.category} className="rounded-2xl border border-border bg-card/90 p-7 backdrop-blur-md transition-all hover:border-primary hover:shadow-[var(--shadow-glow)]">
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-xs font-bold text-primary">0{i + 1}</span>
                       <Icon className="size-5 text-primary" />
                     </div>
-                    <h3 className="mt-4 font-display text-lg font-bold text-foreground">{group.category}</h3>
-                    <ul className="mt-4 space-y-2.5 text-xs text-muted-foreground">
+                    <h3 className="mt-5 font-display text-lg font-bold text-foreground">{group.category}</h3>
+                    <ul className="mt-5 space-y-3 text-xs text-muted-foreground">
                       {group.items.map((item) => (
-                        <li key={item} className="flex items-center gap-2">
-                          <Check className="size-3 text-primary shrink-0" />
+                        <li key={item} className="flex items-center gap-2.5">
+                          <Check className="size-3.5 text-primary shrink-0" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -828,62 +896,86 @@ function Index() {
           </div>
         </section>
 
-        {/* 8. Footer Call-to-Action & Sandbox Access */}
-        <section id="demo" className="relative overflow-hidden border-t border-border py-28 bg-surface">
-          <div className="lattice-grid absolute inset-0 opacity-50" aria-hidden="true" />
+        {/* 8. Footer Call-to-Action & Sandbox Access (Variance Style Demo Section) */}
+        <section id="demo" className="relative overflow-hidden border-t border-border py-32 bg-card/60">
+          <div className="lattice-grid absolute inset-0 opacity-40" aria-hidden="true" />
           <div className="relative mx-auto max-w-4xl px-5 text-center lg:px-8">
-            <ShieldCheck className="mx-auto size-10 text-primary" />
-            <h2 className="mt-6 text-balance font-display text-4xl font-extrabold md:text-6xl">
+            <ShieldCheck className="mx-auto size-12 text-primary" />
+            <h2 className="mt-6 text-balance font-display text-4xl font-extrabold md:text-6xl text-foreground">
               Build Compliant AI Systems at Engineering Velocity
             </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
               Experience continuous AI footprint discovery, live Flight Recorder telemetry, and gated risk remediation in our interactive environment.
             </p>
             <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-              <Button variant="hero" size="lg" onClick={() => openDemoModal("Schedule Technical Demo")}>
-                Schedule Technical Demo <ArrowRight className="ml-1 size-4" />
+              <Button variant="hero" size="lg" onClick={() => openDemoModal("Schedule Technical Demo")} className="rounded-full px-8">
+                Schedule Technical Demo <ArrowRight className="ml-2 size-4" />
               </Button>
-              <Button variant="architectural" size="lg" onClick={() => openDemoModal("Access Developer Sandbox")}>
-                Access Developer Sandbox <Code2 className="ml-1 size-4" />
+              <Button variant="architectural" size="lg" onClick={() => openDemoModal("Access Developer Sandbox")} className="rounded-full px-8">
+                Access Developer Sandbox <Code2 className="ml-2 size-4" />
               </Button>
             </div>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-border bg-card py-14">
+      {/* Footer (Variance Style Clean Enterprise Footer) */}
+      <footer className="relative z-10 border-t border-border bg-card py-16">
         <div className="mx-auto max-w-7xl px-5 text-left lg:px-8">
-          <div className="flex flex-col items-start justify-start gap-8 text-left md:flex-row md:items-start md:justify-between">
-            <div className="flex flex-col items-start text-left">
-              <div className="flex justify-start">
-                <Brand compact />
-              </div>
-              <p className="mt-3 max-w-md text-sm text-muted-foreground">The Autonomous GRC Data Plane for AI Systems.</p>
-              <div className="mt-4 flex flex-wrap items-center justify-start gap-6 text-sm text-muted-foreground">
-                <a href="mailto:info@regulattice.com" className="flex items-center gap-2 font-mono text-xs transition-colors hover:text-primary">
+          <div className="grid gap-10 md:grid-cols-12 md:items-start md:justify-between">
+            <div className="md:col-span-6 flex flex-col items-start text-left">
+              <Brand />
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                The Autonomous GRC Data Plane for AI Systems. Continuous, verifiable governance across model runtimes and developer tools.
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-6 text-xs text-muted-foreground">
+                <a href="mailto:info@regulattice.com" className="flex items-center gap-2 font-mono transition-colors hover:text-primary">
                   <Mail className="size-4 text-primary" /> info@regulattice.com
                 </a>
-                <a href="https://www.linkedin.com/company/regulattice/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground transition-colors hover:text-primary" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/company/regulattice/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 font-mono transition-colors hover:text-primary" aria-label="LinkedIn">
                   <Linkedin className="size-4 text-primary" /> LinkedIn
                 </a>
-                <a href="https://www.instagram.com/regulattice/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground transition-colors hover:text-primary" aria-label="Instagram">
+                <a href="https://www.instagram.com/regulattice/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 font-mono transition-colors hover:text-primary" aria-label="Instagram">
                   <Instagram className="size-4 text-primary" /> Instagram
                 </a>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-start gap-x-8 gap-y-3 font-mono text-[11px] uppercase text-muted-foreground">
-              <a href="#pillars" className="transition-colors hover:text-primary">Pillars</a>
-              <a href="#architecture" className="transition-colors hover:text-primary">Architecture</a>
-              <a href="#frameworks" className="transition-colors hover:text-primary">Frameworks</a>
-              <a href="#connectors" className="transition-colors hover:text-primary">Connectors</a>
+            <div className="md:col-span-6 grid grid-cols-2 sm:grid-cols-3 gap-6 font-mono text-xs text-muted-foreground">
+              <div className="space-y-3">
+                <div className="font-bold uppercase text-foreground text-[11px]">Product</div>
+                <ul className="space-y-2 text-[11px]">
+                  <li><a href="#pillars" className="hover:text-primary transition-colors">Four Core Pillars</a></li>
+                  <li><a href="#architecture" className="hover:text-primary transition-colors">Data Plane Architecture</a></li>
+                  <li><a href="#demo-video" className="hover:text-primary transition-colors">Video Showcase</a></li>
+                </ul>
+              </div>
+
+              <div className="space-y-3">
+                <div className="font-bold uppercase text-foreground text-[11px]">Frameworks</div>
+                <ul className="space-y-2 text-[11px]">
+                  <li><a href="#frameworks" className="hover:text-primary transition-colors">EU AI Act</a></li>
+                  <li><a href="#frameworks" className="hover:text-primary transition-colors">ISO/IEC 42001</a></li>
+                  <li><a href="#frameworks" className="hover:text-primary transition-colors">NIST AI RMF 1.0</a></li>
+                </ul>
+              </div>
+
+              <div className="space-y-3">
+                <div className="font-bold uppercase text-foreground text-[11px]">Integrations</div>
+                <ul className="space-y-2 text-[11px]">
+                  <li><a href="#connectors" className="hover:text-primary transition-colors">Public LLMs</a></li>
+                  <li><a href="#connectors" className="hover:text-primary transition-colors">Local Runtimes</a></li>
+                  <li><a href="#connectors" className="hover:text-primary transition-colors">Developer IDEs</a></li>
+                </ul>
+              </div>
             </div>
           </div>
 
-          <div className="mt-10 border-t border-border pt-6 text-center font-mono text-[10px] uppercase text-muted-foreground space-y-1">
-            <div>© 2026 ReguLattice Inc. · The Autonomous GRC Data Plane for AI Systems.</div>
-            <div className="text-[9px] text-muted-foreground/70">ISO/IEC 42001 Schema Verified · EU AI Act Compliant · SOC 2 Type II Telemetry Stream</div>
+          <div className="mt-12 border-t border-border/60 pt-8 flex flex-col sm:flex-row items-center justify-between font-mono text-[10px] text-muted-foreground gap-4">
+            <div>&copy; 2026 ReguLattice Inc. &middot; All rights reserved.</div>
+            <div className="text-[10px] text-muted-foreground/80">
+              ISO/IEC 42001 Schema Verified &middot; EU AI Act Compliant &middot; SOC 2 Type II Flight Recorder
+            </div>
           </div>
         </div>
       </footer>
@@ -970,7 +1062,7 @@ function Index() {
                   </>
                 ) : (
                   <>
-                    Submit Request & Dispatch Email <ArrowRight className="ml-2 size-4" />
+                    Submit Request &amp; Dispatch Email <ArrowRight className="ml-2 size-4" />
                   </>
                 )}
               </Button>
