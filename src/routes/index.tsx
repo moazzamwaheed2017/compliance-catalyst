@@ -248,6 +248,7 @@ function ArchitectureDiagram() {
   );
 }
 
+// ReguLattice Gemini & Claude Autonomous GRC Video Showcase
 function DemoVideoShowcase() {
   const [activeTab, setActiveTab] = useState<"dual" | "gemini" | "claude">("dual");
 
