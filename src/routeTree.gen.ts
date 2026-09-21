@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicDemoRequestRouteImport } from './routes/api/public/demo-request'
+import { Route as ApiPublicLogVisitorRouteImport } from './routes/api/public/log-visitor'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,40 @@ const ApiPublicDemoRequestRoute = ApiPublicDemoRequestRouteImport.update({
   path: '/api/public/demo-request',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicLogVisitorRoute = ApiPublicLogVisitorRouteImport.update({
+  id: '/api/public/log-visitor',
+  path: '/api/public/log-visitor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
+  '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
+  '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
+  '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/public/demo-request'
+  fullPaths: '/' | '/api/public/demo-request' | '/api/public/log-visitor'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/public/demo-request'
-  id: '__root__' | '/' | '/api/public/demo-request'
+  to: '/' | '/api/public/demo-request' | '/api/public/log-visitor'
+  id: '__root__' | '/' | '/api/public/demo-request' | '/api/public/log-visitor'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiPublicDemoRequestRoute: typeof ApiPublicDemoRequestRoute
+  ApiPublicLogVisitorRoute: typeof ApiPublicLogVisitorRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicDemoRequestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/log-visitor': {
+      id: '/api/public/log-visitor'
+      path: '/api/public/log-visitor'
+      fullPath: '/api/public/log-visitor'
+      preLoaderRoute: typeof ApiPublicLogVisitorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiPublicDemoRequestRoute: ApiPublicDemoRequestRoute,
+  ApiPublicLogVisitorRoute: ApiPublicLogVisitorRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
