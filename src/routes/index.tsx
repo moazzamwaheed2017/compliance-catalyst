@@ -267,7 +267,13 @@ function SectionHeader({
   );
 }
 
-function SiteHeader({ onRequest }: { onRequest: () => void }) {
+function SiteHeader({
+  onRequest,
+  onWatchDemo,
+}: {
+  onRequest: () => void;
+  onWatchDemo: () => void;
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -301,12 +307,17 @@ function SiteHeader({ onRequest }: { onRequest: () => void }) {
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <a
-            href="#demo-video"
-            className="hidden px-3 text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+          <button
+            type="button"
+            onClick={onWatchDemo}
+            className="flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-white/[0.05] hover:text-foreground sm:px-3"
+            aria-label="Watch product demo"
           >
-            Watch demo
-          </a>
+            <span className="flex size-5 items-center justify-center rounded-full bg-primary/15 text-primary">
+              <Play className="size-2.5 fill-current" />
+            </span>
+            <span className="hidden sm:inline">Watch demo</span>
+          </button>
           <Button variant="ink" size="sm" className="h-9 px-4" onClick={onRequest}>
             Request access
           </Button>
@@ -360,7 +371,13 @@ function AuroraBackground() {
   );
 }
 
-function DemoVideoShowcase() {
+function DemoVideoDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
   const [videoIndex, setVideoIndex] = useState(0);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
@@ -370,7 +387,9 @@ function DemoVideoShowcase() {
     setVideoIndex((prev) => (prev + 1) % demoVideos.length);
   };
 
+  // Videos only exist while the dialog is open, so (re)start playback when it opens.
   useEffect(() => {
+    if (!open) return;
     demoVideos.forEach((_, idx) => {
       const v = videoRefs.current[idx];
       if (v) {
@@ -382,32 +401,34 @@ function DemoVideoShowcase() {
         }
       }
     });
-  }, [videoIndex]);
+  }, [videoIndex, open]);
 
   return (
-    <section id="demo-video" className="relative scroll-mt-24 py-20 sm:py-28">
-      <div
-        className="absolute left-1/2 top-1/3 -z-0 h-[500px] w-[900px] max-w-full -translate-x-1/2 rounded-full bg-primary/10 blur-[140px]"
-        aria-hidden="true"
-      />
-      <div className="relative mx-auto max-w-6xl px-5 lg:px-8">
-        <SectionHeader
-          eyebrow="Product demo"
-          title="See autonomous GRC"
-          accent="in action."
-          text="Watch ReguLattice continuously discover AI assets, verify evidence, and enforce gated autonomy on real model workloads."
-        />
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="glass max-h-[92vh] w-[calc(100%-1.5rem)] max-w-5xl gap-0 overflow-y-auto rounded-2xl border-white/10 bg-popover/95 p-4 sm:p-6">
+        <DialogHeader className="pr-8 text-left">
+          <DialogTitle className="font-display text-xl font-semibold sm:text-2xl">
+            See autonomous GRC{" "}
+            <span className="font-serif font-normal italic tracking-normal text-gradient">
+              in action.
+            </span>
+          </DialogTitle>
+          <DialogDescription className="text-sm text-muted-foreground">
+            Watch ReguLattice continuously discover AI assets, verify evidence, and enforce gated
+            autonomy on real model workloads.
+          </DialogDescription>
+        </DialogHeader>
 
-        <Reveal className="mt-14">
+        <div className="mt-5">
           {/* Use-case switcher */}
-          <div className="mb-5 flex justify-center">
-            <div className="glass inline-flex rounded-full p-1">
+          <div className="mb-4 flex justify-center">
+            <div className="glass inline-flex max-w-full overflow-x-auto rounded-full p-1">
               {demoVideos.map((item, idx) => (
                 <button
                   key={item.id}
                   type="button"
                   onClick={() => setVideoIndex(idx)}
-                  className={`flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 sm:text-sm ${
+                  className={`flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-xs font-medium sm:px-4 transition-all duration-300 sm:text-sm ${
                     videoIndex === idx
                       ? "bg-white/10 text-foreground shadow-inner"
                       : "text-muted-foreground hover:text-foreground"
@@ -420,7 +441,7 @@ function DemoVideoShowcase() {
             </div>
           </div>
 
-          <div className="glow-border overflow-hidden rounded-2xl shadow-[0_40px_120px_-30px_oklch(0_0_0/0.8)]">
+          <div className="glow-border overflow-hidden rounded-2xl">
             <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-4 py-2.5">
               <div className="flex items-center gap-2.5">
                 <span className="relative flex size-2">
@@ -455,6 +476,7 @@ function DemoVideoShowcase() {
                     controls
                     muted
                     playsInline
+                    autoPlay={isActive}
                     preload="auto"
                     onEnded={handleVideoEnded}
                     className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-300 ${
@@ -470,21 +492,22 @@ function DemoVideoShowcase() {
             </div>
           </div>
 
-          <div className="mt-5 flex items-start gap-3 rounded-2xl border border-white/[0.06] bg-card/50 p-4 text-sm">
+          <div className="mt-4 flex items-start gap-3 rounded-2xl border border-white/[0.06] bg-card/50 p-4 text-sm">
             <Sparkles className="mt-0.5 size-4 shrink-0 text-primary" />
             <p>
               <span className="font-medium text-foreground">{currentVideo.heading}.</span>{" "}
               <span className="text-muted-foreground">{currentVideo.description}</span>
             </p>
           </div>
-        </Reveal>
-      </div>
-    </section>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
 function Index() {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
   const [requestType, setRequestType] = useState("Schedule Technical Demo");
   const [formData, setFormData] = useState({
     name: "",
@@ -551,7 +574,10 @@ function Index() {
 
   return (
     <div id="top" className="relative min-h-screen overflow-x-clip bg-background text-foreground">
-      <SiteHeader onRequest={() => openDemoModal("Request Access")} />
+      <SiteHeader
+        onRequest={() => openDemoModal("Request Access")}
+        onWatchDemo={() => setVideoOpen(true)}
+      />
 
       <main className="relative">
         {/* Hero */}
@@ -710,8 +736,6 @@ function Index() {
             </Reveal>
           </div>
         </section>
-
-        <DemoVideoShowcase />
 
         {/* Frameworks */}
         <section id="frameworks" className="scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8">
@@ -949,6 +973,15 @@ function Index() {
                 <li>
                   <button
                     type="button"
+                    onClick={() => setVideoOpen(true)}
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    Watch demo
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
                     onClick={() => openDemoModal("Schedule Technical Demo")}
                     className="text-muted-foreground transition-colors hover:text-foreground"
                   >
@@ -965,6 +998,8 @@ function Index() {
           </div>
         </div>
       </footer>
+
+      <DemoVideoDialog open={videoOpen} onOpenChange={setVideoOpen} />
 
       {/* Demo / Sandbox Modal */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
