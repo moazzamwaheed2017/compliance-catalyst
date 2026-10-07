@@ -366,14 +366,14 @@ function DemoVideoDialog({
       <DialogContent className="glass max-h-[92vh] w-[calc(100%-1.5rem)] max-w-5xl gap-0 overflow-y-auto rounded-2xl border-white/10 bg-popover/95 p-4 sm:p-6">
         <DialogHeader className="pr-8 text-left">
           <DialogTitle className="font-display text-xl font-semibold sm:text-2xl">
-            See autonomous GRC{" "}
+            Don&apos;t just document your AI governance.{" "}
             <span className="font-serif font-normal italic tracking-normal text-gradient">
-              in action.
+              Prove it.
             </span>
           </DialogTitle>
           <DialogDescription className="text-sm text-muted-foreground">
-            Watch ReguLattice continuously discover AI assets, verify evidence, and enforce gated
-            autonomy on real model workloads.
+            See how ReguLattice discovers the AI you use, keeps compliance evidence current, and
+            puts humans in charge of risky AI decisions.
           </DialogDescription>
         </DialogHeader>
 

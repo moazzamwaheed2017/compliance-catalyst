@@ -1,14 +1,18 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   BadgeCheck,
+  Bot,
   Check,
+  Clock,
   FileText,
-  KeyRound,
+  Gavel,
   Pause,
   Play,
+  RefreshCw,
   RotateCcw,
   Search,
   ShieldAlert,
+  TriangleAlert,
   UserCheck,
 } from "lucide-react";
 
@@ -69,19 +73,22 @@ function Bar({ value, tone = "bg-brand-gradient" }: { value: number; tone?: stri
   );
 }
 
-/* ------------------------------ Gemini ------------------------------ */
+/* -------------------- Story 1: discover & monitor -------------------- */
 
-function GeminiDiscover({ p }: { p: number }) {
-  const endpoints = [
-    { name: "openai/gpt-4o", where: "CX Platform", at: 0.15 },
-    { name: "anthropic/claude-3.5", where: "Engineering", at: 0.3 },
-    { name: "google/gemini-1.5-pro", where: "Marketing Ops", at: 0.45, focus: true },
-    { name: "ollama/llama3:70b", where: "Data Science", at: 0.6 },
+function DiscoverScene({ p }: { p: number }) {
+  const systems = [
+    { name: "ChatGPT Enterprise", where: "Company-wide", shadow: false, at: 0.1 },
+    { name: "Claude Code", where: "Engineering", shadow: false, at: 0.22 },
+    { name: "credit-scoring-model v4", where: "Lending", shadow: false, at: 0.34 },
+    { name: "Personal Gemini API key", where: "Finance", shadow: true, at: 0.5 },
+    { name: "Local Llama 3 on a laptop", where: "Marketing", shadow: true, at: 0.64 },
   ];
   return (
     <Panel
-      title="Discovery agent · scanning workspace"
-      right={<span className="text-primary">{Math.round(ease(seg(p, 0, 0.7)) * 248)} assets</span>}
+      title="Discovery · scanning your environment"
+      right={
+        <span className="text-primary">{systems.filter((s) => p >= s.at).length} AI systems</span>
+      }
     >
       <div className="relative mb-3 h-1 overflow-hidden rounded-full bg-white/[0.05]">
         <div
@@ -90,53 +97,89 @@ function GeminiDiscover({ p }: { p: number }) {
         />
       </div>
       <ul className="space-y-2 font-mono text-[11px]">
-        {endpoints.map((e) => {
-          const validated = e.focus && p > 0.75;
-          return (
-            <Appear key={e.name} show={p >= e.at}>
-              <li
-                className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2 ${
-                  e.focus ? "border-primary/40 bg-primary/[0.07]" : "border-white/[0.06]"
-                }`}
-              >
-                <span className="truncate text-foreground/90">{e.name}</span>
-                <span className="hidden text-muted-foreground sm:inline">{e.where}</span>
-                {e.focus ? (
-                  <span
-                    className={`flex shrink-0 items-center gap-1 ${validated ? "text-emerald" : "text-amber"}`}
-                  >
-                    <KeyRound className="size-3" /> {validated ? "key valid" : "validating…"}
-                  </span>
-                ) : (
-                  <span className="shrink-0 text-emerald">registered</span>
-                )}
-              </li>
-            </Appear>
-          );
-        })}
+        {systems.map((s) => (
+          <Appear key={s.name} show={p >= s.at}>
+            <li
+              className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2 ${
+                s.shadow ? "border-rose/30 bg-rose/[0.07]" : "border-white/[0.06]"
+              }`}
+            >
+              <span className="truncate text-foreground/90">{s.name}</span>
+              <span className="hidden text-muted-foreground sm:inline">{s.where}</span>
+              {s.shadow ? (
+                <span className="flex shrink-0 items-center gap-1 text-rose">
+                  <ShieldAlert className="size-3" /> shadow AI
+                </span>
+              ) : (
+                <span className="shrink-0 text-emerald">approved</span>
+              )}
+            </li>
+          </Appear>
+        ))}
       </ul>
     </Panel>
   );
 }
 
-function GeminiTelemetry({ p }: { p: number }) {
-  const events = [
-    { sev: "INFO" as const, msg: "gemini-1.5-pro · session opened · mkt-ops", at: 0.05 },
-    { sev: "INFO" as const, msg: "prompt received · 1,284 tokens", at: 0.25 },
-    { sev: "WARN" as const, msg: "prompt drift +9% vs. 30-day baseline", at: 0.45 },
-    { sev: "INFO" as const, msg: "tool_call: crm.export_contacts", at: 0.65 },
+function RegistryScene({ p }: { p: number }) {
+  const fields = [
+    { k: "Owner", v: "Head of Credit Risk", at: 0.1 },
+    { k: "Purpose", v: "Consumer loan approval scoring", at: 0.25 },
+    { k: "Data", v: "Applicant financials · personal data", at: 0.4 },
   ];
   return (
     <Panel
-      title="Flight Recorder · live stream"
-      right={<span className="text-emerald">● recording</span>}
+      title="AI registry · credit-scoring-model v4"
+      right={<span className="text-emerald">registered</span>}
+    >
+      <dl className="space-y-2 text-xs">
+        {fields.map((f) => (
+          <Appear key={f.k} show={p >= f.at}>
+            <div className="flex justify-between gap-3 rounded-lg border border-white/[0.06] px-3 py-2">
+              <dt className="text-muted-foreground">{f.k}</dt>
+              <dd className="truncate text-right text-foreground/90">{f.v}</dd>
+            </div>
+          </Appear>
+        ))}
+      </dl>
+      <Appear show={p >= 0.58} className="mt-3">
+        <div className="flex items-center justify-between gap-2 rounded-lg border border-amber/30 bg-amber/10 px-3 py-2 text-xs">
+          <span className="text-amber">EU AI Act risk class</span>
+          <span className="font-semibold text-amber">High-risk · credit scoring</span>
+        </div>
+      </Appear>
+      <Appear show={p >= 0.75} className="mt-3 flex flex-wrap gap-1.5">
+        {["ISO/IEC 42001", "NIST AI RMF", "EU AI Act"].map((f) => (
+          <span
+            key={f}
+            className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] text-primary"
+          >
+            {f}
+          </span>
+        ))}
+      </Appear>
+    </Panel>
+  );
+}
+
+function RuntimeScene({ p }: { p: number }) {
+  const events = [
+    { sev: "INFO" as const, msg: "support-agent · tool_call crm.lookup", at: 0.05 },
+    { sev: "INFO" as const, msg: "loan-agent · read applicant file #4471", at: 0.25 },
+    { sev: "WARN" as const, msg: "credit-scoring-model · output drift +9%", at: 0.45 },
+    { sev: "WARN" as const, msg: "support-agent · email to external domain", at: 0.65 },
+  ];
+  return (
+    <Panel
+      title="Runtime monitoring · models & agents"
+      right={<span className="text-emerald">● live</span>}
     >
       <ul className="space-y-1.5 font-mono text-[11px]">
         {events.map((e, i) => (
           <Appear key={e.msg} show={p >= e.at}>
             <li className="flex items-center gap-2 rounded-md bg-white/[0.02] px-2 py-1.5">
               <span className="shrink-0 text-muted-foreground/60">
-                14:02:{String(11 + i * 5).padStart(2, "0")}
+                10:41:{String(8 + i * 6).padStart(2, "0")}
               </span>
               <SeverityChip sev={e.sev} />
               <span className="truncate text-foreground/85">{e.msg}</span>
@@ -148,7 +191,7 @@ function GeminiTelemetry({ p }: { p: number }) {
   );
 }
 
-function GeminiGuardrail({ p }: { p: number }) {
+function EgressGuardScene({ p }: { p: number }) {
   const redact = p > 0.4;
   const blocked = p > 0.7;
   const Sensitive = ({ children, mask }: { children: string; mask: string }) => (
@@ -163,64 +206,317 @@ function GeminiGuardrail({ p }: { p: number }) {
   return (
     <div className="space-y-3">
       <Panel
-        title="Egress inspection · outbound prompt"
-        right={<span className="text-amber">PII scan</span>}
+        title="Policy check · outbound prompt"
+        right={<span className="text-amber">personal data scan</span>}
       >
         <p className="font-mono text-[11px] leading-6 text-foreground/85">
-          Summarize churn risk for <Sensitive mask="[PERSON]">Maria Gonzales</Sensitive> (
-          <Sensitive mask="[EMAIL]">maria.g@acme-corp.com</Sensitive>), SSN{" "}
-          <Sensitive mask="[SSN]">412-55-0193</Sensitive>, and draft a retention offer.
+          Summarize repayment risk for <Sensitive mask="[PERSON]">Sara Malik</Sensitive> (
+          <Sensitive mask="[EMAIL]">sara.m@example.com</Sensitive>), national ID{" "}
+          <Sensitive mask="[ID]">42101-5559019-3</Sensitive>, and draft a reply.
         </p>
       </Panel>
       <Appear show={blocked}>
         <div className="flex items-center justify-between gap-3 rounded-xl border border-rose/30 bg-rose/10 px-4 py-3 font-mono text-[11px]">
           <span className="flex items-center gap-2 text-rose">
-            <ShieldAlert className="size-4" /> SECURITY_ALERT · 3 identifiers redacted before egress
+            <ShieldAlert className="size-4 shrink-0" /> 3 identifiers redacted · event logged as
+            evidence
           </span>
-          <span className="hidden text-muted-foreground sm:inline">policy DP-07</span>
         </div>
       </Appear>
     </div>
   );
 }
 
-function ControlMapping({
-  p,
-  title,
-  controls,
-}: {
-  p: number;
-  title: string;
-  controls: { code: string; text: string }[];
-}) {
+/* ------------------ Story 2: evidence that stays true ----------------- */
+
+function CrosswalkScene({ p }: { p: number }) {
+  const targets = [
+    { fw: "ISO/IEC 42001", code: "A.6.2.8", text: "Event logs of AI systems" },
+    { fw: "NIST AI RMF", code: "MANAGE 4.1", text: "Post-deployment monitoring" },
+    { fw: "EU AI Act", code: "Art. 12", text: "Record-keeping" },
+  ];
   return (
-    <Panel title={title} right={<span className="text-primary">evidence linked</span>}>
-      <ul className="space-y-2">
-        {controls.map((c, i) => {
-          const done = p > 0.15 + i * 0.2;
+    <div className="space-y-3">
+      <div className="flex items-center gap-3 rounded-xl border border-primary/30 bg-primary/[0.07] px-4 py-3">
+        <FileText className="size-5 shrink-0 text-primary" />
+        <div className="min-w-0">
+          <div className="truncate text-sm font-medium">Model monitoring log · Q3</div>
+          <div className="font-mono text-[10px] text-muted-foreground">
+            collected automatically · 2 days ago
+          </div>
+        </div>
+      </div>
+      <div className="mx-auto h-4 w-px bg-gradient-to-b from-primary/60 to-transparent" />
+      <div className="grid gap-2 sm:grid-cols-3">
+        {targets.map((t, i) => {
+          const on = p > 0.2 + i * 0.18;
           return (
-            <li
-              key={c.code}
-              className={`flex items-center gap-3 rounded-lg border px-3 py-2 text-xs transition-colors duration-500 ${
-                done ? "border-emerald/25 bg-emerald/[0.06]" : "border-white/[0.06]"
+            <div
+              key={t.fw}
+              className={`rounded-lg border p-3 text-xs transition-all duration-500 ${
+                on ? "border-emerald/30 bg-emerald/[0.07]" : "border-white/[0.06] opacity-40"
               }`}
             >
-              <span
-                className={`flex size-5 shrink-0 items-center justify-center rounded-full transition-colors duration-500 ${
-                  done ? "bg-emerald text-background" : "bg-white/[0.06] text-transparent"
-                }`}
-              >
-                <Check className="size-3" />
-              </span>
-              <span className="font-mono text-foreground/90">{c.code}</span>
-              <span className="truncate text-muted-foreground">{c.text}</span>
+              <div className="font-mono text-[10px] text-muted-foreground">{t.fw}</div>
+              <div className="mt-1 flex items-center gap-1.5 font-medium">
+                {on && <Check className="size-3.5 text-emerald" />}
+                {t.code}
+              </div>
+              <div className="mt-0.5 text-[11px] text-muted-foreground">{t.text}</div>
+            </div>
+          );
+        })}
+      </div>
+      <Appear show={p > 0.8}>
+        <p className="text-center font-mono text-[11px] text-primary">
+          1 piece of evidence → 3 frameworks satisfied
+        </p>
+      </Appear>
+    </div>
+  );
+}
+
+function TwoPassScene({ p }: { p: number }) {
+  const score = 0.91 * ease(seg(p, 0.05, 0.4));
+  const pass2 = p > 0.5;
+  const verified = p > 0.78;
+  return (
+    <div className="space-y-3">
+      <Panel
+        title="Pass 1 · evidence matched to control"
+        right={<span className="text-signal">{score.toFixed(2)}</span>}
+      >
+        <Bar value={score} tone="bg-signal" />
+        <p className="mt-2 font-mono text-[10px] text-muted-foreground">
+          “Logs retained 12 months, reviewed weekly by ML Ops” → A.6.2.8
+        </p>
+      </Panel>
+      <div
+        className={`rounded-xl border p-3 text-xs transition-all duration-500 sm:p-4 ${
+          pass2 ? "border-primary/30 bg-primary/[0.06]" : "border-white/[0.06] opacity-50"
+        }`}
+      >
+        <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+          Pass 2 · independent AI review
+        </div>
+        <p className="mt-2 text-foreground/85">
+          {pass2 ? "Evidence supports the control. No contradictions found." : "reviewing…"}
+        </p>
+      </div>
+      <div
+        className={`flex items-center justify-between rounded-xl border px-4 py-2.5 font-mono text-[11px] transition-all duration-500 ${
+          verified
+            ? "border-emerald/40 bg-emerald/10 text-emerald"
+            : "border-white/[0.06] text-muted-foreground opacity-50"
+        }`}
+      >
+        <span>Control A.6.2.8</span>
+        <span className="font-semibold">{verified ? "✓ VERIFIED" : "pending"}</span>
+      </div>
+    </div>
+  );
+}
+
+function DecayScene({ p }: { p: number }) {
+  const day = Math.round(ease(seg(p, 0.05, 0.85)) * 120);
+  const items = [
+    { name: "Model monitoring log", life: 90 },
+    { name: "Bias test report", life: 180 },
+    { name: "Human oversight SOP", life: 365 },
+  ];
+  const coverage = 96 - Math.round((14 * day) / 120);
+  return (
+    <Panel
+      title="Evidence freshness"
+      right={
+        <span className="flex items-center gap-1 text-muted-foreground">
+          <Clock className="size-3" /> day {day}
+        </span>
+      }
+    >
+      <ul className="space-y-3">
+        {items.map((it) => {
+          const fresh = clamp(1 - day / it.life);
+          const expired = fresh <= 0;
+          const tone = expired ? "bg-rose" : fresh < 0.4 ? "bg-amber" : "bg-emerald";
+          return (
+            <li key={it.name} className="text-xs">
+              <div className="mb-1 flex justify-between gap-2">
+                <span className="truncate text-foreground/85">{it.name}</span>
+                <span
+                  className={`shrink-0 font-mono text-[10px] ${
+                    expired ? "text-rose" : fresh < 0.4 ? "text-amber" : "text-emerald"
+                  }`}
+                >
+                  {expired ? "expired" : `${Math.round(fresh * 100)}% fresh`}
+                </span>
+              </div>
+              <Bar value={Math.max(fresh, 0.02)} tone={tone} />
             </li>
           );
         })}
       </ul>
+      <div className="mt-4 flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2 text-xs">
+        <span className="text-muted-foreground">ISO 42001 coverage</span>
+        <span
+          className={`font-mono font-semibold ${coverage < 90 ? "text-amber" : "text-emerald"}`}
+        >
+          {coverage}%
+        </span>
+      </div>
     </Panel>
   );
 }
+
+function RefreshScene({ p }: { p: number }) {
+  const steps = [
+    { text: "Refresh request sent to ML Ops (owner)", at: 0.1 },
+    { text: "New monitoring log collected", at: 0.32 },
+    { text: "Re-verified with two-pass check", at: 0.54 },
+  ];
+  const coverage = 82 + Math.round(15 * ease(seg(p, 0.6, 0.9)));
+  return (
+    <div className="space-y-3">
+      <Panel
+        title="Automatic evidence refresh"
+        right={<RefreshCw className="size-3.5 text-primary" />}
+      >
+        <ul className="space-y-2">
+          {steps.map((s) => (
+            <Appear key={s.text} show={p >= s.at}>
+              <li className="flex items-center gap-2 rounded-lg border border-white/[0.06] px-3 py-2 text-xs">
+                <Check className="size-3.5 shrink-0 text-emerald" /> {s.text}
+              </li>
+            </Appear>
+          ))}
+        </ul>
+      </Panel>
+      <div className="flex items-center justify-between rounded-xl border border-emerald/30 bg-emerald/[0.07] px-4 py-3 text-sm">
+        <span>ISO 42001 coverage</span>
+        <span className="font-display text-xl font-semibold tabular-nums text-emerald">
+          {coverage}%
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/* --------------- Story 3: human sign-off & audit trail --------------- */
+
+function InterceptScene({ p }: { p: number }) {
+  const matched = p > 0.35;
+  const held = p > 0.6;
+  return (
+    <div className="space-y-3">
+      <Panel title="AI agent · proposed action" right={<Bot className="size-3.5 text-primary" />}>
+        <p className="font-mono text-[11px] leading-6 text-foreground/85">
+          loan-agent → increase credit limit to <span className="text-amber">$50,000</span> for
+          applicant #4471
+        </p>
+      </Panel>
+      <Appear show={matched}>
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-3 text-xs">
+          <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            Policy rule R-12
+          </div>
+          <p className="mt-1 text-foreground/85">
+            Credit decisions above $25,000 require human approval.
+          </p>
+        </div>
+      </Appear>
+      <Appear show={held}>
+        <div className="flex items-center gap-2 rounded-xl border border-amber/40 bg-amber/10 px-4 py-3 font-mono text-[11px] text-amber">
+          <TriangleAlert className="size-4 shrink-0" /> Action held · routed for human sign-off
+        </div>
+      </Appear>
+    </div>
+  );
+}
+
+function SignoffScene({ p }: { p: number }) {
+  const gates = [
+    { role: "Compliance Officer", at: 0.3 },
+    { role: "Credit Risk Owner", at: 0.55 },
+  ];
+  const done = p > 0.75;
+  return (
+    <div className="space-y-3">
+      <div className="rounded-xl border border-white/[0.07] bg-white/[0.02] px-4 py-3 font-mono text-[11px] text-foreground/85">
+        RISK-311 · credit limit increase · applicant #4471
+      </div>
+      {gates.map((g) => {
+        const signed = p > g.at;
+        return (
+          <div
+            key={g.role}
+            className={`flex items-center justify-between rounded-xl border px-4 py-3 text-sm transition-colors duration-500 ${
+              signed ? "border-emerald/30 bg-emerald/[0.07]" : "border-white/[0.06]"
+            }`}
+          >
+            <span>{g.role}</span>
+            {signed ? (
+              <span className="flex items-center gap-1.5 text-xs text-emerald">
+                <UserCheck className="size-4" /> approved
+              </span>
+            ) : (
+              <span className="font-mono text-[10px] text-muted-foreground">pending…</span>
+            )}
+          </div>
+        );
+      })}
+      <Appear show={done}>
+        <div className="flex items-center gap-2 rounded-xl border border-emerald/40 bg-emerald/10 px-4 py-3 font-mono text-[11px] text-emerald">
+          <Gavel className="size-4 shrink-0" /> Decision: approved with conditions · agent released
+        </div>
+      </Appear>
+    </div>
+  );
+}
+
+function TrailScene({ p }: { p: number }) {
+  const chain = ["Evidence", "Control", "Risk", "Decision"];
+  return (
+    <Panel
+      title="Decision record · audit trail"
+      right={<span className="text-primary">tamper-evident</span>}
+    >
+      <div className="flex items-center justify-between gap-1">
+        {chain.map((c, i) => {
+          const on = p > 0.1 + i * 0.15;
+          return (
+            <div key={c} className="flex flex-1 items-center gap-1">
+              <div
+                className={`flex-1 rounded-lg border px-2 py-2 text-center text-[11px] transition-all duration-500 ${
+                  on
+                    ? "border-primary/40 bg-primary/10 text-primary"
+                    : "border-white/[0.06] text-muted-foreground"
+                }`}
+              >
+                {c}
+              </div>
+              {i < chain.length - 1 && (
+                <div
+                  className={`h-px w-2 shrink-0 sm:w-4 ${on ? "bg-primary/60" : "bg-white/10"}`}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <Appear show={p > 0.72} className="mt-4">
+        <div className="space-y-1 rounded-lg bg-black/20 p-3 font-mono text-[10px] text-muted-foreground">
+          <div>
+            <span className="text-foreground/80">2026-10-07 10:44:12</span> · RISK-311 approved by 2
+            of 2
+          </div>
+          <div>linked: A.6.2.8 · MANAGE 4.1 · Art. 14 · sha256 9f2c…e41a</div>
+        </div>
+      </Appear>
+    </Panel>
+  );
+}
+
+/* ------------------------------ Shared ------------------------------- */
 
 function Outcome({
   p,
@@ -267,180 +563,13 @@ function Outcome({
       </div>
       <ul className="space-y-2">
         {items.map((it, i) => (
-          <Appear key={it} show={p > 0.35 + i * 0.15}>
+          <Appear key={it} show={p > 0.25 + i * 0.15}>
             <li className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2 text-xs">
               <BadgeCheck className="size-4 shrink-0 text-emerald" /> {it}
             </li>
           </Appear>
         ))}
       </ul>
-    </div>
-  );
-}
-
-/* ------------------------------ Claude ------------------------------ */
-
-function ClaudeIngest({ p }: { p: number }) {
-  const chunks = [
-    "§2 Model monitoring cadence",
-    "§4.2 Human review of outputs",
-    "§5 Incident escalation",
-    "§7 Log retention",
-  ];
-  return (
-    <Panel
-      title="Evidence ingest · ai-oversight-policy.pdf"
-      right={<span className="text-primary">{Math.round(seg(p, 0, 0.8) * 42)} chunks</span>}
-    >
-      <div className="relative overflow-hidden rounded-lg border border-white/[0.06] bg-black/20 p-3">
-        <div
-          className="pointer-events-none absolute inset-x-0 h-10 bg-gradient-to-b from-transparent via-primary/20 to-transparent"
-          style={{ top: `${seg(p, 0, 0.8) * 100 - 15}%` }}
-        />
-        <div className="mb-2 flex items-center gap-2 font-mono text-[11px] text-muted-foreground">
-          <FileText className="size-3.5 text-primary" /> 18 pages · v3.1 · owner: GRC
-        </div>
-        <ul className="space-y-1.5 font-mono text-[11px]">
-          {chunks.map((ch, i) => (
-            <Appear key={ch} show={p > 0.1 + i * 0.17}>
-              <li className="flex items-center justify-between rounded bg-white/[0.03] px-2 py-1">
-                <span className="truncate text-foreground/85">{ch}</span>
-                <span className="text-muted-foreground">vec ✓</span>
-              </li>
-            </Appear>
-          ))}
-        </ul>
-      </div>
-    </Panel>
-  );
-}
-
-function ClaudePassOne({ p }: { p: number }) {
-  const rows = [
-    { k: "ISO 42001 A.6.2.6", v: 0.91 },
-    { k: "EU AI Act Art. 14", v: 0.87 },
-    { k: "EU AI Act Art. 73", v: 0.62 },
-  ];
-  return (
-    <Panel
-      title="Pass 1 · deterministic RAG scoring"
-      right={<span className="text-signal">cosine similarity</span>}
-    >
-      <ul className="space-y-3 font-mono text-[11px]">
-        {rows.map((r, i) => {
-          const v = r.v * ease(seg(p, 0.1 + i * 0.15, 0.55 + i * 0.15));
-          const weak = r.v < 0.7 && p > 0.75;
-          return (
-            <li key={r.k}>
-              <div className="mb-1 flex justify-between">
-                <span className="text-foreground/85">{r.k}</span>
-                <span className={weak ? "text-amber" : "text-signal"}>
-                  {v.toFixed(2)} {weak && "· needs review"}
-                </span>
-              </div>
-              <Bar value={v} tone={weak ? "bg-amber" : "bg-signal"} />
-            </li>
-          );
-        })}
-      </ul>
-    </Panel>
-  );
-}
-
-function ClaudePassTwo({ p }: { p: number }) {
-  const models = [
-    { name: "Claude", verdict: "supported", ok: true },
-    { name: "GPT-4o", verdict: "supported", ok: true },
-    { name: "Gemini", verdict: "contradiction", ok: false },
-  ];
-  return (
-    <div className="space-y-3">
-      <Panel
-        title="Pass 2 · multi-model consensus"
-        right={<span className="text-primary">3 judges</span>}
-      >
-        <div className="grid grid-cols-3 gap-2">
-          {models.map((m, i) => {
-            const shown = p > 0.15 + i * 0.18;
-            return (
-              <div
-                key={m.name}
-                className={`rounded-lg border p-2.5 text-center transition-all duration-500 ${
-                  !shown
-                    ? "border-white/[0.06] opacity-50"
-                    : m.ok
-                      ? "border-emerald/30 bg-emerald/[0.06]"
-                      : "border-amber/40 bg-amber/10"
-                }`}
-              >
-                <div className="text-xs font-medium">{m.name}</div>
-                <div
-                  className={`mt-1 font-mono text-[10px] ${!shown ? "text-muted-foreground" : m.ok ? "text-emerald" : "text-amber"}`}
-                >
-                  {shown ? m.verdict : "evaluating…"}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </Panel>
-      <Appear show={p > 0.72}>
-        <div className="flex items-center gap-2 rounded-xl border border-amber/30 bg-amber/10 px-4 py-3 font-mono text-[11px] text-amber">
-          <SeverityChip sev="HALLUCINATION_FLAG" /> Art. 73 evidence disputed → routed to human
-          review
-        </div>
-      </Appear>
-    </div>
-  );
-}
-
-function ClaudeApproval({ p }: { p: number }) {
-  const cols = ["Open", "Assessment", "Approval", "Done"];
-  const pos = p < 0.2 ? 0 : p < 0.4 ? 1 : p < 0.85 ? 2 : 3;
-  const gates = [
-    { role: "Compliance Officer", at: 0.55 },
-    { role: "AI Safety Engineer", at: 0.75 },
-  ];
-  return (
-    <div className="space-y-3">
-      <div className="grid grid-cols-4 gap-2 font-mono text-[10px]">
-        {cols.map((c, i) => (
-          <div
-            key={c}
-            className="min-h-[84px] rounded-lg border border-white/[0.06] bg-white/[0.02] p-1.5"
-          >
-            <div className="mb-1.5 truncate px-1 text-muted-foreground">{c}</div>
-            {i === pos && (
-              <div className="rise-in rounded-md border border-primary/40 bg-primary/10 p-1.5 text-primary">
-                RISK-311
-                <div className="mt-0.5 truncate text-[9px] text-foreground/75">
-                  Art. 73 evidence gap
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-      <div className="grid gap-2 sm:grid-cols-2">
-        {gates.map((g) => {
-          const signed = p > g.at;
-          return (
-            <div
-              key={g.role}
-              className={`flex items-center justify-between rounded-lg border px-3 py-2 text-xs transition-colors duration-500 ${
-                signed ? "border-emerald/30 bg-emerald/[0.07]" : "border-white/[0.06]"
-              }`}
-            >
-              <span>{g.role}</span>
-              {signed ? (
-                <UserCheck className="size-4 text-emerald" />
-              ) : (
-                <span className="font-mono text-[10px] text-muted-foreground">pending</span>
-              )}
-            </div>
-          );
-        })}
-      </div>
     </div>
   );
 }
@@ -460,109 +589,113 @@ export type DemoStory = {
 
 export const demoStories: DemoStory[] = [
   {
-    id: "gemini",
-    title: "Google Gemini governance",
-    badge: "Gemini 1.5 Pro",
-    heading: "Gemini prompt & egress guardrails",
+    id: "discover",
+    title: "Discover & monitor AI",
+    badge: "Runtime oversight",
+    heading: "See every AI system, including shadow AI",
     description:
-      "Autonomous discovery and telemetry inspection of Gemini endpoints with continuous data egress monitoring and ISO/IEC 42001 audit compliance.",
+      "ReguLattice finds the AI your organization actually uses, registers it with an owner and risk class, and watches what models and agents do at runtime.",
     scenes: [
       {
         title: "Discover",
         caption:
-          "The Discovery agent finds every model endpoint in the workspace and validates the Gemini API key live.",
-        render: (p) => <GeminiDiscover p={p} />,
+          "ReguLattice finds every AI system in use, including shadow AI that nobody approved.",
+        render: (p) => <DiscoverScene p={p} />,
+      },
+      {
+        title: "Register",
+        caption:
+          "Each system gets an owner, a purpose and a risk class, and is mapped to the frameworks that apply.",
+        render: (p) => <RegistryScene p={p} />,
       },
       {
         title: "Monitor",
         caption:
-          "Every Gemini session streams into the Flight Recorder — prompts, tool calls and drift, in real time.",
-        render: (p) => <GeminiTelemetry p={p} />,
+          "Models and AI agents are tracked at runtime, so you see what they actually do, not just what the policy says.",
+        render: (p) => <RuntimeScene p={p} />,
       },
       {
-        title: "Guard egress",
+        title: "Enforce",
         caption:
-          "Personal data is detected and redacted before the prompt ever leaves your boundary.",
-        render: (p) => <GeminiGuardrail p={p} />,
-      },
-      {
-        title: "Map controls",
-        caption: "Each event is linked as evidence to ISO/IEC 42001 controls automatically.",
-        render: (p) => (
-          <ControlMapping
-            p={p}
-            title="ISO/IEC 42001 · control mapping"
-            controls={[
-              { code: "A.6.2.8", text: "Event logging" },
-              { code: "A.7.2", text: "Data provenance" },
-              { code: "A.7.3", text: "Egress boundaries" },
-              { code: "A.10.3", text: "Supplier governance" },
-            ]}
-          />
-        ),
-      },
-      {
-        title: "Prove it",
-        caption: "Compliance posture updates instantly — with an audit pack ready for regulators.",
-        render: (p) => (
-          <Outcome
-            p={p}
-            from={71}
-            to={94}
-            label="ISO 42001"
-            items={[
-              "Gemini endpoint registered & owned",
-              "PII egress blocked and logged",
-              "Audit pack sealed · SHA-256",
-            ]}
-          />
-        ),
+          "Deterministic policy checks catch risky actions, like personal data leaving your boundary, and log them as evidence.",
+        render: (p) => <EgressGuardScene p={p} />,
       },
     ],
   },
   {
-    id: "claude",
-    title: "Anthropic Claude verification",
-    badge: "Claude 3.5 Sonnet",
-    heading: "Claude evidence & gated human sign-off",
+    id: "evidence",
+    title: "Evidence that stays current",
+    badge: "ISO 42001 · NIST · EU AI Act",
+    heading: "Live evidence instead of spreadsheets",
     description:
-      "Dual-pass RAG evaluation for policy drift detection, contradiction checks, and EU AI Act Article 14 gated human override approval pipelines.",
+      "Evidence is mapped across ISO/IEC 42001, NIST AI RMF and the EU AI Act, verified in two passes, and ages over time, so your compliance status always reflects reality.",
     scenes: [
       {
-        title: "Ingest",
-        caption: "Your AI oversight policy is chunked and embedded as verifiable evidence.",
-        render: (p) => <ClaudeIngest p={p} />,
-      },
-      {
-        title: "Pass 1",
-        caption: "Deterministic RAG scores each control — weak evidence is surfaced, not hidden.",
-        render: (p) => <ClaudePassOne p={p} />,
-      },
-      {
-        title: "Pass 2",
+        title: "Map",
         caption:
-          "Three models cross-examine the evidence. A contradiction is flagged instead of hallucinated away.",
-        render: (p) => <ClaudePassTwo p={p} />,
+          "One piece of evidence is mapped to matching controls across ISO 42001, NIST AI RMF and the EU AI Act.",
+        render: (p) => <CrosswalkScene p={p} />,
       },
       {
-        title: "Human gate",
+        title: "Verify",
         caption:
-          "The gap becomes a remediation ticket that needs dual human sign-off — EU AI Act Article 14.",
-        render: (p) => <ClaudeApproval p={p} />,
+          "Two-pass AI verification checks that the evidence really supports the control before it counts.",
+        render: (p) => <TwoPassScene p={p} />,
+      },
+      {
+        title: "Age",
+        caption:
+          "Evidence has a shelf life. As it ages, coverage drops, so your status never looks better than reality.",
+        render: (p) => <DecayScene p={p} />,
+      },
+      {
+        title: "Refresh",
+        caption:
+          "Owners are asked to refresh stale evidence, and coverage recovers once it is re-verified.",
+        render: (p) => <RefreshScene p={p} />,
+      },
+    ],
+  },
+  {
+    id: "signoff",
+    title: "Human sign-off & audit",
+    badge: "Human in the loop",
+    heading: "Accountable humans, provable decisions",
+    description:
+      "Risky AI actions wait for accountable human approval, every decision is linked to its evidence, controls and risks, and audit-ready reports can be generated on your own infrastructure.",
+    scenes: [
+      {
+        title: "Intercept",
+        caption:
+          "An AI agent tries a high-impact action. A deterministic policy rule holds it before anything happens.",
+        render: (p) => <InterceptScene p={p} />,
+      },
+      {
+        title: "Sign off",
+        caption:
+          "The action is routed to the right people for human sign-off, as required by EU AI Act Article 14.",
+        render: (p) => <SignoffScene p={p} />,
+      },
+      {
+        title: "Record",
+        caption:
+          "The decision is linked to its evidence, controls and risks, and becomes part of your audit trail.",
+        render: (p) => <TrailScene p={p} />,
       },
       {
         title: "Prove it",
-        caption: "Verified, human-approved and fully traceable from evidence snippet to score.",
+        caption:
+          "Audit-ready reports come straight from live evidence, and everything can run on your own infrastructure.",
         render: (p) => (
           <Outcome
             p={p}
-            from={78}
-            to={96}
-            label="EU AI Act"
+            from={64}
+            to={97}
+            label="Audit ready"
             items={[
-              "Art. 14 human oversight satisfied",
-              "Art. 73 evidence gap remediated",
-              "Full lineage exported for audit",
+              "ISO 42001 evidence report exported",
+              "Every decision traceable to evidence",
+              "Runs on your infrastructure with local AI models",
             ]}
           />
         ),
