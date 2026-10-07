@@ -19,11 +19,12 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 import logoAsset from "@/assets/regulattice-logo.jpg";
 import { AgentShowcase } from "@/components/landing/agent-showcase";
+import { DemoAnimation, demoStories } from "@/components/landing/demo-animation";
 import { ControlLoop } from "@/components/landing/control-loop";
 import { HeroDashboard } from "@/components/landing/hero-dashboard";
 import { Eyebrow, Reveal } from "@/components/landing/reveal";
@@ -195,27 +196,6 @@ const connectorCategories = [
   },
 ];
 
-const demoVideos = [
-  {
-    id: "gemini",
-    title: "Google Gemini governance",
-    badge: "Gemini 1.5 Pro",
-    src: "/gemini-usecase.mp4",
-    heading: "Gemini prompt & egress guardrails",
-    description:
-      "Autonomous discovery and telemetry inspection of Gemini endpoints with continuous data egress monitoring and ISO/IEC 42001 audit compliance.",
-  },
-  {
-    id: "claude",
-    title: "Anthropic Claude verification",
-    badge: "Claude 3.5 Sonnet",
-    src: "/claude-usecase.mp4",
-    heading: "Claude evidence & gated human sign-off",
-    description:
-      "Dual-pass RAG evaluation for policy drift detection, contradiction checks, and EU AI Act Article 14 gated human override approval pipelines.",
-  },
-];
-
 function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <a href="#top" className="flex items-center gap-2.5" aria-label="ReguLattice home">
@@ -378,30 +358,8 @@ function DemoVideoDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
-  const [videoIndex, setVideoIndex] = useState(0);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-
-  const currentVideo = demoVideos[videoIndex]!;
-
-  const handleVideoEnded = () => {
-    setVideoIndex((prev) => (prev + 1) % demoVideos.length);
-  };
-
-  // Videos only exist while the dialog is open, so (re)start playback when it opens.
-  useEffect(() => {
-    if (!open) return;
-    demoVideos.forEach((_, idx) => {
-      const v = videoRefs.current[idx];
-      if (v) {
-        if (idx === videoIndex) {
-          v.currentTime = 0;
-          v.play().catch(() => {});
-        } else {
-          v.pause();
-        }
-      }
-    });
-  }, [videoIndex, open]);
+  const [storyIndex, setStoryIndex] = useState(0);
+  const story = demoStories[storyIndex]!;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -423,80 +381,32 @@ function DemoVideoDialog({
           {/* Use-case switcher */}
           <div className="mb-4 flex justify-center">
             <div className="glass inline-flex max-w-full overflow-x-auto rounded-full p-1">
-              {demoVideos.map((item, idx) => (
+              {demoStories.map((item, idx) => (
                 <button
                   key={item.id}
                   type="button"
-                  onClick={() => setVideoIndex(idx)}
-                  className={`flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-xs font-medium sm:px-4 transition-all duration-300 sm:text-sm ${
-                    videoIndex === idx
+                  onClick={() => setStoryIndex(idx)}
+                  className={`flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-xs font-medium transition-all duration-300 sm:px-4 sm:text-sm ${
+                    storyIndex === idx
                       ? "bg-white/10 text-foreground shadow-inner"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  <Play className={`size-3 ${videoIndex === idx ? "text-primary" : ""}`} />
+                  <Play className={`size-3 ${storyIndex === idx ? "text-primary" : ""}`} />
                   {item.title}
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="glow-border overflow-hidden rounded-2xl">
-            <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-4 py-2.5">
-              <div className="flex items-center gap-2.5">
-                <span className="relative flex size-2">
-                  <span className="ping-soft absolute inset-0 rounded-full bg-emerald" />
-                  <span className="relative size-2 rounded-full bg-emerald" />
-                </span>
-                <span className="font-mono text-[11px] text-foreground/90">
-                  {currentVideo.title}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="hidden font-mono text-[10px] text-muted-foreground sm:inline">
-                  Use case {videoIndex + 1} / {demoVideos.length}
-                </span>
-                <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] text-primary">
-                  {currentVideo.badge}
-                </span>
-              </div>
-            </div>
-
-            {/* Dual video stack for 0ms transition gap */}
-            <div className="relative aspect-video w-full overflow-hidden bg-card">
-              {demoVideos.map((item, idx) => {
-                const isActive = videoIndex === idx;
-                return (
-                  <video
-                    key={item.id}
-                    ref={(el) => {
-                      videoRefs.current[idx] = el;
-                    }}
-                    src={item.src}
-                    controls
-                    muted
-                    playsInline
-                    autoPlay={isActive}
-                    preload="auto"
-                    onEnded={handleVideoEnded}
-                    className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-300 ${
-                      isActive
-                        ? "pointer-events-auto z-10 opacity-100"
-                        : "pointer-events-none z-0 opacity-0"
-                    }`}
-                  >
-                    Your browser does not support the video tag.
-                  </video>
-                );
-              })}
-            </div>
-          </div>
+          {/* Mounted only while the dialog is open, so the animation always starts from the top. */}
+          {open && <DemoAnimation storyIndex={storyIndex} onStoryChange={setStoryIndex} />}
 
           <div className="mt-4 flex items-start gap-3 rounded-2xl border border-white/[0.06] bg-card/50 p-4 text-sm">
             <Sparkles className="mt-0.5 size-4 shrink-0 text-primary" />
             <p>
-              <span className="font-medium text-foreground">{currentVideo.heading}.</span>{" "}
-              <span className="text-muted-foreground">{currentVideo.description}</span>
+              <span className="font-medium text-foreground">{story.heading}.</span>{" "}
+              <span className="text-muted-foreground">{story.description}</span>
             </p>
           </div>
         </div>
