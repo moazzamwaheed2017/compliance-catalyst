@@ -13,7 +13,6 @@ import {
   Mail,
   Menu,
   Network,
-  Play,
   Server,
   ShieldCheck,
   Sparkles,
@@ -24,7 +23,6 @@ import { toast } from "sonner";
 
 import logoAsset from "@/assets/regulattice-logo.jpg";
 import { AgentShowcase } from "@/components/landing/agent-showcase";
-import { DemoAnimation, demoStories } from "@/components/landing/demo-animation";
 import { ControlLoop } from "@/components/landing/control-loop";
 import { HeroDashboard } from "@/components/landing/hero-dashboard";
 import { Eyebrow, Reveal } from "@/components/landing/reveal";
@@ -247,13 +245,7 @@ function SectionHeader({
   );
 }
 
-function SiteHeader({
-  onRequest,
-  onWatchDemo,
-}: {
-  onRequest: () => void;
-  onWatchDemo: () => void;
-}) {
+function SiteHeader({ onRequest }: { onRequest: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -287,17 +279,6 @@ function SiteHeader({
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={onWatchDemo}
-            className="flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-white/[0.05] hover:text-foreground sm:px-3"
-            aria-label="Watch product demo"
-          >
-            <span className="flex size-5 items-center justify-center rounded-full bg-primary/15 text-primary">
-              <Play className="size-2.5 fill-current" />
-            </span>
-            <span className="hidden sm:inline">Watch demo</span>
-          </button>
           <Button variant="ink" size="sm" className="h-9 px-4" onClick={onRequest}>
             Request access
           </Button>
@@ -351,73 +332,8 @@ function AuroraBackground() {
   );
 }
 
-function DemoVideoDialog({
-  open,
-  onOpenChange,
-}: {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}) {
-  const [storyIndex, setStoryIndex] = useState(0);
-  const story = demoStories[storyIndex]!;
-
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="glass max-h-[92vh] w-[calc(100%-1.5rem)] max-w-5xl gap-0 overflow-y-auto rounded-2xl border-white/10 bg-popover/95 p-4 sm:p-6">
-        <DialogHeader className="pr-8 text-left">
-          <DialogTitle className="font-display text-xl font-semibold sm:text-2xl">
-            Don&apos;t just document your AI governance.{" "}
-            <span className="font-serif font-normal italic tracking-normal text-gradient">
-              Prove it.
-            </span>
-          </DialogTitle>
-          <DialogDescription className="text-sm text-muted-foreground">
-            See how ReguLattice discovers the AI you use, keeps compliance evidence current, and
-            puts humans in charge of risky AI decisions.
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="mt-5">
-          {/* Use-case switcher */}
-          <div className="mb-4 flex justify-center">
-            <div className="glass inline-flex max-w-full overflow-x-auto rounded-full p-1">
-              {demoStories.map((item, idx) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => setStoryIndex(idx)}
-                  className={`flex shrink-0 items-center gap-2 rounded-full px-3 py-2 text-xs font-medium transition-all duration-300 sm:px-4 sm:text-sm ${
-                    storyIndex === idx
-                      ? "bg-white/10 text-foreground shadow-inner"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  <Play className={`size-3 ${storyIndex === idx ? "text-primary" : ""}`} />
-                  {item.title}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Mounted only while the dialog is open, so the animation always starts from the top. */}
-          {open && <DemoAnimation storyIndex={storyIndex} onStoryChange={setStoryIndex} />}
-
-          <div className="mt-4 flex items-start gap-3 rounded-2xl border border-white/[0.06] bg-card/50 p-4 text-sm">
-            <Sparkles className="mt-0.5 size-4 shrink-0 text-primary" />
-            <p>
-              <span className="font-medium text-foreground">{story.heading}.</span>{" "}
-              <span className="text-muted-foreground">{story.description}</span>
-            </p>
-          </div>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
 function Index() {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [videoOpen, setVideoOpen] = useState(false);
   const [requestType, setRequestType] = useState("Schedule Technical Demo");
   const [formData, setFormData] = useState({
     name: "",
@@ -484,10 +400,7 @@ function Index() {
 
   return (
     <div id="top" className="relative min-h-screen overflow-x-clip bg-background text-foreground">
-      <SiteHeader
-        onRequest={() => openDemoModal("Request Access")}
-        onWatchDemo={() => setVideoOpen(true)}
-      />
+      <SiteHeader onRequest={() => openDemoModal("Request Access")} />
 
       <main className="relative">
         {/* Hero */}
@@ -883,15 +796,6 @@ function Index() {
                 <li>
                   <button
                     type="button"
-                    onClick={() => setVideoOpen(true)}
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    Watch demo
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
                     onClick={() => openDemoModal("Schedule Technical Demo")}
                     className="text-muted-foreground transition-colors hover:text-foreground"
                   >
@@ -908,8 +812,6 @@ function Index() {
           </div>
         </div>
       </footer>
-
-      <DemoVideoDialog open={videoOpen} onOpenChange={setVideoOpen} />
 
       {/* Demo / Sandbox Modal */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
