@@ -97,12 +97,6 @@ export const ENTITY_FACTS: { label: string; value: string }[] = [
   { label: "Contact", value: CONTACT_EMAIL },
 ];
 
-/** Public leadership. Names and roles only; extend with approved bios and profile URLs. */
-export const LEADERSHIP: { name: string; role: string; sameAs?: string[] }[] = [
-  { name: "Madiha Mukarram", role: "Co-founder & CEO" },
-  { name: "Moazzam Waheed", role: "Co-founder & CTO" },
-];
-
 /** Content pages, used for navigation, the footer, the sitemap and llms.txt. */
 export const CONTENT_PAGES = [
   { path: "/ai-governance-platform", label: "AI governance platform" },
@@ -165,12 +159,6 @@ function organizationNode() {
     slogan: CORE_MESSAGE,
     knowsAbout: KNOWS_ABOUT,
     sameAs: SOCIAL_PROFILES,
-    founder: LEADERSHIP.map((p) => ({
-      "@type": "Person",
-      name: p.name,
-      jobTitle: p.role,
-      ...(p.sameAs ? { sameAs: p.sameAs } : {}),
-    })),
     contactPoint: { "@type": "ContactPoint", contactType: "sales", email: CONTACT_EMAIL },
   };
 }

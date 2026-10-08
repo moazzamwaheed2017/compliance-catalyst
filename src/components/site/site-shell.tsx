@@ -469,12 +469,21 @@ export function SiteFooter() {
 }
 
 /** Page chrome shared by every route: header, footer and the demo request dialog. */
-export function SiteLayout({ children }: { children: ReactNode }) {
+export function SiteLayout({
+  children,
+  theme = "dark",
+}: {
+  children: ReactNode;
+  /** "light" renders the header and page body on white; the footer stays dark. */
+  theme?: "dark" | "light";
+}) {
   return (
     <DemoRequestProvider>
       <div className="relative min-h-screen overflow-x-clip bg-background text-foreground">
-        <SiteHeader />
-        {children}
+        <div className={theme === "light" ? "theme-light" : undefined}>
+          <SiteHeader />
+          {children}
+        </div>
         <SiteFooter />
       </div>
     </DemoRequestProvider>
