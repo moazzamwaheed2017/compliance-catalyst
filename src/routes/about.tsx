@@ -10,7 +10,6 @@ import {
   VisionFlow,
 } from "@/components/about/diagrams";
 import { GovernanceLayerViz } from "@/components/about/governance-layer-viz";
-import { LifecycleViz } from "@/components/about/lifecycle-viz";
 import {
   AccountabilityIcon,
   ContinuousIcon,
@@ -43,48 +42,20 @@ const meta: ContentPageMeta = {
       a: `${WHAT_IS} It follows a continuous lifecycle: discover, assess, govern, monitor and improve.`,
     },
     {
-      q: "What is an AI governance platform?",
-      a: "An AI governance platform is software that gives an organization one system of record to discover, assess, govern, monitor and improve the AI systems and AI agents it uses, and to produce evidence of that governance for auditors, regulators and customers.",
+      q: "What category of software is ReguLattice?",
+      a: "ReguLattice is an AI governance platform. It is built specifically for governing AI systems and AI agents, rather than being a general-purpose GRC, cybersecurity or compliance tool.",
     },
     {
       q: "Who uses ReguLattice?",
       a: "Organizations deploying AI systems and AI agents, and the teams accountable for them: compliance, risk, CISOs and security, internal audit, and AI and engineering leaders.",
     },
     {
-      q: "How does ReguLattice discover AI systems?",
-      a: "By connecting to the places AI is used: model provider APIs such as OpenAI, Anthropic and Google Gemini, local runtimes such as Ollama, code repositories, and developer tools such as Claude Code and Cursor. Each AI system found is added to an AI inventory with an owner, purpose and risk level.",
-    },
-    {
       q: "What is shadow AI?",
       a: "Shadow AI is AI used inside an organization without being registered, assessed or approved, such as personal AI accounts used with company data, unapproved model API keys or local models. ReguLattice flags it so it can be given an owner, assessed, and approved, replaced or restricted.",
     },
     {
-      q: "How does ReguLattice govern AI agents?",
-      a: "It records what AI agents do at runtime, including tool calls, and checks actions against deterministic policy rules. High-risk actions can be held for approval by designated people, and each decision is recorded with its evidence.",
-    },
-    {
       q: "How does ReguLattice assess AI risk?",
       a: "Each AI system is assessed on its purpose, the data it uses and the decisions it influences, and classified by risk level, including EU AI Act risk categories. Risks are linked to controls and to an accountable owner.",
-    },
-    {
-      q: "Does ReguLattice support ISO/IEC 42001?",
-      a: "Yes. ReguLattice maps AI inventory records, runtime activity and documents to ISO/IEC 42001 controls and tracks whether that evidence is still current. It helps organizations prepare for an audit; certification is issued by accredited certification bodies.",
-    },
-    {
-      q: "Does ReguLattice support NIST AI RMF?",
-      a: "Yes. ReguLattice maps controls and evidence to the NIST AI Risk Management Framework (AI RMF 1.0) and its Govern, Map, Measure and Manage functions.",
-    },
-    {
-      q: "Does ReguLattice support the EU AI Act?",
-      a: "Yes. ReguLattice maps evidence to EU AI Act requirements such as risk management, record-keeping, human oversight and post-market monitoring. It helps organizations prepare for and evidence their obligations; it does not provide legal advice or certify compliance.",
-    },
-    {
-      q: "Can ReguLattice run on customer-controlled infrastructure?",
-      a: "Yes. ReguLattice is local-first: it can run on customer-controlled infrastructure with locally hosted AI models, and it can also connect to cloud AI providers. Local deployment is an option, not a requirement.",
-    },
-    {
-      q: "How is ReguLattice different from traditional GRC?",
-      a: "Traditional GRC manages policies, risks and controls through periodic, document-based assessments. ReguLattice adds the layer GRC was not designed for: discovering AI systems and agents, monitoring them at runtime, keeping people in charge of high-risk AI actions, and keeping evidence current. Many organizations use both.",
     },
   ],
 };
@@ -96,7 +67,7 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <SiteLayout theme="light">
+    <SiteLayout>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(contentPageStructuredData(meta)) }}
@@ -118,10 +89,7 @@ function Section({
   tone?: "plain" | "tint";
 }) {
   return (
-    <section
-      id={id}
-      className={`scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8 ${tone === "tint" ? "bg-muted/60" : ""}`}
-    >
+    <section id={id} className={`scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8 `}>
       <div className="mx-auto max-w-6xl">{children}</div>
     </section>
   );
@@ -155,12 +123,9 @@ function Intro({
 
 function SecondaryButton({ to, children }: { to: "/ai-governance-platform"; children: ReactNode }) {
   return (
-    <Link
-      to={to}
-      className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-border bg-card px-7 text-sm font-medium text-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40"
-    >
-      {children}
-    </Link>
+    <Button asChild variant="architectural" size="lg">
+      <Link to={to}>{children}</Link>
+    </Button>
   );
 }
 
@@ -264,24 +229,6 @@ const principles = [
   },
 ];
 
-const frameworks = [
-  {
-    name: "ISO/IEC 42001",
-    text: "AI management systems and governance.",
-    detail: "Controls, roles, monitoring and supplier governance for an AI management system.",
-  },
-  {
-    name: "NIST AI RMF 1.0",
-    text: "Govern → Map → Measure → Manage.",
-    detail: "A voluntary framework for identifying, measuring and managing AI risk.",
-  },
-  {
-    name: "EU AI Act",
-    text: "Risk management, human oversight, record-keeping and monitoring.",
-    detail: "Risk-based obligations for providers and deployers of AI systems in the EU.",
-  },
-];
-
 function AboutContent() {
   const openRequest = useDemoRequest();
 
@@ -294,11 +241,11 @@ function AboutContent() {
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute -top-32 right-[8%] h-[420px] w-[560px] rounded-full bg-[oklch(0.75_0.15_300/0.18)] blur-[110px]"
+          className="pointer-events-none absolute -top-32 right-[8%] h-[420px] w-[560px] rounded-full bg-[oklch(0.75_0.13_220/0.2)] blur-[120px]"
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute -top-24 left-[6%] h-[360px] w-[460px] rounded-full bg-[oklch(0.8_0.1_215/0.18)] blur-[110px]"
+          className="pointer-events-none absolute -top-24 left-[6%] h-[360px] w-[460px] rounded-full bg-[oklch(0.8_0.13_180/0.22)] blur-[120px]"
           aria-hidden="true"
         />
         <div className="relative mx-auto max-w-6xl">
@@ -341,7 +288,7 @@ function AboutContent() {
       </section>
 
       {/* 2. Why ReguLattice exists */}
-      <Section id="why" tone="tint">
+      <Section id="why">
         <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <Intro
             center={false}
@@ -412,7 +359,7 @@ function AboutContent() {
       </Section>
 
       {/* 4. Mission */}
-      <Section id="mission" tone="tint">
+      <Section id="mission">
         <Intro eyebrow="Our mission" title="Make AI accountable, observable, and governable." />
         <div className="mt-14 grid gap-5 md:grid-cols-3">
           {mission.map(({ icon: Icon, title, text }, i) => (
@@ -431,36 +378,32 @@ function AboutContent() {
 
       {/* 5. What is ReguLattice? */}
       <Section id="what-is-regulattice">
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <Reveal>
-            <Eyebrow>AI governance platform</Eyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight sm:text-5xl">
-              What is ReguLattice?
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-foreground/85">{WHAT_IS}</p>
-            <p className="mt-5 font-mono text-sm text-primary">
-              Discover → Assess → Govern → Monitor → Improve
-            </p>
-            <p className="mt-5 text-sm text-muted-foreground">
-              New to the category? Read{" "}
-              <Link to="/ai-governance-platform" className="text-primary hover:underline">
-                what an AI governance platform is
-              </Link>{" "}
-              and{" "}
-              <Link to="/ai-agent-governance" className="text-primary hover:underline">
-                how AI agent governance works
-              </Link>
-              .
-            </p>
-          </Reveal>
-          <Reveal delay={120}>
-            <LifecycleViz />
-          </Reveal>
-        </div>
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <Eyebrow>AI governance platform</Eyebrow>
+          <h2 className="mt-5 font-display text-3xl font-semibold leading-tight sm:text-5xl">
+            What is ReguLattice?
+          </h2>
+          <p className="mt-5 text-lg leading-8 text-foreground/85">{WHAT_IS}</p>
+          <p className="mt-6 text-sm text-muted-foreground">
+            See{" "}
+            <a href="/#how-it-works" className="text-primary hover:underline">
+              how it works
+            </a>
+            , the{" "}
+            <a href="/#frameworks" className="text-primary hover:underline">
+              frameworks it maps to
+            </a>{" "}
+            and{" "}
+            <Link to="/ai-governance-platform" className="text-primary hover:underline">
+              what an AI governance platform is
+            </Link>
+            .
+          </p>
+        </Reveal>
       </Section>
 
       {/* 6. A new layer */}
-      <Section id="new-layer" tone="tint">
+      <Section id="new-layer">
         <Intro eyebrow="A new layer" title="Why AI governance needs a new layer">
           <p>
             Traditional governance was built for processes and documents. AI systems change, act and
@@ -523,7 +466,7 @@ function AboutContent() {
       </Section>
 
       {/* 8. Local-first */}
-      <Section id="local-first" tone="tint">
+      <Section id="local-first">
         <Intro eyebrow="Local-first architecture" title="Govern AI where your data lives">
           <p>
             ReguLattice is designed with a local-first approach, allowing organizations to deploy
@@ -537,29 +480,8 @@ function AboutContent() {
         </Reveal>
       </Section>
 
-      {/* 9. Frameworks */}
-      <Section id="frameworks">
-        <Intro eyebrow="Frameworks" title="Built around recognized AI governance frameworks" />
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
-          {frameworks.map((f, i) => (
-            <Reveal key={f.name} delay={i * 100} className="h-full">
-              <article className="card-soft h-full p-7">
-                <div className="h-1 w-12 rounded-full bg-brand-gradient" />
-                <h3 className="mt-6 font-display text-2xl font-semibold">{f.name}</h3>
-                <p className="mt-2 font-medium text-foreground/85">{f.text}</p>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{f.detail}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-        <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-muted-foreground">
-          ReguLattice helps organizations prepare for and evidence governance activities. It does
-          not provide legal advice or certify compliance.
-        </p>
-      </Section>
-
       {/* 10. Vision */}
-      <Section id="vision" tone="tint">
+      <Section id="vision">
         <Intro
           eyebrow="Our vision"
           title="A future where every AI system is visible and accountable"
@@ -579,7 +501,7 @@ function AboutContent() {
       {/* 11. FAQ */}
       <Section id="faq">
         <div className="mx-auto max-w-3xl">
-          <Intro eyebrow="FAQ" title="Frequently asked questions" />
+          <Intro eyebrow="FAQ" title="About ReguLattice, answered" />
           <div className="card-soft mt-12 divide-y divide-border">
             {meta.faqs.map((f) => (
               <details
@@ -596,23 +518,30 @@ function AboutContent() {
               </details>
             ))}
           </div>
+          <p className="mt-6 text-center text-sm text-muted-foreground">
+            Questions about frameworks, AI agents or deployment? See the{" "}
+            <a href="/#faq" className="text-primary hover:underline">
+              platform FAQ
+            </a>
+            .
+          </p>
         </div>
       </Section>
 
       {/* 12. CTA */}
       <section className="px-5 pb-24 lg:px-8">
         <Reveal className="mx-auto max-w-6xl">
-          <div className="relative overflow-hidden rounded-[2rem] bg-[oklch(0.2_0.045_268)] px-6 py-16 text-center text-white sm:px-12 sm:py-20">
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-card px-6 py-16 text-center sm:px-12 sm:py-20">
+            <div className="lattice-grid absolute inset-0 opacity-80" aria-hidden="true" />
             <div
-              className="absolute -bottom-40 left-1/2 h-[380px] w-[680px] max-w-full -translate-x-1/2 rounded-full opacity-60 blur-[100px]"
-              style={{ backgroundImage: "var(--brand-gradient)" }}
+              className="aurora absolute -bottom-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-[oklch(0.8_0.13_180/0.28)] blur-[110px]"
               aria-hidden="true"
             />
             <div className="relative">
               <h2 className="mx-auto max-w-3xl text-balance font-display text-3xl font-semibold leading-tight sm:text-5xl">
                 See what AI governance looks like in practice
               </h2>
-              <p className="mx-auto mt-5 max-w-xl text-white/75">
+              <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
                 Explore how ReguLattice helps organizations discover, assess, govern, monitor, and
                 improve their AI environment.
               </p>
@@ -624,12 +553,7 @@ function AboutContent() {
                 >
                   Request a technical demo <ArrowRight className="size-4" />
                 </Button>
-                <Link
-                  to="/ai-governance-platform"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/25 px-7 text-sm font-medium text-white transition-colors hover:bg-white/10"
-                >
-                  Explore the platform
-                </Link>
+                <SecondaryButton to="/ai-governance-platform">Explore the platform</SecondaryButton>
               </div>
             </div>
           </div>

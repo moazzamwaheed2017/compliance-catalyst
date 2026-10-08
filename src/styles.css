@@ -357,49 +357,7 @@
   color: var(--foreground);
 }
 
-/* ---------- Light theme (About page) ----------
- * Scoped override of the design tokens: white surfaces, navy/slate text, and a
- * pink → purple → cyan accent that ties back to the logo's cyan glow. */
-.theme-light {
-  color-scheme: light;
-  --background: oklch(0.99 0.003 260);
-  --foreground: oklch(0.22 0.04 265);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.04 265);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.04 265);
-  --primary: oklch(0.52 0.22 298);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.96 0.012 290);
-  --secondary-foreground: oklch(0.3 0.06 290);
-  --muted: oklch(0.965 0.006 265);
-  --muted-foreground: oklch(0.48 0.03 262);
-  --accent: oklch(0.96 0.02 300);
-  --accent-foreground: oklch(0.35 0.12 300);
-  --border: oklch(0.91 0.012 265);
-  --input: oklch(0.88 0.015 265);
-  --ring: oklch(0.52 0.22 298);
-  --signal: oklch(0.6 0.13 215);
-  --emerald: oklch(0.58 0.14 160);
-  --amber: oklch(0.66 0.15 65);
-  --rose: oklch(0.6 0.21 15);
-  --pink: oklch(0.62 0.22 355);
-  --line: oklch(0.52 0.12 290 / 0.07);
-  --brand-gradient: linear-gradient(100deg, oklch(0.63 0.22 355) 0%, oklch(0.53 0.23 298) 52%, oklch(0.6 0.14 225) 100%);
-  --shadow-glow: 0 1px 2px oklch(0.3 0.05 265 / 0.06), 0 12px 32px -12px oklch(0.52 0.22 298 / 0.35);
-  background-color: var(--background);
-  color: var(--foreground);
-}
-.theme-light .glass {
-  background: oklch(1 0 0 / 0.82);
-  border: 1px solid var(--border);
-  box-shadow: 0 8px 30px -12px oklch(0.3 0.05 265 / 0.18);
-}
-.theme-light .lattice-grid {
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 25%, transparent 80%);
-}
-
-/* Enterprise card used across light pages */
+/* Enterprise card used on the About page */
 .card-soft {
   border-radius: 1.5rem;
   border: 1px solid var(--border);

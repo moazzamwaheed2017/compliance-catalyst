@@ -47,9 +47,9 @@ export function GovernanceLayerViz() {
         >
           <defs>
             <linearGradient id="gl-flow" x1="0" x2="1">
-              <stop offset="0" stopColor="var(--pink)" />
+              <stop offset="0" stopColor="var(--signal)" />
               <stop offset="0.5" stopColor="var(--primary)" />
-              <stop offset="1" stopColor="var(--signal)" />
+              <stop offset="1" stopColor="var(--emerald)" />
             </linearGradient>
           </defs>
           {paths.map((p) => (
