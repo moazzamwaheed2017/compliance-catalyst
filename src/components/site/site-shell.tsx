@@ -1,8 +1,14 @@
-import { Link } from "@tanstack/react-router";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { Link, useLocation } from "@tanstack/react-router";
 import {
   ArrowRight,
   ArrowUpRight,
+  Bot,
+  Building2,
+  ChevronDown,
+  EyeOff,
   Instagram,
+  Layers,
   Linkedin,
   Loader2,
   Mail,
@@ -32,26 +38,64 @@ import { CONTACT_EMAIL, ENTITY_DEFINITION } from "@/lib/seo";
 
 type NavItem = { label: string } & ({ to: string } | { href: string });
 
-export const navItems: NavItem[] = [
-  { to: "/ai-governance-platform", label: "Platform" },
-  { href: "/#how-it-works", label: "How it works" },
-  { to: "/shadow-ai", label: "Shadow AI" },
-  { to: "/ai-agent-governance", label: "AI agents" },
-  { href: "/#frameworks", label: "Frameworks" },
-  { to: "/about", label: "About" },
+/** Main menu: each item maps to a section of the homepage. */
+export const sectionItems: { id: string; label: string }[] = [
+  { id: "how-it-works", label: "How it works" },
+  { id: "platform", label: "Platform" },
+  { id: "use-cases", label: "Use cases" },
+  { id: "architecture", label: "Architecture" },
+  { id: "frameworks", label: "Frameworks" },
+  { id: "integrations", label: "Integrations" },
+  { id: "faq", label: "FAQ" },
+];
+
+type ResourcePath = "/ai-governance-platform" | "/shadow-ai" | "/ai-agent-governance" | "/about";
+
+/** Guides and company pages, combined into one "Resources" menu. */
+export const resourceGroups: {
+  title: string;
+  items: { to: ResourcePath; label: string; text: string; icon: typeof Layers }[];
+}[] = [
+  {
+    title: "Guides",
+    items: [
+      {
+        to: "/ai-governance-platform",
+        label: "AI governance platform",
+        text: "What it is, capabilities and how to choose one",
+        icon: Layers,
+      },
+      {
+        to: "/shadow-ai",
+        label: "Shadow AI",
+        text: "Discover and govern AI you don't know about",
+        icon: EyeOff,
+      },
+      {
+        to: "/ai-agent-governance",
+        label: "AI agents",
+        text: "Controls and human oversight for AI agents",
+        icon: Bot,
+      },
+    ],
+  },
+  {
+    title: "Company",
+    items: [
+      {
+        to: "/about",
+        label: "About ReguLattice",
+        text: "Our mission, principles and approach",
+        icon: Building2,
+      },
+    ],
+  },
 ];
 
 const footerColumns: { title: string; items: NavItem[] }[] = [
   {
     title: "Platform",
-    items: [
-      { to: "/ai-governance-platform", label: "AI governance platform" },
-      { href: "/#how-it-works", label: "How it works" },
-      { href: "/#use-cases", label: "Use cases" },
-      { href: "/#frameworks", label: "Frameworks" },
-      { href: "/#integrations", label: "Integrations" },
-      { href: "/#faq", label: "FAQ" },
-    ],
+    items: sectionItems.map((s) => ({ href: `/#${s.id}`, label: s.label })),
   },
   {
     title: "Guides",
@@ -62,6 +106,85 @@ const footerColumns: { title: string; items: NavItem[] }[] = [
     ],
   },
 ];
+
+/** Highlights the homepage section currently in view. */
+function useActiveSection(enabled: boolean) {
+  const [active, setActive] = useState<string | null>(null);
+  useEffect(() => {
+    if (!enabled || typeof IntersectionObserver === "undefined") {
+      setActive(null);
+      return;
+    }
+    const visible = new Map<string, number>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries)
+          visible.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0);
+        let best: string | null = null;
+        let bestRatio = 0;
+        for (const s of sectionItems) {
+          const r = visible.get(s.id) ?? 0;
+          if (r > bestRatio) {
+            best = s.id;
+            bestRatio = r;
+          }
+        }
+        setActive(best);
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.01, 0.25, 0.5, 1] },
+    );
+    for (const s of sectionItems) {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
+  }, [enabled]);
+  return active;
+}
+
+function ResourcesMenu() {
+  return (
+    <DropdownMenu.Root modal={false}>
+      <DropdownMenu.Trigger className="group flex items-center gap-1 rounded-full px-3 py-1.5 outline-none transition-colors hover:bg-foreground/[0.05] hover:text-foreground focus-visible:ring-1 focus-visible:ring-ring data-[state=open]:text-foreground">
+        Resources
+        <ChevronDown className="size-3.5 transition-transform duration-300 group-data-[state=open]:rotate-180" />
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content
+        align="end"
+        sideOffset={14}
+        className="z-50 w-[560px] rounded-2xl border border-border bg-popover p-3 text-popover-foreground shadow-[0_24px_60px_-20px_oklch(0_0_0/0.45)] data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
+      >
+        <div className="grid grid-cols-[1.4fr_1fr] gap-3">
+          {resourceGroups.map((group) => (
+            <div key={group.title}>
+              <div className="px-3 pb-1 pt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                {group.title}
+              </div>
+              {group.items.map(({ to, label, text, icon: Icon }) => (
+                <DropdownMenu.Item key={to} asChild>
+                  <Link
+                    to={to}
+                    className="flex gap-3 rounded-xl p-3 outline-none transition-colors hover:bg-foreground/[0.05] focus:bg-foreground/[0.05]"
+                  >
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border text-primary">
+                      <Icon className="size-4" />
+                    </span>
+                    <span>
+                      <span className="block text-sm font-medium text-foreground">{label}</span>
+                      <span className="mt-0.5 block text-xs leading-5 text-muted-foreground">
+                        {text}
+                      </span>
+                    </span>
+                  </Link>
+                </DropdownMenu.Item>
+              ))}
+            </div>
+          ))}
+        </div>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
+  );
+}
 
 function NavLink({
   item,
@@ -300,6 +423,9 @@ export function DemoRequestProvider({ children }: { children: ReactNode }) {
 
 export function SiteHeader() {
   const openRequest = useDemoRequest();
+  const { pathname } = useLocation();
+  const onHome = pathname === "/";
+  const activeSection = useActiveSection(onHome);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -321,14 +447,24 @@ export function SiteHeader() {
         aria-label="Main navigation"
       >
         <Brand />
-        <div className="hidden items-center gap-1 text-sm text-muted-foreground lg:flex">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.label}
-              item={item}
-              className="rounded-full px-3 py-1.5 transition-colors hover:bg-white/[0.05] hover:text-foreground"
-            />
-          ))}
+        <div className="hidden items-center gap-0.5 text-sm text-muted-foreground xl:flex">
+          {sectionItems.map((s) => {
+            const active = activeSection === s.id;
+            return (
+              <a
+                key={s.id}
+                href={`/#${s.id}`}
+                aria-current={active ? "location" : undefined}
+                className={`rounded-full px-3 py-1.5 transition-colors hover:bg-foreground/[0.05] hover:text-foreground ${
+                  active ? "bg-foreground/[0.06] text-foreground" : ""
+                }`}
+              >
+                {s.label}
+              </a>
+            );
+          })}
+          <span className="mx-1 h-4 w-px bg-border" aria-hidden="true" />
+          <ResourcesMenu />
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -341,7 +477,7 @@ export function SiteHeader() {
           </Button>
           <button
             type="button"
-            className="flex size-9 items-center justify-center rounded-full text-muted-foreground hover:bg-white/5 lg:hidden"
+            className="flex size-9 items-center justify-center rounded-full text-muted-foreground hover:bg-foreground/[0.05] xl:hidden"
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
@@ -351,15 +487,36 @@ export function SiteHeader() {
         </div>
       </nav>
       {open && (
-        <div className="glass mx-auto mt-2 max-w-6xl rounded-2xl bg-background/90 p-2 lg:hidden">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.label}
-              item={item}
-              onClick={() => setOpen(false)}
-              className="block rounded-xl px-4 py-3 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground"
-            />
-          ))}
+        <div className="mx-auto mt-2 max-h-[80vh] max-w-6xl overflow-y-auto rounded-2xl border border-border bg-background p-2 shadow-[0_24px_60px_-20px_oklch(0_0_0/0.45)] xl:hidden">
+          <div className="grid gap-1 sm:grid-cols-2">
+            {sectionItems.map((s) => (
+              <a
+                key={s.id}
+                href={`/#${s.id}`}
+                onClick={() => setOpen(false)}
+                className="rounded-xl px-4 py-3 text-sm text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground"
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+          <div className="mt-1 border-t border-border pt-1">
+            <div className="px-4 pb-1 pt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+              Resources
+            </div>
+            {resourceGroups
+              .flatMap((g) => g.items)
+              .map(({ to, label, icon: Icon }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground"
+                >
+                  <Icon className="size-4 text-primary" /> {label}
+                </Link>
+              ))}
+          </div>
         </div>
       )}
     </header>
