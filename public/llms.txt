@@ -1,33 +1,34 @@
 # ReguLattice
 
-> ReguLattice is an AI governance platform that helps organizations discover, assess, govern, monitor and improve the AI systems and AI agents they use, including shadow AI, with live evidence mapped to ISO/IEC 42001, the NIST AI RMF and the EU AI Act.
+> ReguLattice is an AI-native governance platform that helps organizations discover, assess, govern, monitor, and improve AI systems and AI agents.
 
+Category: AI governance platform.
 Core message: You can't govern AI you don't know exists.
 
-## What ReguLattice does
+## Key facts
 
-- **Discover:** builds a live AI inventory of models, AI tools and AI agents across cloud AI providers (such as OpenAI, Anthropic and Google Gemini), local runtimes (such as Ollama), code repositories and developer tools (such as Claude Code and Cursor). Unregistered or unapproved AI is flagged as shadow AI.
-- **Assess:** records each AI system's owner, purpose, data and risk level, including EU AI Act risk categories.
-- **Govern:** manages AI policies and controls mapped to ISO/IEC 42001, NIST AI RMF and the EU AI Act. High-risk AI agent actions can be held for human sign-off.
-- **Monitor:** tracks what AI systems and agents do at runtime and keeps compliance evidence current; evidence is verified in two passes and its coverage decreases as it ages.
-- **Improve:** turns incidents, human overrides and audit findings into remediation tasks and audit-ready evidence.
-
-## Who it is for
-
-Organizations deploying AI in regulated or high-stakes settings, and the teams responsible for it: compliance, risk, CISOs and security, internal audit, and AI/ML engineering.
-
-## Frameworks
-
-ReguLattice currently maps controls and evidence to ISO/IEC 42001, the NIST AI Risk Management Framework (AI RMF 1.0) and the EU AI Act. ReguLattice helps teams prepare for audits; it does not itself certify organizations.
-
-## Deployment
-
-Local-first: ReguLattice can be deployed on the customer's own infrastructure and use locally hosted AI models, so governance data can stay inside the customer's environment.
-
-## Links
-
-- [Homepage](https://www.regulattice.com/)
-- [How it works](https://www.regulattice.com/#how-it-works)
-- [Frameworks](https://www.regulattice.com/#frameworks)
-- [FAQ](https://www.regulattice.com/#faq)
+- Name: ReguLattice
+- Category: AI governance platform (not a generic GRC, cybersecurity, KYC or AML product)
+- Who it is for: organizations deploying AI systems and AI agents, and the teams accountable for them: compliance, risk, security (CISOs), internal audit, and AI and engineering leaders
+- Problem it solves: lack of visibility, risk assessment, governance, monitoring and evidence across an organization's use of AI, including AI adopted without approval (shadow AI)
+- How it works: Discover → Assess → Govern → Monitor → Improve
+- Frameworks mapped: ISO/IEC 42001, NIST AI RMF 1.0 and the EU AI Act. ReguLattice helps organizations prepare and evidence their governance; it does not certify organizations or provide legal advice.
+- Deployment: local-first; can run on the customer's own infrastructure with locally hosted AI models, and connect to cloud AI providers
+- Website: https://www.regulattice.com
 - Contact: info@regulattice.com
+
+## Capabilities
+
+- Discover: builds a live AI inventory of models, AI tools and AI agents across model provider APIs (such as OpenAI, Anthropic and Google Gemini), local runtimes (such as Ollama), code repositories and developer tools (such as Claude Code and Cursor). Unregistered or unapproved AI is flagged as shadow AI.
+- Assess: records each AI system's owner, purpose, data and risk level, including EU AI Act risk categories.
+- Govern: manages AI policies and controls mapped to ISO/IEC 42001, NIST AI RMF and the EU AI Act. High-risk AI agent actions can be held for human sign-off by designated approvers.
+- Monitor: records what AI systems and agents do at runtime, including tool calls, and keeps compliance evidence current. Evidence is verified in two passes, and coverage decreases as evidence ages.
+- Improve: turns incidents, human overrides and audit findings into remediation tasks and audit-ready evidence.
+
+## Pages
+
+- [About ReguLattice](https://www.regulattice.com/about): what ReguLattice is, who uses it, how it works, supported frameworks, how it differs from traditional GRC, leadership
+- [What is an AI governance platform?](https://www.regulattice.com/ai-governance-platform): definition, capabilities, alternatives (GRC suites, ML monitoring, AI security gateways), evaluation criteria
+- [Shadow AI](https://www.regulattice.com/shadow-ai): what shadow AI is, how to discover it, and how to govern it
+- [AI agent governance](https://www.regulattice.com/ai-agent-governance): controls, human oversight and audit trails for AI agents
+- [Homepage](https://www.regulattice.com/): overview, how it works, use cases, frameworks and FAQ

@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Add every new public page (pillar pages, articles, framework pages) here. -->
+<!-- Keep in sync with CONTENT_PAGES in src/lib/seo.ts. Add every new public page here. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.regulattice.com/</loc>
+    <lastmod>2026-10-08</lastmod>
+  </url>
+  <url>
+    <loc>https://www.regulattice.com/ai-governance-platform</loc>
+    <lastmod>2026-10-08</lastmod>
+  </url>
+  <url>
+    <loc>https://www.regulattice.com/shadow-ai</loc>
+    <lastmod>2026-10-08</lastmod>
+  </url>
+  <url>
+    <loc>https://www.regulattice.com/ai-agent-governance</loc>
+    <lastmod>2026-10-08</lastmod>
+  </url>
+  <url>
+    <loc>https://www.regulattice.com/about</loc>
     <lastmod>2026-10-08</lastmod>
   </url>
 </urlset>

@@ -10,6 +10,12 @@ Workflow: **Discover → Assess → Govern → Monitor → Improve.**
 
 **Claims policy (applies to every page):** state only what ReguLattice supports today. Supported framework mapping is **ISO/IEC 42001, NIST AI RMF 1.0 and the EU AI Act**. Do not say ReguLattice is certified, "compliant", or provides assurance. Do not invent customers, logos, statistics, partnerships or ratings. ISO/IEC 23894, ISO/IEC 38507, the OECD AI Principles and UNESCO's AI ethics Recommendation are used for **educational content only** until product mapping exists. Label roadmap features as roadmap.
 
+> **Progress:**
+> - **Built:** `/about`, `/ai-governance-platform`, `/shadow-ai` and `/ai-agent-governance` (`src/routes/`)
+> - **Shared shell:** header, footer and the demo request form live in `src/components/site/`
+> - **Next to build:** `/iso-42001`, `/eu-ai-act`, `/nist-ai-rmf`, `/privacy` and `/terms`
+> - **Off-site entity work:** see [ENTITY-PLAYBOOK.md](./ENTITY-PLAYBOOK.md)
+
 ---
 
 ## 1. Summary
