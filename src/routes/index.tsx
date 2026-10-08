@@ -38,35 +38,88 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  ENTITY_DEFINITION,
+  HOME_DESCRIPTION,
+  HOME_FAQS,
+  HOME_TITLE,
+  OG_IMAGE,
+  SITE_NAME,
+  SITE_URL,
+  homeStructuredData,
+  jsonLd,
+} from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ReguLattice | Autonomous GRC Data Plane for AI Systems" },
-      {
-        name: "description",
-        content:
-          "Continuously discover deployed AI footprints, verify evidence with dual-pass model consensus, stream real-time telemetry through a live Flight Recorder, and execute gated risk remediations—built for EU AI Act, ISO/IEC 42001, and NIST AI RMF.",
-      },
+      { title: HOME_TITLE },
+      { name: "description", content: HOME_DESCRIPTION },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
       { name: "theme-color", content: "#07121a" },
-      { property: "og:title", content: "ReguLattice | Autonomous GRC Data Plane for AI Systems" },
-      {
-        property: "og:description",
-        content: "Continuous, verifiable governance for enterprise AI systems.",
-      },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: SITE_NAME },
+      { property: "og:url", content: `${SITE_URL}/` },
+      { property: "og:title", content: HOME_TITLE },
+      { property: "og:description", content: HOME_DESCRIPTION },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      {
+        property: "og:image:alt",
+        content: "ReguLattice AI governance platform: discover, assess, govern, monitor, improve",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: HOME_TITLE },
+      { name: "twitter:description", content: HOME_DESCRIPTION },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
   }),
   component: Index,
 });
 
 const navLinks = [
+  { href: "#how-it-works", label: "How it works" },
   { href: "#platform", label: "Platform" },
   { href: "#use-cases", label: "Use cases" },
-  { href: "#architecture", label: "Architecture" },
   { href: "#frameworks", label: "Frameworks" },
+  { href: "#faq", label: "FAQ" },
+];
+
+const footerLinks = [
+  ...navLinks.slice(0, 4),
+  { href: "#architecture", label: "Architecture" },
   { href: "#integrations", label: "Integrations" },
+  navLinks[4]!,
+];
+
+const lifecycle = [
+  {
+    step: "Discover",
+    title: "Find every AI system, including shadow AI",
+    text: "Build a live AI inventory of models, AI tools and AI agents across cloud providers, local runtimes and developer tools, with an owner for every system.",
+  },
+  {
+    step: "Assess",
+    title: "Understand AI risk",
+    text: "Classify each AI system's purpose, data and risk level, including EU AI Act risk categories, and see which controls apply.",
+  },
+  {
+    step: "Govern",
+    title: "Apply policies and human oversight",
+    text: "Manage AI policies and controls mapped to ISO/IEC 42001, NIST AI RMF and the EU AI Act, with human sign-off for high-risk AI actions.",
+  },
+  {
+    step: "Monitor",
+    title: "Watch AI at runtime",
+    text: "Track what AI systems and agents actually do after deployment, and keep compliance evidence current as it ages.",
+  },
+  {
+    step: "Improve",
+    title: "Close the loop",
+    text: "Turn incidents, human overrides and audit findings into remediation tasks, stronger controls and audit-ready evidence.",
+  },
 ];
 
 const ecosystem = [
@@ -106,7 +159,7 @@ const frameworks = [
     id: "01",
     name: "EU Artificial Intelligence Act",
     badge: "EU mandate",
-    articles: "Art. 9 · Art. 14 · Art. 73",
+    articles: "Art. 9 · Art. 14 · Art. 72",
     icon: ShieldCheck,
     controls: [
       {
@@ -118,7 +171,7 @@ const frameworks = [
         text: "Two-stage approval override gates on all automated remediations.",
       },
       {
-        code: "Article 73 — Post-market monitoring",
+        code: "Article 72 — Post-market monitoring",
         text: "Unified Telemetry Flight Recorder capturing live model events.",
       },
     ],
@@ -199,7 +252,7 @@ function Brand({ compact = false }: { compact?: boolean }) {
     <a href="#top" className="flex items-center gap-2.5" aria-label="ReguLattice home">
       <img
         src={logoAsset}
-        alt="ReguLattice lattice shield"
+        alt="ReguLattice logo"
         className={`${compact ? "size-8" : "size-9"} rounded-lg object-cover ring-1 ring-white/10`}
       />
       <span className="font-display text-[17px] font-semibold tracking-tight text-foreground">
@@ -400,6 +453,10 @@ function Index() {
 
   return (
     <div id="top" className="relative min-h-screen overflow-x-clip bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(homeStructuredData()) }}
+      />
       <SiteHeader onRequest={() => openDemoModal("Request Access")} />
 
       <main className="relative">
@@ -409,13 +466,13 @@ function Index() {
           <div className="relative mx-auto max-w-6xl">
             <div className="mx-auto max-w-4xl text-center">
               <a
-                href="#frameworks"
+                href="#how-it-works"
                 className="rise-in group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] py-1 pl-1 pr-3 text-xs text-muted-foreground backdrop-blur-md transition-colors hover:border-primary/30 hover:text-foreground"
               >
-                <span className="rounded-full bg-brand-gradient px-2 py-0.5 font-semibold text-primary-foreground">
-                  New
+                <span className="shrink-0 whitespace-nowrap rounded-full bg-brand-gradient px-2 py-0.5 font-semibold text-primary-foreground">
+                  AI governance
                 </span>
-                EU AI Act, ISO/IEC 42001 &amp; NIST AI RMF — mapped out of the box
+                You can&apos;t govern AI you don&apos;t know exists
                 <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
               </a>
 
@@ -423,20 +480,18 @@ function Index() {
                 className="rise-in mt-8 text-balance font-display text-[2.75rem] font-semibold leading-[1.02] text-foreground sm:text-6xl lg:text-[5.25rem]"
                 style={{ animationDelay: "80ms" }}
               >
-                Govern every AI system.{" "}
+                The AI governance platform for{" "}
                 <span className="font-serif text-[1.08em] font-normal italic tracking-normal text-gradient">
-                  Prove it
+                  every AI system
                 </span>{" "}
-                continuously.
+                and agent.
               </h1>
 
               <p
                 className="rise-in mx-auto mt-7 max-w-2xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8"
                 style={{ animationDelay: "160ms" }}
               >
-                ReguLattice is the autonomous GRC data plane for AI. Discover every model and coding
-                agent, verify evidence with dual-pass model consensus, stream live telemetry, and
-                ship gated remediations — audit-ready, all the time.
+                {ENTITY_DEFINITION}
               </p>
 
               <div
@@ -464,13 +519,15 @@ function Index() {
                 className="rise-in mt-4 font-mono text-[11px] text-muted-foreground/80"
                 style={{ animationDelay: "300ms" }}
               >
-                No credit card · Cloud, on-prem &amp; air-gapped models · SOC 2 Type II event
-                logging
+                ISO/IEC 42001 · NIST AI RMF · EU AI Act · Runs on your own infrastructure
               </p>
             </div>
 
             <div className="rise-in mt-16 sm:mt-20" style={{ animationDelay: "380ms" }}>
               <HeroDashboard />
+              <p className="mt-4 text-center font-mono text-[10px] text-muted-foreground/70">
+                Illustrative product view with sample data.
+              </p>
             </div>
           </div>
         </section>
@@ -511,14 +568,48 @@ function Index() {
           </div>
         </section>
 
+        {/* How it works: AI governance lifecycle */}
+        <section id="how-it-works" className="scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8">
+          <div className="mx-auto max-w-6xl">
+            <SectionHeader
+              eyebrow="How it works"
+              title="How AI governance works"
+              accent="in ReguLattice."
+              text="You can't govern AI you don't know exists. ReguLattice follows one continuous lifecycle: discover, assess, govern, monitor and improve."
+            />
+            <ol className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {lifecycle.map((s, i) => (
+                <li key={s.step} className="h-full">
+                  <Reveal delay={i * 80} className="h-full">
+                    <article className="relative h-full rounded-3xl border border-white/[0.07] bg-card/60 p-6">
+                      <div className="flex items-center gap-3">
+                        <span className="flex size-8 items-center justify-center rounded-full bg-brand-gradient font-mono text-xs font-semibold text-primary-foreground">
+                          {i + 1}
+                        </span>
+                        <span className="font-mono text-xs uppercase tracking-[0.14em] text-primary">
+                          {s.step}
+                        </span>
+                      </div>
+                      <h3 className="mt-5 font-display text-lg font-semibold text-foreground">
+                        {s.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-6 text-muted-foreground">{s.text}</p>
+                    </article>
+                  </Reveal>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
         {/* Platform: four agents */}
         <section id="platform" className="scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <SectionHeader
               eyebrow="The platform"
-              title="Four autonomous agents."
-              accent="One governance plane."
-              text="Specialized compliance engines that work in sync to inspect, verify, monitor, and remediate your entire AI footprint — without slowing your engineers down."
+              title="Four AI governance agents."
+              accent="One platform."
+              text="Specialized agents for AI discovery, evidence verification, AI risk monitoring and remediation work together across your entire AI footprint, without slowing your engineers down."
             />
             <Reveal className="mt-16">
               <AgentShowcase />
@@ -531,9 +622,9 @@ function Index() {
           <div className="mx-auto max-w-6xl">
             <SectionHeader
               eyebrow="Use cases"
-              title="Built for how AI actually"
-              accent="ships today."
-              text="From shadow AI to autonomous coding agents, ReguLattice turns every AI interaction into governed, verifiable evidence."
+              title="AI governance use cases, from shadow AI"
+              accent="to AI agents."
+              text="From unapproved AI tools to autonomous coding agents, ReguLattice turns every AI interaction into governed, verifiable evidence."
             />
             <div className="mt-16">
               <UseCases />
@@ -550,9 +641,9 @@ function Index() {
           <div className="relative mx-auto max-w-6xl">
             <SectionHeader
               eyebrow="Architecture"
-              title="The continuous"
-              accent="control loop."
-              text="Live model endpoints, agentic IDEs, and evidence pipelines flow through one data plane — and come out as verified, regulator-ready compliance."
+              title="From AI systems to"
+              accent="audit-ready evidence."
+              text="Live model endpoints, agentic IDEs and evidence pipelines flow through one governance engine and come out as verified evidence mapped to your AI compliance frameworks."
             />
             <Reveal className="mt-16">
               <ControlLoop />
@@ -564,10 +655,10 @@ function Index() {
         <section id="frameworks" className="scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <SectionHeader
-              eyebrow="Global compliance mapping"
-              title="Every asset, mapped to"
-              accent="the standards that matter."
-              text="ReguLattice maps every asset, telemetry event, and developer tool directly to international AI regulations and standards."
+              eyebrow="AI compliance frameworks"
+              title="Mapped to ISO/IEC 42001, NIST AI RMF"
+              accent="and the EU AI Act."
+              text="ReguLattice maps AI systems, telemetry events and developer tools to the controls and requirements of the major AI governance frameworks, so one piece of evidence can support several of them."
             />
             <div className="mt-16 grid gap-5 lg:grid-cols-3">
               {frameworks.map((fw, i) => {
@@ -605,10 +696,10 @@ function Index() {
                         ))}
                       </ul>
                       <div className="mt-7 flex items-center justify-between rounded-xl bg-white/[0.03] px-4 py-2.5 font-mono text-[10px]">
-                        <span className="text-muted-foreground">COMPLIANCE ENGINE</span>
+                        <span className="text-muted-foreground">EVIDENCE MAPPING</span>
                         <span className="flex items-center gap-1.5 font-semibold text-emerald">
                           <span className="signal-pulse size-1.5 rounded-full bg-emerald" />
-                          100% MAPPED
+                          CONTROLS MAPPED
                         </span>
                       </div>
                     </article>
@@ -626,7 +717,7 @@ function Index() {
               <SectionHeader
                 center={false}
                 eyebrow="Integrations"
-                title="Connects to every model,"
+                title="Govern AI across every model,"
                 accent="everywhere it runs."
               />
               <Reveal className="max-w-sm">
@@ -668,6 +759,36 @@ function Index() {
           </div>
         </section>
 
+        {/* FAQ */}
+        <section id="faq" className="scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8">
+          <div className="mx-auto max-w-3xl">
+            <SectionHeader
+              eyebrow="FAQ"
+              title="AI governance,"
+              accent="answered."
+              text="Straight answers about AI governance platforms, shadow AI, AI agents and the frameworks ReguLattice supports."
+            />
+            <div className="mt-12 divide-y divide-white/[0.07] rounded-3xl border border-white/[0.07] bg-card/50">
+              {HOME_FAQS.map((f) => (
+                <details
+                  key={f.q}
+                  className="group px-6 py-5 [&_summary::-webkit-details-marker]:hidden"
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left">
+                    <h3 className="font-display text-base font-semibold text-foreground sm:text-lg">
+                      {f.q}
+                    </h3>
+                    <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-white/10 text-primary transition-transform duration-300 group-open:rotate-45">
+                      +
+                    </span>
+                  </summary>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Final CTA */}
         <section id="demo" className="px-5 pb-24 pt-8 sm:pb-32 lg:px-8">
           <Reveal className="mx-auto max-w-6xl">
@@ -684,14 +805,14 @@ function Index() {
                   className="node-float mx-auto size-20 rounded-2xl object-cover shadow-[var(--shadow-glow)]"
                 />
                 <h2 className="mx-auto mt-8 max-w-3xl text-balance font-display text-4xl font-semibold leading-[1.05] sm:text-6xl">
-                  Build compliant AI at{" "}
+                  Don&apos;t just document your AI governance.{" "}
                   <span className="font-serif font-normal italic tracking-normal text-gradient">
-                    engineering velocity.
+                    Prove it.
                   </span>
                 </h2>
                 <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
-                  Experience continuous AI footprint discovery, live Flight Recorder telemetry, and
-                  gated risk remediation in an interactive environment.
+                  See how ReguLattice discovers your AI systems, assesses AI risk, keeps compliance
+                  evidence current and puts people in charge of high-risk AI decisions.
                 </p>
                 <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
                   <Button
@@ -758,7 +879,7 @@ function Index() {
                 Product
               </div>
               <ul className="mt-4 space-y-2.5 text-sm">
-                {navLinks.map((l) => (
+                {footerLinks.map((l) => (
                   <li key={l.href}>
                     <a
                       href={l.href}

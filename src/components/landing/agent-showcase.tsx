@@ -83,8 +83,8 @@ export const aiPillars: Pillar[] = [
         text: "Confirm systemic errors or flag false positives to maintain model precision.",
       },
       {
-        label: "Article 73 compliance",
-        text: "Automated log retention and incident audit trails for EU AI Act post-market monitoring.",
+        label: "EU AI Act Articles 72 & 73 support",
+        text: "Log retention and incident audit trails that support post-market monitoring and serious-incident reporting.",
       },
     ],
   },
@@ -249,7 +249,7 @@ function TelemetryVisual({ tick }: { tick: number }) {
         <span className="flex items-center gap-2">
           <span className="signal-pulse size-1.5 rounded-full bg-emerald" /> flight-recorder.stream
         </span>
-        <span>retention: 10y</span>
+        <span>retention: per policy</span>
       </div>
       <ul className="space-y-1 p-3">
         {rows.map((e, i) => (
