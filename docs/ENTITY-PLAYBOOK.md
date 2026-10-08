@@ -24,7 +24,6 @@ Use these exact strings everywhere. The source of truth in code is `src/lib/seo.
 | Frameworks mapped | ISO/IEC 42001, NIST AI RMF 1.0, EU AI Act |
 | Website | https://www.regulattice.com |
 | Contact | info@regulattice.com |
-| Leadership | Madiha Mukarram, Co-founder & CEO · Moazzam Waheed, Co-founder & CTO |
 
 **Never describe ReguLattice as:**
 - a generic GRC platform
@@ -55,7 +54,7 @@ Fill every field with the canonical record. Link each profile back to `https://w
 | Profile | What to set | Notes |
 |---|---|---|
 | **LinkedIn company page** | Tagline above; About = 100-word boilerplate; Industry: Software Development; Specialties: AI governance, AI risk management, AI compliance, AI agent governance, shadow AI, AI inventory, ISO 42001, NIST AI RMF, EU AI Act | Post consistently. LinkedIn is a primary source for AI systems describing companies |
-| **Founder LinkedIn profiles** | Headline e.g. "Co-founder & CTO, ReguLattice — AI governance platform"; Experience entry uses the one-sentence description | Add founder profile URLs to `LEADERSHIP[].sameAs` |
+| **Founder LinkedIn profiles** | Headline e.g. "Co-founder & CTO, ReguLattice — AI governance platform"; Experience entry uses the one-sentence description | Keep founder details off the website unless you decide otherwise |
 | **Crunchbase** | Description, categories (Artificial Intelligence, Compliance, Risk Management, SaaS), founders, website | Widely used as a reference for company facts |
 | **GitHub organization** (`regulattice`) | Org description = one sentence; README with the canonical record | Publish genuinely useful open material, e.g. the framework crosswalk in §4 |
 | **G2 and Capterra** | List under AI governance and related categories | Only invite **real** customers or users to review |

@@ -1,22 +1,38 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowDown, ArrowRight, Check, Minus } from "lucide-react";
+import type { ReactNode } from "react";
 
-import { ContentPage } from "@/components/site/content-page";
+import { DiscoveryViz } from "@/components/about/discovery-viz";
 import {
-  CONTACT_EMAIL,
-  ENTITY_DEFINITION,
-  ENTITY_EXPANSION,
-  ENTITY_FACTS,
-  LEADERSHIP,
-  pageHead,
-  type ContentPageMeta,
-} from "@/lib/seo";
+  AdoptionComparison,
+  LayerStack,
+  LocalFirstViz,
+  VisionFlow,
+} from "@/components/about/diagrams";
+import { GovernanceLayerViz } from "@/components/about/governance-layer-viz";
+import { LifecycleViz } from "@/components/about/lifecycle-viz";
+import {
+  AccountabilityIcon,
+  ContinuousIcon,
+  EvidenceIcon,
+  LocalFirstIcon,
+  VendorNeutralIcon,
+  VisibilityIcon,
+} from "@/components/about/line-icons";
+import { Eyebrow, Reveal } from "@/components/landing/reveal";
+import { SiteLayout, useDemoRequest } from "@/components/site/site-shell";
+import { Button } from "@/components/ui/button";
+import { contentPageStructuredData, jsonLd, pageHead, type ContentPageMeta } from "@/lib/seo";
+
+const WHAT_IS =
+  "ReguLattice is an AI-native governance platform for organizations deploying AI systems and AI agents. It provides visibility into AI usage, assesses AI risk, applies governance controls, monitors AI activity, and maintains evidence mapped to recognized AI governance frameworks.";
 
 const meta: ContentPageMeta = {
   path: "/about",
   title: "About ReguLattice | AI Governance Platform",
   description:
     "ReguLattice is an AI-native governance platform that helps organizations discover, assess, govern, monitor, and improve AI systems and AI agents.",
-  h1: "What is ReguLattice?",
+  h1: "Building the Governance Layer for the AI Era",
   breadcrumb: "About ReguLattice",
   kind: "about",
   datePublished: "2026-10-08",
@@ -24,51 +40,51 @@ const meta: ContentPageMeta = {
   faqs: [
     {
       q: "What is ReguLattice?",
-      a: `${ENTITY_DEFINITION} ${ENTITY_EXPANSION}`,
+      a: `${WHAT_IS} It follows a continuous lifecycle: discover, assess, govern, monitor and improve.`,
     },
     {
-      q: "What category of software is ReguLattice?",
-      a: "ReguLattice is an AI governance platform. It is built specifically for governing AI systems and AI agents, rather than being a general-purpose GRC, cybersecurity or compliance tool.",
+      q: "What is an AI governance platform?",
+      a: "An AI governance platform is software that gives an organization one system of record to discover, assess, govern, monitor and improve the AI systems and AI agents it uses, and to produce evidence of that governance for auditors, regulators and customers.",
     },
     {
       q: "Who uses ReguLattice?",
-      a: "Organizations that deploy AI systems and AI agents, particularly in regulated or high-stakes settings. Typical users are compliance and risk teams, CISOs and security teams, internal audit, and the AI and engineering leaders who own AI systems.",
+      a: "Organizations deploying AI systems and AI agents, and the teams accountable for them: compliance, risk, CISOs and security, internal audit, and AI and engineering leaders.",
     },
     {
       q: "How does ReguLattice discover AI systems?",
-      a: "ReguLattice connects to the places AI is used, including model provider APIs such as OpenAI, Anthropic and Google Gemini, local model runtimes such as Ollama, code repositories, and developer tools such as Claude Code and Cursor. Each AI system it finds is added to an AI inventory with an owner, purpose and risk level.",
+      a: "By connecting to the places AI is used: model provider APIs such as OpenAI, Anthropic and Google Gemini, local runtimes such as Ollama, code repositories, and developer tools such as Claude Code and Cursor. Each AI system found is added to an AI inventory with an owner, purpose and risk level.",
     },
     {
-      q: "How does ReguLattice manage shadow AI?",
-      a: "AI that is in use but not registered or approved is flagged as shadow AI. It can then be assigned an owner, assessed for risk, and either approved under policy, replaced with an approved alternative, or restricted.",
+      q: "What is shadow AI?",
+      a: "Shadow AI is AI used inside an organization without being registered, assessed or approved, such as personal AI accounts used with company data, unapproved model API keys or local models. ReguLattice flags it so it can be given an owner, assessed, and approved, replaced or restricted.",
     },
     {
       q: "How does ReguLattice govern AI agents?",
-      a: "ReguLattice records what AI agents do at runtime, including tool calls, and checks actions against deterministic policy rules. High-risk actions can be held for sign-off by designated people, and each decision is logged with its evidence.",
+      a: "It records what AI agents do at runtime, including tool calls, and checks actions against deterministic policy rules. High-risk actions can be held for approval by designated people, and each decision is recorded with its evidence.",
     },
     {
       q: "How does ReguLattice assess AI risk?",
-      a: "Each AI system is assessed on its purpose, the data it uses and the decisions it influences, and classified by risk level, including EU AI Act risk categories. Risks are linked to the controls that address them and to an accountable risk owner.",
+      a: "Each AI system is assessed on its purpose, the data it uses and the decisions it influences, and classified by risk level, including EU AI Act risk categories. Risks are linked to controls and to an accountable owner.",
     },
     {
       q: "Does ReguLattice support ISO/IEC 42001?",
-      a: "Yes. ReguLattice maps AI inventory records, runtime telemetry and documents to ISO/IEC 42001 controls and tracks whether the evidence is still current, which helps organizations prepare for an ISO/IEC 42001 audit. ReguLattice does not issue certification; that is done by accredited certification bodies.",
+      a: "Yes. ReguLattice maps AI inventory records, runtime activity and documents to ISO/IEC 42001 controls and tracks whether that evidence is still current. It helps organizations prepare for an audit; certification is issued by accredited certification bodies.",
     },
     {
-      q: "Does ReguLattice support the NIST AI RMF?",
+      q: "Does ReguLattice support NIST AI RMF?",
       a: "Yes. ReguLattice maps controls and evidence to the NIST AI Risk Management Framework (AI RMF 1.0) and its Govern, Map, Measure and Manage functions.",
     },
     {
-      q: "Does ReguLattice support EU AI Act requirements?",
-      a: "ReguLattice maps evidence to EU AI Act requirements such as risk management (Article 9), record-keeping (Article 12), human oversight (Article 14) and post-market monitoring (Article 72). It helps organizations organize and evidence their obligations; it does not provide legal advice or guarantee compliance.",
+      q: "Does ReguLattice support the EU AI Act?",
+      a: "Yes. ReguLattice maps evidence to EU AI Act requirements such as risk management, record-keeping, human oversight and post-market monitoring. It helps organizations prepare for and evidence their obligations; it does not provide legal advice or certify compliance.",
     },
     {
-      q: "How is ReguLattice different from traditional GRC software?",
-      a: "Traditional GRC software manages policies, risks and controls through periodic, document-based assessments. ReguLattice focuses on the AI layer: discovering AI systems and agents, monitoring their behavior at runtime, keeping humans in charge of high-risk AI actions, and keeping compliance evidence current as it ages.",
+      q: "Can ReguLattice run on customer-controlled infrastructure?",
+      a: "Yes. ReguLattice is local-first: it can run on customer-controlled infrastructure with locally hosted AI models, and it can also connect to cloud AI providers. Local deployment is an option, not a requirement.",
     },
     {
-      q: "Can ReguLattice run on our own infrastructure?",
-      a: "Yes. ReguLattice is local-first and can be deployed in a customer's own environment using locally hosted AI models, so governance data can stay inside that environment.",
+      q: "How is ReguLattice different from traditional GRC?",
+      a: "Traditional GRC manages policies, risks and controls through periodic, document-based assessments. ReguLattice adds the layer GRC was not designed for: discovering AI systems and agents, monitoring them at runtime, keeping people in charge of high-risk AI actions, and keeping evidence current. Many organizations use both.",
     },
   ],
 };
@@ -80,265 +96,549 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <ContentPage
-      meta={meta}
-      eyebrow="About ReguLattice"
-      shortAnswer={
-        <>
-          {ENTITY_DEFINITION} {ENTITY_EXPANSION}
-        </>
-      }
-      sections={[
-        {
-          id: "at-a-glance",
-          title: "ReguLattice at a glance",
-          content: (
-            <table>
-              <tbody>
-                {ENTITY_FACTS.map((f) => (
-                  <tr key={f.label}>
-                    <th scope="row" className="w-40">
-                      {f.label}
-                    </th>
-                    <td>{f.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ),
-        },
-        {
-          id: "problem",
-          title: "What problem does ReguLattice solve?",
-          content: (
-            <>
-              <p>
-                Organizations are adopting AI faster than they can govern it. Teams connect new
-                models, AI tools and AI agents without review. Models and prompts change after
-                deployment. Policies exist on paper, but nothing connects them to what AI systems
-                actually do, and the evidence behind a compliance status quietly goes out of date.
-              </p>
-              <p>
-                At the same time, regulators, auditors and enterprise customers increasingly ask
-                organizations to <strong>show</strong> how their AI is controlled, under the EU AI
-                Act, ISO/IEC 42001 and the NIST AI RMF. ReguLattice closes that gap with one simple
-                principle: <strong>you can&apos;t govern AI you don&apos;t know exists.</strong>
-              </p>
-            </>
-          ),
-        },
-        {
-          id: "how-it-works",
-          title: "How ReguLattice works",
-          content: (
-            <>
-              <p>
-                ReguLattice follows a continuous lifecycle: Discover → Assess → Govern → Monitor →
-                Improve.
-              </p>
-              <ol>
-                <li>
-                  <strong>Discover.</strong> Builds a live AI inventory of models, AI tools and AI
-                  agents across cloud AI providers, local runtimes, code repositories and developer
-                  tools, and flags shadow AI.
-                </li>
-                <li>
-                  <strong>Assess.</strong> Records each AI system&apos;s owner, purpose, data and
-                  risk level, including EU AI Act risk categories.
-                </li>
-                <li>
-                  <strong>Govern.</strong> Manages AI policies and controls mapped to ISO/IEC 42001,
-                  the NIST AI RMF and the EU AI Act, with human sign-off for high-risk AI actions.
-                </li>
-                <li>
-                  <strong>Monitor.</strong> Tracks what AI systems and agents do at runtime and
-                  keeps evidence current. Evidence is verified in two passes, and coverage drops as
-                  evidence ages.
-                </li>
-                <li>
-                  <strong>Improve.</strong> Turns incidents, human overrides and audit findings into
-                  remediation tasks and stronger controls.
-                </li>
-              </ol>
-              <p>
-                For the full category overview, read{" "}
-                <Link to="/ai-governance-platform">what an AI governance platform is</Link>.
-              </p>
-            </>
-          ),
-        },
-        {
-          id: "who-uses-it",
-          title: "Who uses ReguLattice?",
-          content: (
-            <ul>
-              <li>
-                <strong>Compliance teams</strong> preparing for ISO/IEC 42001 audits and EU AI Act
-                obligations.
-              </li>
-              <li>
-                <strong>Risk teams</strong> who need an accountable owner and a risk assessment for
-                every AI system.
-              </li>
-              <li>
-                <strong>CISOs and security teams</strong> concerned about shadow AI and AI agents
-                with access to sensitive systems and data.
-              </li>
-              <li>
-                <strong>Internal audit</strong> teams that need traceable evidence for AI controls.
-              </li>
-              <li>
-                <strong>AI and engineering leaders</strong> who want governance that doesn&apos;t
-                slow delivery.
-              </li>
-            </ul>
-          ),
-        },
-        {
-          id: "frameworks",
-          title: "Which frameworks does ReguLattice support?",
-          content: (
-            <>
-              <p>
-                ReguLattice currently maps controls and evidence to three frameworks. One piece of
-                evidence can support matching requirements in more than one of them.
-              </p>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Framework</th>
-                    <th>Type</th>
-                    <th>What ReguLattice maps</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>ISO/IEC 42001</td>
-                    <td>International management system standard</td>
-                    <td>
-                      AI management system controls, monitoring and event logging, supplier and AI
-                      tool governance
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>NIST AI RMF 1.0</td>
-                    <td>Voluntary US risk management framework</td>
-                    <td>Govern, Map, Measure and Manage functions</td>
-                  </tr>
-                  <tr>
-                    <td>EU AI Act</td>
-                    <td>EU regulation</td>
-                    <td>
-                      Risk management, record-keeping, human oversight and post-market monitoring
-                      requirements
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <p>
-                ReguLattice helps organizations prepare and evidence their governance. It does not
-                certify organizations or provide legal advice.
-              </p>
-            </>
-          ),
-        },
-        {
-          id: "difference",
-          title: "How is ReguLattice different from traditional GRC?",
-          content: (
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Traditional GRC software</th>
-                  <th>ReguLattice AI governance platform</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Scope</td>
-                  <td>IT and business processes in general</td>
-                  <td>AI systems, AI tools and AI agents</td>
-                </tr>
-                <tr>
-                  <td>How it learns what exists</td>
-                  <td>Manual registers and questionnaires</td>
-                  <td>Automated AI discovery, including shadow AI</td>
-                </tr>
-                <tr>
-                  <td>Cadence</td>
-                  <td>Periodic assessments</td>
-                  <td>Continuous runtime monitoring</td>
-                </tr>
-                <tr>
-                  <td>Evidence</td>
-                  <td>Documents collected before an audit</td>
-                  <td>Live evidence, verified in two passes, that ages over time</td>
-                </tr>
-                <tr>
-                  <td>AI agents</td>
-                  <td>Not designed for autonomous actions</td>
-                  <td>Policy checks and human sign-off for high-risk actions</td>
-                </tr>
-              </tbody>
-            </table>
-          ),
-        },
-        {
-          id: "leadership",
-          title: "Leadership",
-          content: (
-            <ul>
-              {LEADERSHIP.map((p) => (
-                <li key={p.name}>
-                  <strong>{p.name}</strong>, {p.role}
+    <SiteLayout theme="light">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(contentPageStructuredData(meta)) }}
+      />
+      <AboutContent />
+    </SiteLayout>
+  );
+}
+
+/* ------------------------------ Helpers ------------------------------ */
+
+function Section({
+  id,
+  children,
+  tone = "plain",
+}: {
+  id?: string;
+  children: ReactNode;
+  tone?: "plain" | "tint";
+}) {
+  return (
+    <section
+      id={id}
+      className={`scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8 ${tone === "tint" ? "bg-muted/60" : ""}`}
+    >
+      <div className="mx-auto max-w-6xl">{children}</div>
+    </section>
+  );
+}
+
+function Intro({
+  eyebrow,
+  title,
+  children,
+  center = true,
+}: {
+  eyebrow: string;
+  title: ReactNode;
+  children?: ReactNode;
+  center?: boolean;
+}) {
+  return (
+    <Reveal className={center ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <h2 className="mt-5 text-balance font-display text-3xl font-semibold leading-[1.1] text-foreground sm:text-5xl">
+        {title}
+      </h2>
+      {children && (
+        <div className="mt-5 text-pretty text-base leading-7 text-muted-foreground sm:text-lg">
+          {children}
+        </div>
+      )}
+    </Reveal>
+  );
+}
+
+function SecondaryButton({ to, children }: { to: "/ai-governance-platform"; children: ReactNode }) {
+  return (
+    <Link
+      to={to}
+      className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-border bg-card px-7 text-sm font-medium text-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40"
+    >
+      {children}
+    </Link>
+  );
+}
+
+/* ------------------------------- Page ------------------------------- */
+
+const progression = [
+  "AI adoption",
+  "More models",
+  "More AI tools",
+  "More AI agents",
+  "More data and decisions",
+  "Greater governance risk",
+];
+
+const mission = [
+  {
+    icon: VisibilityIcon,
+    title: "Visibility",
+    text: "Know what AI exists, where it operates, what it connects to, and who owns it.",
+  },
+  {
+    icon: AccountabilityIcon,
+    title: "Accountability",
+    text: "Keep people responsible for high-risk AI decisions and actions.",
+  },
+  {
+    icon: EvidenceIcon,
+    title: "Evidence",
+    text: "Turn governance activity into continuously maintained, audit-ready evidence.",
+  },
+];
+
+const comparison: { dimension: string; grc: string; regulattice: string }[] = [
+  {
+    dimension: "Scope",
+    grc: "IT and business processes",
+    regulattice: "AI systems, AI tools and AI agents",
+  },
+  {
+    dimension: "AI discovery",
+    grc: "Manual registers and questionnaires",
+    regulattice: "Discovery across model APIs, local runtimes, code and developer tools",
+  },
+  {
+    dimension: "Shadow AI",
+    grc: "Usually not visible",
+    regulattice: "Detected, given an owner and brought under policy",
+  },
+  {
+    dimension: "Risk assessment",
+    grc: "Periodic and document-based",
+    regulattice: "Per AI system, including EU AI Act risk categories",
+  },
+  {
+    dimension: "Runtime monitoring",
+    grc: "Not designed for AI behavior",
+    regulattice: "Continuous monitoring of AI activity",
+  },
+  {
+    dimension: "AI agents",
+    grc: "Not designed for autonomous actions",
+    regulattice: "Policy checks on agent actions",
+  },
+  {
+    dimension: "Evidence",
+    grc: "Collected before audits",
+    regulattice: "Verified, continuously maintained, and aged over time",
+  },
+  {
+    dimension: "Human oversight",
+    grc: "Approval of documents and exceptions",
+    regulattice: "Human sign-off on high-risk AI actions",
+  },
+];
+
+const principles = [
+  {
+    icon: EvidenceIcon,
+    title: "Evidence over assumptions",
+    text: "Governance should be supported by verifiable evidence.",
+  },
+  {
+    icon: AccountabilityIcon,
+    title: "Humans remain accountable",
+    text: "High-risk AI decisions should retain appropriate human oversight.",
+  },
+  {
+    icon: ContinuousIcon,
+    title: "Continuous over periodic",
+    text: "AI governance should evolve as AI systems and environments change.",
+  },
+  {
+    icon: VendorNeutralIcon,
+    title: "Vendor-neutral",
+    text: "Governance should work across different AI models, vendors and technologies.",
+  },
+  {
+    icon: LocalFirstIcon,
+    title: "Local-first",
+    text: "Organizations should have the option to govern AI in customer-controlled environments.",
+  },
+];
+
+const frameworks = [
+  {
+    name: "ISO/IEC 42001",
+    text: "AI management systems and governance.",
+    detail: "Controls, roles, monitoring and supplier governance for an AI management system.",
+  },
+  {
+    name: "NIST AI RMF 1.0",
+    text: "Govern → Map → Measure → Manage.",
+    detail: "A voluntary framework for identifying, measuring and managing AI risk.",
+  },
+  {
+    name: "EU AI Act",
+    text: "Risk management, human oversight, record-keeping and monitoring.",
+    detail: "Risk-based obligations for providers and deployers of AI systems in the EU.",
+  },
+];
+
+function AboutContent() {
+  const openRequest = useDemoRequest();
+
+  return (
+    <main className="relative">
+      {/* 1. Hero */}
+      <section className="relative px-5 pb-20 pt-32 sm:pt-40 lg:px-8">
+        <div
+          className="lattice-grid pointer-events-none absolute inset-x-0 top-0 h-[640px]"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute -top-32 right-[8%] h-[420px] w-[560px] rounded-full bg-[oklch(0.75_0.15_300/0.18)] blur-[110px]"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute -top-24 left-[6%] h-[360px] w-[460px] rounded-full bg-[oklch(0.8_0.1_215/0.18)] blur-[110px]"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto max-w-6xl">
+          <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
+            <Link to="/" className="hover:text-foreground">
+              Home
+            </Link>{" "}
+            / <span className="text-foreground/80">About ReguLattice</span>
+          </nav>
+          <div className="mt-8 max-w-4xl">
+            <Eyebrow>About ReguLattice</Eyebrow>
+            <h1 className="rise-in mt-6 text-balance font-display text-[2.6rem] font-semibold leading-[1.04] text-foreground sm:text-6xl lg:text-7xl">
+              Building the Governance Layer for the <span className="text-gradient">AI Era</span>
+            </h1>
+            <p
+              className="rise-in mt-7 max-w-2xl text-pretty text-lg leading-8 text-muted-foreground"
+              style={{ animationDelay: "120ms" }}
+            >
+              ReguLattice is an AI-native governance platform helping organizations discover,
+              assess, govern, monitor, and improve the AI systems and agents they deploy.
+            </p>
+            <div
+              className="rise-in mt-9 flex flex-col gap-3 sm:flex-row"
+              style={{ animationDelay: "220ms" }}
+            >
+              <Button
+                variant="hero"
+                size="lg"
+                onClick={() => openRequest("Schedule Technical Demo")}
+              >
+                Request a technical demo <ArrowRight className="size-4" />
+              </Button>
+              <SecondaryButton to="/ai-governance-platform">Explore the platform</SecondaryButton>
+            </div>
+          </div>
+          <div className="rise-in mt-16 sm:mt-20" style={{ animationDelay: "320ms" }}>
+            <GovernanceLayerViz />
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Why ReguLattice exists */}
+      <Section id="why" tone="tint">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+          <Intro
+            center={false}
+            eyebrow="Why ReguLattice exists"
+            title="AI adoption is accelerating. Governance is struggling to keep up."
+          >
+            <p>
+              Organizations are deploying models, copilots, AI applications and autonomous agents
+              faster than traditional governance processes can track them. Each new tool adds data
+              flows and decisions that someone must be able to see, assess and answer for.
+            </p>
+            <p className="mt-4 font-medium text-foreground">
+              ReguLattice provides the governance layer between AI adoption and organizational
+              accountability.
+            </p>
+          </Intro>
+          <Reveal>
+            <ol className="mx-auto max-w-sm space-y-1">
+              {progression.map((p, i) => (
+                <li key={p} className="flex flex-col items-center">
+                  <span
+                    className="w-full rounded-xl border bg-card px-4 py-2.5 text-center text-sm font-medium shadow-sm"
+                    style={{
+                      borderColor:
+                        i === progression.length - 1
+                          ? "var(--rose)"
+                          : `color-mix(in oklab, var(--amber) ${i * 14}%, var(--border))`,
+                      color: i === progression.length - 1 ? "var(--rose)" : undefined,
+                    }}
+                  >
+                    {p}
+                  </span>
+                  {i < progression.length - 1 && (
+                    <ArrowDown className="my-1 size-4 text-muted-foreground" aria-hidden="true" />
+                  )}
                 </li>
               ))}
-            </ul>
-          ),
-        },
-        {
-          id: "contact",
-          title: "Contact",
-          content: (
-            <p>
-              Email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> or follow ReguLattice on{" "}
-              <a
-                href="https://www.linkedin.com/company/regulattice/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
+            </ol>
+          </Reveal>
+        </div>
+        <div className="mt-16">
+          <AdoptionComparison />
+        </div>
+      </Section>
+
+      {/* 3. Core principle */}
+      <Section id="principle">
+        <Reveal className="mx-auto max-w-4xl text-center">
+          <h2 className="text-balance font-display text-4xl font-semibold leading-[1.08] sm:text-6xl">
+            You can&apos;t govern AI{" "}
+            <span className="text-gradient">you don&apos;t know exists.</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+            ReguLattice starts with visibility. It discovers AI systems, tools and agents across the
+            environment before organizations attempt to assess and govern them.
+          </p>
+        </Reveal>
+        <Reveal className="mt-14">
+          <DiscoveryViz />
+        </Reveal>
+        <p className="mt-8 text-center text-sm text-muted-foreground">
+          Learn more about{" "}
+          <Link to="/shadow-ai" className="text-primary hover:underline">
+            shadow AI discovery and governance
+          </Link>
+          .
+        </p>
+      </Section>
+
+      {/* 4. Mission */}
+      <Section id="mission" tone="tint">
+        <Intro eyebrow="Our mission" title="Make AI accountable, observable, and governable." />
+        <div className="mt-14 grid gap-5 md:grid-cols-3">
+          {mission.map(({ icon: Icon, title, text }, i) => (
+            <Reveal key={title} delay={i * 100} className="h-full">
+              <article className="card-soft h-full p-7">
+                <div className="flex size-16 items-center justify-center rounded-2xl bg-accent text-primary">
+                  <Icon />
+                </div>
+                <h3 className="mt-6 font-display text-xl font-semibold">{title}</h3>
+                <p className="mt-2 leading-7 text-muted-foreground">{text}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* 5. What is ReguLattice? */}
+      <Section id="what-is-regulattice">
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <Reveal>
+            <Eyebrow>AI governance platform</Eyebrow>
+            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight sm:text-5xl">
+              What is ReguLattice?
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-foreground/85">{WHAT_IS}</p>
+            <p className="mt-5 font-mono text-sm text-primary">
+              Discover → Assess → Govern → Monitor → Improve
+            </p>
+            <p className="mt-5 text-sm text-muted-foreground">
+              New to the category? Read{" "}
+              <Link to="/ai-governance-platform" className="text-primary hover:underline">
+                what an AI governance platform is
+              </Link>{" "}
+              and{" "}
+              <Link to="/ai-agent-governance" className="text-primary hover:underline">
+                how AI agent governance works
+              </Link>
               .
             </p>
-          ),
-        },
-      ]}
-      references={[]}
-      related={[
-        {
-          to: "/ai-governance-platform",
-          label: "What is an AI governance platform?",
-          text: "Capabilities, alternatives and how to evaluate a platform.",
-        },
-        {
-          to: "/shadow-ai",
-          label: "Shadow AI governance",
-          text: "How to discover and govern AI your organization doesn't know about.",
-        },
-        {
-          to: "/ai-agent-governance",
-          label: "AI agent governance",
-          text: "Controls and human oversight for autonomous AI agents.",
-        },
-      ]}
-      cta={{
-        title: "See the ReguLattice AI governance platform",
-        text: "Book a technical demo to see AI discovery, risk assessment, runtime monitoring and evidence in your own environment.",
-        button: "Book a technical demo",
-        requestType: "Schedule Technical Demo",
-      }}
-    />
+          </Reveal>
+          <Reveal delay={120}>
+            <LifecycleViz />
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* 6. A new layer */}
+      <Section id="new-layer" tone="tint">
+        <Intro eyebrow="A new layer" title="Why AI governance needs a new layer">
+          <p>
+            Traditional governance was built for processes and documents. AI systems change, act and
+            multiply continuously. ReguLattice adds the layer designed specifically for AI, and
+            works alongside the governance you already have.
+          </p>
+        </Intro>
+        <div className="mt-14 grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <Reveal>
+            <LayerStack />
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="card-soft overflow-hidden">
+              <div className="grid grid-cols-2 gap-x-3 border-b border-border bg-muted/60 px-5 py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground sm:grid-cols-[0.8fr_1fr_1.2fr]">
+                <span className="hidden sm:block" />
+                <span>Traditional GRC</span>
+                <span className="text-primary">ReguLattice</span>
+              </div>
+              <ul>
+                {comparison.map((c) => (
+                  <li
+                    key={c.dimension}
+                    className="grid grid-cols-2 gap-x-3 gap-y-1.5 border-b border-border px-5 py-3.5 text-sm last:border-0 sm:grid-cols-[0.8fr_1fr_1.2fr]"
+                  >
+                    <span className="col-span-2 font-medium text-foreground sm:col-span-1">
+                      {c.dimension}
+                    </span>
+                    <span className="flex gap-2 text-muted-foreground">
+                      <Minus className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />
+                      {c.grc}
+                    </span>
+                    <span className="flex gap-2 text-foreground/90">
+                      <Check className="mt-0.5 size-3.5 shrink-0 text-emerald" aria-hidden="true" />
+                      {c.regulattice}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* 7. Principles */}
+      <Section id="principles">
+        <Intro eyebrow="Our principles" title="What we believe about governing AI" />
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {principles.map(({ icon: Icon, title, text }, i) => (
+            <Reveal key={title} delay={i * 80} className="h-full">
+              <article className="card-soft h-full p-6">
+                <div className="text-primary">
+                  <Icon />
+                </div>
+                <h3 className="mt-5 font-display text-lg font-semibold leading-snug">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* 8. Local-first */}
+      <Section id="local-first" tone="tint">
+        <Intro eyebrow="Local-first architecture" title="Govern AI where your data lives">
+          <p>
+            ReguLattice is designed with a local-first approach, allowing organizations to deploy
+            governance capabilities on customer-controlled infrastructure while connecting to the AI
+            technologies they use. Local deployment is an option, not a requirement: the same
+            governance layer works across local models and cloud AI providers.
+          </p>
+        </Intro>
+        <Reveal className="mt-14">
+          <LocalFirstViz />
+        </Reveal>
+      </Section>
+
+      {/* 9. Frameworks */}
+      <Section id="frameworks">
+        <Intro eyebrow="Frameworks" title="Built around recognized AI governance frameworks" />
+        <div className="mt-14 grid gap-5 md:grid-cols-3">
+          {frameworks.map((f, i) => (
+            <Reveal key={f.name} delay={i * 100} className="h-full">
+              <article className="card-soft h-full p-7">
+                <div className="h-1 w-12 rounded-full bg-brand-gradient" />
+                <h3 className="mt-6 font-display text-2xl font-semibold">{f.name}</h3>
+                <p className="mt-2 font-medium text-foreground/85">{f.text}</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{f.detail}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+        <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-muted-foreground">
+          ReguLattice helps organizations prepare for and evidence governance activities. It does
+          not provide legal advice or certify compliance.
+        </p>
+      </Section>
+
+      {/* 10. Vision */}
+      <Section id="vision" tone="tint">
+        <Intro
+          eyebrow="Our vision"
+          title="A future where every AI system is visible and accountable"
+        >
+          <p>
+            AI is becoming embedded in applications, workflows and autonomous agents. Static
+            documentation can&apos;t keep pace with systems that change every week. Organizations
+            need continuous visibility and governance, so that trust in AI is earned through
+            evidence.
+          </p>
+        </Intro>
+        <Reveal className="mt-14">
+          <VisionFlow />
+        </Reveal>
+      </Section>
+
+      {/* 11. FAQ */}
+      <Section id="faq">
+        <div className="mx-auto max-w-3xl">
+          <Intro eyebrow="FAQ" title="Frequently asked questions" />
+          <div className="card-soft mt-12 divide-y divide-border">
+            {meta.faqs.map((f) => (
+              <details
+                key={f.q}
+                className="group px-6 py-5 [&_summary::-webkit-details-marker]:hidden"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left">
+                  <h3 className="font-display text-base font-semibold sm:text-lg">{f.q}</h3>
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-border text-primary transition-transform duration-300 group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* 12. CTA */}
+      <section className="px-5 pb-24 lg:px-8">
+        <Reveal className="mx-auto max-w-6xl">
+          <div className="relative overflow-hidden rounded-[2rem] bg-[oklch(0.2_0.045_268)] px-6 py-16 text-center text-white sm:px-12 sm:py-20">
+            <div
+              className="absolute -bottom-40 left-1/2 h-[380px] w-[680px] max-w-full -translate-x-1/2 rounded-full opacity-60 blur-[100px]"
+              style={{ backgroundImage: "var(--brand-gradient)" }}
+              aria-hidden="true"
+            />
+            <div className="relative">
+              <h2 className="mx-auto max-w-3xl text-balance font-display text-3xl font-semibold leading-tight sm:text-5xl">
+                See what AI governance looks like in practice
+              </h2>
+              <p className="mx-auto mt-5 max-w-xl text-white/75">
+                Explore how ReguLattice helps organizations discover, assess, govern, monitor, and
+                improve their AI environment.
+              </p>
+              <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Button
+                  variant="hero"
+                  size="lg"
+                  onClick={() => openRequest("Schedule Technical Demo")}
+                >
+                  Request a technical demo <ArrowRight className="size-4" />
+                </Button>
+                <Link
+                  to="/ai-governance-platform"
+                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/25 px-7 text-sm font-medium text-white transition-colors hover:bg-white/10"
+                >
+                  Explore the platform
+                </Link>
+              </div>
+            </div>
+          </div>
+          <p className="mt-12 text-center font-display text-lg font-medium text-foreground/80">
+            ReguLattice —{" "}
+            <span className="text-gradient">AI governance you can observe and prove.</span>
+          </p>
+        </Reveal>
+      </section>
+    </main>
   );
 }
