@@ -203,7 +203,7 @@ function EvidenceVisual() {
   const items = [
     { k: "Art. 9  Risk management", v: 100 },
     { k: "Art. 14 Human oversight", v: 92 },
-    { k: "Art. 73 Post-market", v: 84 },
+    { k: "Art. 72 Post-market", v: 84 },
   ];
   return (
     <div ref={ref} className="space-y-3">

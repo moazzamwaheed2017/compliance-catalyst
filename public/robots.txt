@@ -1,14 +1,8 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
+# ReguLattice — https://www.regulattice.com
+# Search engines and AI answer engines are welcome to crawl public pages.
 
 User-agent: *
 Allow: /
+Disallow: /api/
+
+Sitemap: https://www.regulattice.com/sitemap.xml

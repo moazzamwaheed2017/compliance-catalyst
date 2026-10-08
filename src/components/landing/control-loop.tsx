@@ -11,7 +11,7 @@ const inputs = [
 ];
 
 const outputs = [
-  { label: "EU AI Act Art. 9, 14 & 73", sub: "Audit-ready logs" },
+  { label: "EU AI Act Art. 9, 14 & 72", sub: "Audit-ready logs" },
   { label: "ISO/IEC 42001", sub: "Control verification" },
   { label: "Flight Recorder", sub: "5-second event stream" },
   { label: "Human approvals", sub: "Multi-role gated sign-off" },
@@ -126,11 +126,9 @@ export function ControlLoop() {
                 alt=""
                 className="node-float mx-auto size-24 rounded-2xl object-cover"
               />
-              <div className="mt-3 font-display text-base font-semibold">
-                ReguLattice Data Plane
-              </div>
+              <div className="mt-3 font-display text-base font-semibold">ReguLattice</div>
               <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-primary">
-                Autonomous GRC engine
+                AI governance engine
               </div>
               <div className="mt-4 flex flex-wrap justify-center gap-1.5 font-mono text-[9px] uppercase">
                 {["Discovery", "Dual-pass RAG", "Flight Recorder", "Gated remediation"].map((t) => (
