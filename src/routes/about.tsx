@@ -67,7 +67,7 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <SiteLayout theme="light">
+    <SiteLayout>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(contentPageStructuredData(meta)) }}
@@ -89,10 +89,7 @@ function Section({
   tone?: "plain" | "tint";
 }) {
   return (
-    <section
-      id={id}
-      className={`scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8 ${tone === "tint" ? "bg-muted/60" : ""}`}
-    >
+    <section id={id} className={`scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8 `}>
       <div className="mx-auto max-w-6xl">{children}</div>
     </section>
   );
@@ -126,12 +123,9 @@ function Intro({
 
 function SecondaryButton({ to, children }: { to: "/ai-governance-platform"; children: ReactNode }) {
   return (
-    <Link
-      to={to}
-      className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-border bg-card px-7 text-sm font-medium text-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40"
-    >
-      {children}
-    </Link>
+    <Button asChild variant="architectural" size="lg">
+      <Link to={to}>{children}</Link>
+    </Button>
   );
 }
 
@@ -247,11 +241,11 @@ function AboutContent() {
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute -top-32 right-[8%] h-[420px] w-[560px] rounded-full bg-[oklch(0.75_0.15_300/0.18)] blur-[110px]"
+          className="pointer-events-none absolute -top-32 right-[8%] h-[420px] w-[560px] rounded-full bg-[oklch(0.75_0.13_220/0.2)] blur-[120px]"
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute -top-24 left-[6%] h-[360px] w-[460px] rounded-full bg-[oklch(0.8_0.1_215/0.18)] blur-[110px]"
+          className="pointer-events-none absolute -top-24 left-[6%] h-[360px] w-[460px] rounded-full bg-[oklch(0.8_0.13_180/0.22)] blur-[120px]"
           aria-hidden="true"
         />
         <div className="relative mx-auto max-w-6xl">
@@ -294,7 +288,7 @@ function AboutContent() {
       </section>
 
       {/* 2. Why ReguLattice exists */}
-      <Section id="why" tone="tint">
+      <Section id="why">
         <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <Intro
             center={false}
@@ -365,7 +359,7 @@ function AboutContent() {
       </Section>
 
       {/* 4. Mission */}
-      <Section id="mission" tone="tint">
+      <Section id="mission">
         <Intro eyebrow="Our mission" title="Make AI accountable, observable, and governable." />
         <div className="mt-14 grid gap-5 md:grid-cols-3">
           {mission.map(({ icon: Icon, title, text }, i) => (
@@ -409,7 +403,7 @@ function AboutContent() {
       </Section>
 
       {/* 6. A new layer */}
-      <Section id="new-layer" tone="tint">
+      <Section id="new-layer">
         <Intro eyebrow="A new layer" title="Why AI governance needs a new layer">
           <p>
             Traditional governance was built for processes and documents. AI systems change, act and
@@ -472,7 +466,7 @@ function AboutContent() {
       </Section>
 
       {/* 8. Local-first */}
-      <Section id="local-first" tone="tint">
+      <Section id="local-first">
         <Intro eyebrow="Local-first architecture" title="Govern AI where your data lives">
           <p>
             ReguLattice is designed with a local-first approach, allowing organizations to deploy
@@ -505,7 +499,7 @@ function AboutContent() {
       </Section>
 
       {/* 11. FAQ */}
-      <Section id="faq" tone="tint">
+      <Section id="faq">
         <div className="mx-auto max-w-3xl">
           <Intro eyebrow="FAQ" title="About ReguLattice, answered" />
           <div className="card-soft mt-12 divide-y divide-border">
@@ -537,17 +531,17 @@ function AboutContent() {
       {/* 12. CTA */}
       <section className="px-5 pb-24 lg:px-8">
         <Reveal className="mx-auto max-w-6xl">
-          <div className="relative overflow-hidden rounded-[2rem] bg-[oklch(0.2_0.045_268)] px-6 py-16 text-center text-white sm:px-12 sm:py-20">
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-card px-6 py-16 text-center sm:px-12 sm:py-20">
+            <div className="lattice-grid absolute inset-0 opacity-80" aria-hidden="true" />
             <div
-              className="absolute -bottom-40 left-1/2 h-[380px] w-[680px] max-w-full -translate-x-1/2 rounded-full opacity-60 blur-[100px]"
-              style={{ backgroundImage: "var(--brand-gradient)" }}
+              className="aurora absolute -bottom-40 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-[oklch(0.8_0.13_180/0.28)] blur-[110px]"
               aria-hidden="true"
             />
             <div className="relative">
               <h2 className="mx-auto max-w-3xl text-balance font-display text-3xl font-semibold leading-tight sm:text-5xl">
                 See what AI governance looks like in practice
               </h2>
-              <p className="mx-auto mt-5 max-w-xl text-white/75">
+              <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
                 Explore how ReguLattice helps organizations discover, assess, govern, monitor, and
                 improve their AI environment.
               </p>
@@ -559,12 +553,7 @@ function AboutContent() {
                 >
                   Request a technical demo <ArrowRight className="size-4" />
                 </Button>
-                <Link
-                  to="/ai-governance-platform"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/25 px-7 text-sm font-medium text-white transition-colors hover:bg-white/10"
-                >
-                  Explore the platform
-                </Link>
+                <SecondaryButton to="/ai-governance-platform">Explore the platform</SecondaryButton>
               </div>
             </div>
           </div>
