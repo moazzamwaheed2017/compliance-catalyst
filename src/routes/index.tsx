@@ -1,25 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  ArrowUpRight,
   Check,
   Code2,
   Cpu as CpuIcon,
-  Instagram,
   Layers,
-  Linkedin,
-  Loader2,
   Lock,
-  Mail,
-  Menu,
   Network,
   Server,
   ShieldCheck,
-  Sparkles,
-  X,
 } from "lucide-react";
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
 
 import logoAsset from "@/assets/regulattice-logo.jpg";
 import { AgentShowcase } from "@/components/landing/agent-showcase";
@@ -27,19 +17,11 @@ import { ControlLoop } from "@/components/landing/control-loop";
 import { HeroDashboard } from "@/components/landing/hero-dashboard";
 import { Eyebrow, Reveal } from "@/components/landing/reveal";
 import { UseCases } from "@/components/landing/use-cases";
+import { SiteLayout, useDemoRequest } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import {
   ENTITY_DEFINITION,
+  ENTITY_EXPANSION,
   HOME_DESCRIPTION,
   HOME_FAQS,
   HOME_TITLE,
@@ -78,21 +60,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
-
-const navLinks = [
-  { href: "#how-it-works", label: "How it works" },
-  { href: "#platform", label: "Platform" },
-  { href: "#use-cases", label: "Use cases" },
-  { href: "#frameworks", label: "Frameworks" },
-  { href: "#faq", label: "FAQ" },
-];
-
-const footerLinks = [
-  ...navLinks.slice(0, 4),
-  { href: "#architecture", label: "Architecture" },
-  { href: "#integrations", label: "Integrations" },
-  navLinks[4]!,
-];
 
 const lifecycle = [
   {
@@ -247,21 +214,6 @@ const connectorCategories = [
   },
 ];
 
-function Brand({ compact = false }: { compact?: boolean }) {
-  return (
-    <a href="#top" className="flex items-center gap-2.5" aria-label="ReguLattice home">
-      <img
-        src={logoAsset}
-        alt="ReguLattice logo"
-        className={`${compact ? "size-8" : "size-9"} rounded-lg object-cover ring-1 ring-white/10`}
-      />
-      <span className="font-display text-[17px] font-semibold tracking-tight text-foreground">
-        Regu<span className="text-gradient">Lattice</span>
-      </span>
-    </a>
-  );
-}
-
 function SectionHeader({
   eyebrow,
   title,
@@ -298,72 +250,6 @@ function SectionHeader({
   );
 }
 
-function SiteHeader({ onRequest }: { onRequest: () => void }) {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
-      <nav
-        className={`mx-auto flex h-14 max-w-6xl items-center justify-between rounded-2xl px-3 pl-4 transition-all duration-500 ${
-          scrolled || open
-            ? "glass bg-background/85 shadow-[0_10px_40px_-10px_oklch(0_0_0/0.6)]"
-            : "border border-transparent"
-        }`}
-        aria-label="Main navigation"
-      >
-        <Brand />
-        <div className="hidden items-center gap-1 text-sm text-muted-foreground lg:flex">
-          {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="rounded-full px-3.5 py-1.5 transition-colors hover:bg-white/[0.05] hover:text-foreground"
-            >
-              {l.label}
-            </a>
-          ))}
-        </div>
-        <div className="flex items-center gap-2">
-          <Button variant="ink" size="sm" className="h-9 px-4" onClick={onRequest}>
-            Request access
-          </Button>
-          <button
-            type="button"
-            className="flex size-9 items-center justify-center rounded-full text-muted-foreground hover:bg-white/5 lg:hidden"
-            onClick={() => setOpen((o) => !o)}
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
-        </div>
-      </nav>
-      {open && (
-        <div className="glass mx-auto mt-2 max-w-6xl rounded-2xl bg-background/90 p-2 lg:hidden">
-          {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="block rounded-xl px-4 py-3 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground"
-            >
-              {l.label}
-            </a>
-          ))}
-        </div>
-      )}
-    </header>
-  );
-}
-
 function AuroraBackground() {
   return (
     <div
@@ -386,79 +272,22 @@ function AuroraBackground() {
 }
 
 function Index() {
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [requestType, setRequestType] = useState("Schedule Technical Demo");
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    role: "",
-    notes: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  return (
+    <SiteLayout>
+      <HomeContent />
+    </SiteLayout>
+  );
+}
 
-  useEffect(() => {
-    try {
-      fetch("/api/public/log-visitor", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          url: window.location.href,
-          referrer: document.referrer || "Direct",
-        }),
-      }).catch((err) => console.warn("Visitor logging notice:", err));
-    } catch {
-      // Ignore client side fetch error
-    }
-  }, []);
-
-  const openDemoModal = (type: string) => {
-    setRequestType(type);
-    setDialogOpen(true);
-  };
-
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("/api/public/demo-request", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          requestType,
-          ...formData,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.ok) {
-        toast.success(
-          requestType.includes("Sandbox")
-            ? "14-Day Developer Sandbox Trial requested! Check your email shortly for API keys."
-            : "Request sent! Notification dispatched to the ReguLattice Team.",
-        );
-        setDialogOpen(false);
-        setFormData({ name: "", email: "", company: "", role: "", notes: "" });
-      } else {
-        toast.error(data.details || "Failed to send request. Please try again.");
-      }
-    } catch (err) {
-      toast.error("Network error sending demo request.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+function HomeContent() {
+  const openDemoModal = useDemoRequest();
 
   return (
-    <div id="top" className="relative min-h-screen overflow-x-clip bg-background text-foreground">
+    <div id="top">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(homeStructuredData()) }}
       />
-      <SiteHeader onRequest={() => openDemoModal("Request Access")} />
-
       <main className="relative">
         {/* Hero */}
         <section className="relative px-5 pb-20 pt-36 sm:pt-44 lg:px-8">
@@ -491,7 +320,7 @@ function Index() {
                 className="rise-in mx-auto mt-7 max-w-2xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8"
                 style={{ animationDelay: "160ms" }}
               >
-                {ENTITY_DEFINITION}
+                {ENTITY_DEFINITION} {ENTITY_EXPANSION}
               </p>
 
               <div
@@ -599,6 +428,13 @@ function Index() {
                 </li>
               ))}
             </ol>
+            <p className="mt-10 text-center text-sm text-muted-foreground">
+              New to the category?{" "}
+              <Link to="/ai-governance-platform" className="text-primary hover:underline">
+                Read what an AI governance platform is and how to choose one
+              </Link>
+              .
+            </p>
           </div>
         </section>
 
@@ -628,6 +464,14 @@ function Index() {
             />
             <div className="mt-16">
               <UseCases />
+            </div>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 text-sm sm:flex-row sm:gap-6">
+              <Link to="/shadow-ai" className="text-primary hover:underline">
+                Guide: how to discover and govern shadow AI →
+              </Link>
+              <Link to="/ai-agent-governance" className="text-primary hover:underline">
+                Guide: how to govern AI agents →
+              </Link>
             </div>
           </div>
         </section>
@@ -837,232 +681,6 @@ function Index() {
           </Reveal>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="relative border-t border-white/[0.06] px-5 pb-10 pt-16 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
-            <div>
-              <Brand compact />
-              <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
-                The autonomous GRC data plane for AI systems and agentic workflows.
-              </p>
-              <div className="mt-6 flex items-center gap-2">
-                {[
-                  { href: "mailto:info@regulattice.com", icon: Mail, label: "Email" },
-                  {
-                    href: "https://www.linkedin.com/company/regulattice/",
-                    icon: Linkedin,
-                    label: "LinkedIn",
-                  },
-                  {
-                    href: "https://www.instagram.com/regulattice/",
-                    icon: Instagram,
-                    label: "Instagram",
-                  },
-                ].map(({ href, icon: Icon, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target={href.startsWith("http") ? "_blank" : undefined}
-                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    aria-label={label}
-                    className="flex size-9 items-center justify-center rounded-full border border-white/10 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
-                  >
-                    <Icon className="size-4" />
-                  </a>
-                ))}
-              </div>
-            </div>
-            <div>
-              <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground/70">
-                Product
-              </div>
-              <ul className="mt-4 space-y-2.5 text-sm">
-                {footerLinks.map((l) => (
-                  <li key={l.href}>
-                    <a
-                      href={l.href}
-                      className="text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground/70">
-                Company
-              </div>
-              <ul className="mt-4 space-y-2.5 text-sm">
-                <li>
-                  <a
-                    href="mailto:info@regulattice.com"
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    info@regulattice.com
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/company/regulattice/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    LinkedIn <ArrowUpRight className="size-3" />
-                  </a>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => openDemoModal("Schedule Technical Demo")}
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    Book a demo
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/[0.06] pt-6 font-mono text-[11px] text-muted-foreground/70 sm:flex-row">
-            <span>© 2026 ReguLattice Inc. All rights reserved.</span>
-            <span>ISO/IEC 42001 schema · EU AI Act · NIST AI RMF</span>
-          </div>
-        </div>
-      </footer>
-
-      {/* Demo / Sandbox Modal */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="glass rounded-2xl border-white/10 bg-popover/95 sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="font-display text-xl font-bold flex items-center gap-2">
-              <ShieldCheck className="size-5 text-primary" />
-              {requestType}
-            </DialogTitle>
-            <DialogDescription className="text-xs text-muted-foreground">
-              Complete details below to submit your request. An instant notification will be sent
-              directly to the <strong className="text-foreground">ReguLattice Team</strong>.
-            </DialogDescription>
-          </DialogHeader>
-
-          {requestType.includes("Sandbox") && (
-            <div className="mt-2 rounded-xl border border-primary/30 bg-primary/10 p-3.5 text-xs flex items-center gap-3 text-primary">
-              <div className="size-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                <Sparkles className="size-4 text-primary" />
-              </div>
-              <div>
-                <div className="font-bold text-foreground">14-Day Free Developer Sandbox Trial</div>
-                <div className="text-[11px] text-muted-foreground mt-0.5">
-                  Includes full access to ReguLattice GRC API, live telemetry Flight Recorder, and
-                  pre-loaded test schemas. Zero credit card required.
-                </div>
-              </div>
-            </div>
-          )}
-
-          <form onSubmit={handleFormSubmit} className="space-y-4 pt-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="name" className="text-xs font-mono uppercase text-muted-foreground">
-                Full Name
-              </Label>
-              <Input
-                id="name"
-                placeholder="e.g. Jane Doe"
-                value={formData.name}
-                onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
-                className="border-white/10 bg-background/60"
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-xs font-mono uppercase text-muted-foreground">
-                Email Address *
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                required
-                placeholder="name@company.com"
-                value={formData.email}
-                onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
-                className="border-white/10 bg-background/60"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1.5">
-                <Label
-                  htmlFor="company"
-                  className="text-xs font-mono uppercase text-muted-foreground"
-                >
-                  Company
-                </Label>
-                <Input
-                  id="company"
-                  placeholder="Enterprise Inc."
-                  value={formData.company}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, company: e.target.value }))}
-                  className="border-white/10 bg-background/60"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <Label htmlFor="role" className="text-xs font-mono uppercase text-muted-foreground">
-                  Job Title / Role
-                </Label>
-                <Input
-                  id="role"
-                  placeholder="CTO / CISO / Lead"
-                  value={formData.role}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, role: e.target.value }))}
-                  className="border-white/10 bg-background/60"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <Label htmlFor="notes" className="text-xs font-mono uppercase text-muted-foreground">
-                Requirements / Notes (Optional)
-              </Label>
-              <Textarea
-                id="notes"
-                rows={3}
-                placeholder="Tell us about your AI footprint or compliance target..."
-                value={formData.notes}
-                onChange={(e) => setFormData((prev) => ({ ...prev, notes: e.target.value }))}
-                className="resize-none border-white/10 bg-background/60"
-              />
-            </div>
-
-            <div className="pt-2 flex flex-col gap-2">
-              <Button
-                type="submit"
-                variant="hero"
-                size="lg"
-                disabled={isSubmitting}
-                className="w-full"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="size-4 animate-spin mr-2" /> Sending Notification...
-                  </>
-                ) : requestType.includes("Sandbox") ? (
-                  <>
-                    Start 14-Day Free Sandbox Trial <ArrowRight className="ml-2 size-4" />
-                  </>
-                ) : (
-                  <>
-                    Submit Request &amp; Dispatch Email <ArrowRight className="ml-2 size-4" />
-                  </>
-                )}
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

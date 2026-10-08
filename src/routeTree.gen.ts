@@ -10,12 +10,36 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AiAgentGovernanceRouteImport } from './routes/ai-agent-governance'
+import { Route as AiGovernancePlatformRouteImport } from './routes/ai-governance-platform'
+import { Route as ShadowAiRouteImport } from './routes/shadow-ai'
 import { Route as ApiPublicDemoRequestRouteImport } from './routes/api/public/demo-request'
 import { Route as ApiPublicLogVisitorRouteImport } from './routes/api/public/log-visitor'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiAgentGovernanceRoute = AiAgentGovernanceRouteImport.update({
+  id: '/ai-agent-governance',
+  path: '/ai-agent-governance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiGovernancePlatformRoute = AiGovernancePlatformRouteImport.update({
+  id: '/ai-governance-platform',
+  path: '/ai-governance-platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShadowAiRoute = ShadowAiRouteImport.update({
+  id: '/shadow-ai',
+  path: '/shadow-ai',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicDemoRequestRoute = ApiPublicDemoRequestRouteImport.update({
@@ -31,30 +55,68 @@ const ApiPublicLogVisitorRoute = ApiPublicLogVisitorRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/ai-agent-governance': typeof AiAgentGovernanceRoute
+  '/ai-governance-platform': typeof AiGovernancePlatformRoute
+  '/shadow-ai': typeof ShadowAiRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/ai-agent-governance': typeof AiAgentGovernanceRoute
+  '/ai-governance-platform': typeof AiGovernancePlatformRoute
+  '/shadow-ai': typeof ShadowAiRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/ai-agent-governance': typeof AiAgentGovernanceRoute
+  '/ai-governance-platform': typeof AiGovernancePlatformRoute
+  '/shadow-ai': typeof ShadowAiRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/public/demo-request' | '/api/public/log-visitor'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/ai-agent-governance'
+    | '/ai-governance-platform'
+    | '/shadow-ai'
+    | '/api/public/demo-request'
+    | '/api/public/log-visitor'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/public/demo-request' | '/api/public/log-visitor'
-  id: '__root__' | '/' | '/api/public/demo-request' | '/api/public/log-visitor'
+  to:
+    | '/'
+    | '/about'
+    | '/ai-agent-governance'
+    | '/ai-governance-platform'
+    | '/shadow-ai'
+    | '/api/public/demo-request'
+    | '/api/public/log-visitor'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/ai-agent-governance'
+    | '/ai-governance-platform'
+    | '/shadow-ai'
+    | '/api/public/demo-request'
+    | '/api/public/log-visitor'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AiAgentGovernanceRoute: typeof AiAgentGovernanceRoute
+  AiGovernancePlatformRoute: typeof AiGovernancePlatformRoute
+  ShadowAiRoute: typeof ShadowAiRoute
   ApiPublicDemoRequestRoute: typeof ApiPublicDemoRequestRoute
   ApiPublicLogVisitorRoute: typeof ApiPublicLogVisitorRoute
 }
@@ -66,6 +128,34 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-agent-governance': {
+      id: '/ai-agent-governance'
+      path: '/ai-agent-governance'
+      fullPath: '/ai-agent-governance'
+      preLoaderRoute: typeof AiAgentGovernanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-governance-platform': {
+      id: '/ai-governance-platform'
+      path: '/ai-governance-platform'
+      fullPath: '/ai-governance-platform'
+      preLoaderRoute: typeof AiGovernancePlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shadow-ai': {
+      id: '/shadow-ai'
+      path: '/shadow-ai'
+      fullPath: '/shadow-ai'
+      preLoaderRoute: typeof ShadowAiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/demo-request': {
@@ -87,6 +177,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AiAgentGovernanceRoute: AiAgentGovernanceRoute,
+  AiGovernancePlatformRoute: AiGovernancePlatformRoute,
+  ShadowAiRoute: ShadowAiRoute,
   ApiPublicDemoRequestRoute: ApiPublicDemoRequestRoute,
   ApiPublicLogVisitorRoute: ApiPublicLogVisitorRoute,
 }
