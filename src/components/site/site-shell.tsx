@@ -21,6 +21,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import { toast } from "sonner";
 
 import logoAsset from "@/assets/regulattice-logo.jpg";
+import { BookingWindow } from "@/components/site/booking-window";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -226,6 +227,9 @@ export function Brand({ compact = false }: { compact?: boolean }) {
 
 /* --------------------------- Demo requests ---------------------------- */
 
+/** Request type that opens the booking calendar instead of the email form. */
+const DEMO_REQUEST = "Schedule Technical Demo";
+
 const DemoRequestContext = createContext<(type: string) => void>(() => {});
 
 /** Opens the demo / access request dialog from anywhere inside <DemoRequestProvider>. */
@@ -245,8 +249,21 @@ export function DemoRequestProvider({ children }: { children: ReactNode }) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const [bookingOpen, setBookingOpen] = useState(false);
+
+  // Demo bookings go to the calendar; access and sandbox requests use the email form.
   const openDemoModal = (type: string) => {
+    if (type === DEMO_REQUEST) {
+      setBookingOpen(true);
+      return;
+    }
     setRequestType(type);
+    setDialogOpen(true);
+  };
+
+  const requestInstead = () => {
+    setBookingOpen(false);
+    setRequestType(DEMO_REQUEST);
     setDialogOpen(true);
   };
 
@@ -415,6 +432,11 @@ export function DemoRequestProvider({ children }: { children: ReactNode }) {
           </form>
         </DialogContent>
       </Dialog>
+      <BookingWindow
+        open={bookingOpen}
+        onOpenChange={setBookingOpen}
+        onRequestInstead={requestInstead}
+      />
     </DemoRequestContext.Provider>
   );
 }
