@@ -10,6 +10,7 @@ export const BOOKING_URL = "https://calendar.app.google/oiTM27CgVCTGYZhm7";
  *   https://calendar.google.com/calendar/appointments/schedules/<ID>?gv=true
  * Until it is set, the booking window shows a button that opens BOOKING_URL in a new tab.
  */
-export const BOOKING_EMBED_URL = "";
+export const BOOKING_EMBED_URL =
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2ytRSFr9SDHtzHxTiuXvfSSItzDFY60s8lG8dQjeRqU6PgoU754EQzcz5nMbRy1OR1DNUGybCe?gv=true";
 
 export const canEmbedBooking = BOOKING_EMBED_URL.includes("/appointments/schedules/");
