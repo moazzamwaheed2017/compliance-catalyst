@@ -11,13 +11,9 @@ import {
 import { BOOKING_EMBED_URL, BOOKING_URL, canEmbedBooking } from "@/lib/booking";
 
 /**
- * Google renders the booking calendar on a white page that can't be restyled from outside.
- * Inverting it (and rotating the hue back) turns it black with light text while keeping
- * Google's blue accents blue; a "lighten" overlay in the dialog colour then replaces the
- * black with the same background as the Request access dialog.
+ * Google's booking calendar is a white page that can't be restyled from outside, so it is
+ * shown as-is (photos and Google's colours stay correct) inside the dark dialog frame.
  */
-const DARK_CALENDAR_FILTER = "invert(1) hue-rotate(180deg) saturate(1.15)";
-
 /** Demo booking window, styled like the "Request access" dialog. */
 export function BookingWindow({
   open,
@@ -53,12 +49,16 @@ export function BookingWindow({
 
         {/* The calendar fills all remaining height so Google's booking popup fits. */}
         <div className="min-h-0 flex-1 px-3 sm:px-6">
-          <div className="relative h-full overflow-hidden rounded-xl border border-white/10 bg-popover">
+          <div
+            className={`relative h-full overflow-hidden rounded-xl border border-white/10 ${
+              canEmbedBooking ? "bg-white" : "bg-popover"
+            }`}
+          >
             {canEmbedBooking ? (
               <>
                 {!loaded && (
-                  <div className="absolute inset-0 z-10 flex items-center justify-center gap-2 bg-background/60 text-sm text-muted-foreground">
-                    <Loader2 className="size-4 animate-spin text-primary" /> Loading available
+                  <div className="absolute inset-0 z-10 flex items-center justify-center gap-2 bg-white text-sm text-slate-500">
+                    <Loader2 className="size-4 animate-spin text-teal-600" /> Loading available
                     times…
                   </div>
                 )}
@@ -67,11 +67,7 @@ export function BookingWindow({
                   title="Book a ReguLattice demo"
                   onLoad={() => setLoaded(true)}
                   className="absolute inset-0 h-full w-full border-0"
-                  style={{ filter: DARK_CALENDAR_FILTER, colorScheme: "light" }}
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 bg-popover mix-blend-lighten"
-                  aria-hidden="true"
+                  style={{ colorScheme: "light" }}
                 />
               </>
             ) : (
