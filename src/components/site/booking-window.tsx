@@ -16,6 +16,13 @@ import { BOOKING_EMBED_URL, BOOKING_URL, canEmbedBooking } from "@/lib/booking";
  * Google's blue accents blue; a "lighten" overlay in the dialog colour then replaces the
  * black with the same background as the Request access dialog.
  */
+/**
+ * Height of Google's top bar (host photo, host name, "Google Calendar" logo). It is shifted
+ * out of view: the window has its own title, the inverted photo would look wrong, and it
+ * keeps the host's personal profile off the site.
+ */
+const GOOGLE_HEADER_PX = 64;
+
 const DARK_CALENDAR_FILTER = "invert(1) hue-rotate(180deg) saturate(1.15)";
 
 /** Demo booking window, styled like the "Request access" dialog. */
@@ -65,8 +72,13 @@ export function BookingWindow({
                   src={BOOKING_EMBED_URL}
                   title="Book a ReguLattice demo"
                   onLoad={() => setLoaded(true)}
-                  className="block h-[min(64vh,700px)] w-full border-0"
-                  style={{ filter: DARK_CALENDAR_FILTER, colorScheme: "light" }}
+                  className="block w-full border-0"
+                  style={{
+                    filter: DARK_CALENDAR_FILTER,
+                    colorScheme: "light",
+                    height: `calc(min(64vh, 700px) + ${GOOGLE_HEADER_PX}px)`,
+                    marginTop: -GOOGLE_HEADER_PX,
+                  }}
                 />
                 <div
                   className="pointer-events-none absolute inset-0 bg-popover mix-blend-lighten"
