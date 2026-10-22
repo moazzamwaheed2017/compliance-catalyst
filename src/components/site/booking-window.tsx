@@ -12,10 +12,11 @@ import { BOOKING_EMBED_URL, BOOKING_URL, canEmbedBooking } from "@/lib/booking";
 
 /**
  * Google renders the booking calendar on a white page that can't be restyled from outside.
- * Inverting it (and rotating the hue back) gives a dark version that matches the site's
- * dialogs while keeping Google's blue accents blue.
+ * Inverting it (and rotating the hue back) turns it black with light text while keeping
+ * Google's blue accents blue; a "lighten" overlay in the dialog colour then replaces the
+ * black with the same background as the Request access dialog.
  */
-const DARK_CALENDAR_FILTER = "invert(0.9) hue-rotate(180deg) saturate(1.1)";
+const DARK_CALENDAR_FILTER = "invert(1) hue-rotate(180deg) saturate(1.15)";
 
 /** Demo booking window, styled like the "Request access" dialog. */
 export function BookingWindow({
@@ -51,7 +52,7 @@ export function BookingWindow({
         </DialogHeader>
 
         <div className="min-h-0 flex-1 px-4 sm:px-6">
-          <div className="relative overflow-hidden rounded-xl border border-white/10 bg-[#1a1a1a]">
+          <div className="relative overflow-hidden rounded-xl border border-white/10 bg-popover">
             {canEmbedBooking ? (
               <>
                 {!loaded && (
@@ -66,6 +67,10 @@ export function BookingWindow({
                   onLoad={() => setLoaded(true)}
                   className="block h-[min(64vh,700px)] w-full border-0"
                   style={{ filter: DARK_CALENDAR_FILTER, colorScheme: "light" }}
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 bg-popover mix-blend-lighten"
+                  aria-hidden="true"
                 />
               </>
             ) : (
