@@ -16,13 +16,6 @@ import { BOOKING_EMBED_URL, BOOKING_URL, canEmbedBooking } from "@/lib/booking";
  * Google's blue accents blue; a "lighten" overlay in the dialog colour then replaces the
  * black with the same background as the Request access dialog.
  */
-/**
- * Height of Google's top bar (host photo, host name, "Google Calendar" logo). It is shifted
- * out of view: the window has its own title, the inverted photo would look wrong, and it
- * keeps the host's personal profile off the site.
- */
-const GOOGLE_HEADER_PX = 64;
-
 const DARK_CALENDAR_FILTER = "invert(1) hue-rotate(180deg) saturate(1.15)";
 
 /** Demo booking window, styled like the "Request access" dialog. */
@@ -46,8 +39,8 @@ export function BookingWindow({
         onOpenChange(o);
       }}
     >
-      <DialogContent className="glass flex max-h-[94vh] w-[calc(100%-1.5rem)] max-w-4xl flex-col gap-0 rounded-2xl border-white/10 bg-popover/95 p-0">
-        <DialogHeader className="px-6 pb-4 pt-6 pr-12">
+      <DialogContent className="glass flex h-[calc(100dvh-1rem)] max-h-[920px] w-[calc(100%-1rem)] max-w-4xl flex-col gap-0 rounded-2xl border-white/10 bg-popover/95 p-0">
+        <DialogHeader className="shrink-0 px-5 pb-3 pt-5 pr-12 sm:px-6">
           <DialogTitle className="flex items-center gap-2 font-display text-xl font-bold">
             <CalendarDays className="size-5 text-primary" />
             Book a ReguLattice demo
@@ -58,8 +51,9 @@ export function BookingWindow({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="min-h-0 flex-1 px-4 sm:px-6">
-          <div className="relative overflow-hidden rounded-xl border border-white/10 bg-popover">
+        {/* The calendar fills all remaining height so Google's booking popup fits. */}
+        <div className="min-h-0 flex-1 px-3 sm:px-6">
+          <div className="relative h-full overflow-hidden rounded-xl border border-white/10 bg-popover">
             {canEmbedBooking ? (
               <>
                 {!loaded && (
@@ -72,13 +66,8 @@ export function BookingWindow({
                   src={BOOKING_EMBED_URL}
                   title="Book a ReguLattice demo"
                   onLoad={() => setLoaded(true)}
-                  className="block w-full border-0"
-                  style={{
-                    filter: DARK_CALENDAR_FILTER,
-                    colorScheme: "light",
-                    height: `calc(min(64vh, 700px) + ${GOOGLE_HEADER_PX}px)`,
-                    marginTop: -GOOGLE_HEADER_PX,
-                  }}
+                  className="absolute inset-0 h-full w-full border-0"
+                  style={{ filter: DARK_CALENDAR_FILTER, colorScheme: "light" }}
                 />
                 <div
                   className="pointer-events-none absolute inset-0 bg-popover mix-blend-lighten"
@@ -86,7 +75,7 @@ export function BookingWindow({
                 />
               </>
             ) : (
-              <div className="flex h-[min(50vh,420px)] flex-col items-center justify-center px-6 text-center">
+              <div className="flex h-full flex-col items-center justify-center px-6 text-center">
                 <div className="flex size-12 items-center justify-center rounded-full bg-primary/15 text-primary">
                   <CalendarDays className="size-6" />
                 </div>
@@ -109,7 +98,7 @@ export function BookingWindow({
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-2 px-6 pb-5 pt-4 text-xs text-muted-foreground sm:flex-row">
+        <div className="flex shrink-0 flex-col items-center justify-between gap-2 px-6 pb-4 pt-3 text-xs text-muted-foreground sm:flex-row">
           <a
             href={BOOKING_URL}
             target="_blank"
