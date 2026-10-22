@@ -1,5 +1,5 @@
 /** Public Google Calendar appointment booking page for ReguLattice demos. */
-export const BOOKING_URL = "https://calendar.app.google/oiTM27CgVCTGYZhm7";
+export const BOOKING_URL = "https://calendar.app.google/L1svGwNuqiXdjUg38";
 
 /**
  * Embeddable version of the booking page, shown inside the booking window.
