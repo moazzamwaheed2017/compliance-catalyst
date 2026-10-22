@@ -14,3 +14,6 @@ export const BOOKING_EMBED_URL =
   "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2ytRSFr9SDHtzHxTiuXvfSSItzDFY60s8lG8dQjeRqU6PgoU754EQzcz5nMbRy1OR1DNUGybCe?gv=true";
 
 export const canEmbedBooking = BOOKING_EMBED_URL.includes("/appointments/schedules/");
+
+/** Developer sandbox (14-day trial) sign-up page. */
+export const SANDBOX_URL = "https://sandbox.regulattice.com/sandbox";
