@@ -19,6 +19,7 @@ import { Eyebrow, Reveal } from "@/components/landing/reveal";
 import { UseCases } from "@/components/landing/use-cases";
 import { SiteLayout, useDemoRequest } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
+import { SANDBOX_URL } from "@/lib/booking";
 import {
   ENTITY_DEFINITION,
   ENTITY_EXPANSION,
@@ -335,13 +336,10 @@ function HomeContent() {
                 >
                   Book a technical demo <ArrowRight className="size-4" />
                 </Button>
-                <Button
-                  variant="architectural"
-                  size="lg"
-                  className="w-full sm:w-auto"
-                  onClick={() => openDemoModal("Access Developer Sandbox (14-Day Trial)")}
-                >
-                  <Code2 className="size-4" /> Start 14-day sandbox
+                <Button asChild variant="architectural" size="lg" className="w-full sm:w-auto">
+                  <a href={SANDBOX_URL}>
+                    <Code2 className="size-4" /> Start 14-day sandbox
+                  </a>
                 </Button>
               </div>
               <p
@@ -667,13 +665,10 @@ function HomeContent() {
                   >
                     Book a technical demo <ArrowRight className="size-4" />
                   </Button>
-                  <Button
-                    variant="architectural"
-                    size="lg"
-                    className="w-full sm:w-auto"
-                    onClick={() => openDemoModal("Access Developer Sandbox (14-Day Trial)")}
-                  >
-                    <Code2 className="size-4" /> Start 14-day sandbox
+                  <Button asChild variant="architectural" size="lg" className="w-full sm:w-auto">
+                    <a href={SANDBOX_URL}>
+                      <Code2 className="size-4" /> Start 14-day sandbox
+                    </a>
                   </Button>
                 </div>
               </div>
