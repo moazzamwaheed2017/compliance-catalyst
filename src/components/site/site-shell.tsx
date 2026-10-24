@@ -286,7 +286,7 @@ export function DemoRequestProvider({ children }: { children: ReactNode }) {
       if (response.ok && data.ok) {
         toast.success(
           requestType.includes("Sandbox")
-            ? "14-Day Developer Sandbox Trial requested! Check your email shortly for API keys."
+            ? "Developer sandbox requested! Check your email shortly for API keys."
             : "Request sent! Notification dispatched to the ReguLattice Team.",
         );
         setDialogOpen(false);
@@ -323,7 +323,7 @@ export function DemoRequestProvider({ children }: { children: ReactNode }) {
                 <Sparkles className="size-4 text-primary" />
               </div>
               <div>
-                <div className="font-bold text-foreground">14-Day Free Developer Sandbox Trial</div>
+                <div className="font-bold text-foreground">Free Developer Sandbox</div>
                 <div className="text-[11px] text-muted-foreground mt-0.5">
                   Includes full access to ReguLattice GRC API, live telemetry Flight Recorder, and
                   pre-loaded test schemas. Zero credit card required.
@@ -420,7 +420,7 @@ export function DemoRequestProvider({ children }: { children: ReactNode }) {
                   </>
                 ) : requestType.includes("Sandbox") ? (
                   <>
-                    Start 14-Day Free Sandbox Trial <ArrowRight className="ml-2 size-4" />
+                    Start Free Sandbox <ArrowRight className="ml-2 size-4" />
                   </>
                 ) : (
                   <>

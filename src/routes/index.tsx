@@ -338,7 +338,7 @@ function HomeContent() {
                 </Button>
                 <Button asChild variant="architectural" size="lg" className="w-full sm:w-auto">
                   <a href={SANDBOX_URL}>
-                    <Code2 className="size-4" /> Start 14-day sandbox
+                    <Code2 className="size-4" /> Start sandbox
                   </a>
                 </Button>
               </div>
@@ -667,7 +667,7 @@ function HomeContent() {
                   </Button>
                   <Button asChild variant="architectural" size="lg" className="w-full sm:w-auto">
                     <a href={SANDBOX_URL}>
-                      <Code2 className="size-4" /> Start 14-day sandbox
+                      <Code2 className="size-4" /> Start sandbox
                     </a>
                   </Button>
                 </div>
