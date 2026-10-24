@@ -329,7 +329,7 @@ function HomeContent() {
                 style={{ animationDelay: "240ms" }}
               >
                 <Button
-                  variant="hero"
+                  variant="ink"
                   size="lg"
                   className="w-full sm:w-auto"
                   onClick={() => openDemoModal("Schedule Technical Demo")}
@@ -658,7 +658,7 @@ function HomeContent() {
                 </p>
                 <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
                   <Button
-                    variant="hero"
+                    variant="ink"
                     size="lg"
                     className="w-full sm:w-auto"
                     onClick={() => openDemoModal("Schedule Technical Demo")}
