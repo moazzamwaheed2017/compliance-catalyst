@@ -13,7 +13,9 @@ import { useState } from "react";
 import logoAsset from "@/assets/regulattice-logo.jpg";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { BOOKING_EMBED_URL, BOOKING_URL, canEmbedBooking } from "@/lib/booking";
-import { CONTACT_EMAIL } from "@/lib/seo";
+
+/** Contact shown in the booking window. */
+const BOOKING_EMAIL = "moazzam@regulattice.com";
 
 const agenda = [
   "Discovering AI systems, agents and Shadow AI across your environment",
@@ -84,10 +86,10 @@ export function BookingWindow({
               <div>
                 <div className="font-display text-lg font-semibold">Email us</div>
                 <a
-                  href={`mailto:${CONTACT_EMAIL}`}
+                  href={`mailto:${BOOKING_EMAIL}`}
                   className="text-sm font-medium text-teal-700 hover:underline"
                 >
-                  {CONTACT_EMAIL}
+                  {BOOKING_EMAIL}
                 </a>
                 <div className="mt-0.5 text-xs text-slate-500">
                   We usually reply within one business day
