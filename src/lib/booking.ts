@@ -15,5 +15,5 @@ export const BOOKING_EMBED_URL =
 
 export const canEmbedBooking = BOOKING_EMBED_URL.includes("/appointments/schedules/");
 
-/** Developer sandbox (14-day trial) sign-up page. */
+/** Developer sandbox sign-up page. */
 export const SANDBOX_URL = "https://sandbox.regulattice.com/sandbox";
