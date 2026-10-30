@@ -6,6 +6,7 @@ import {
   Bot,
   Building2,
   ChevronDown,
+  Code2,
   EyeOff,
   Instagram,
   Layers,
@@ -22,6 +23,7 @@ import { toast } from "sonner";
 
 import logoAsset from "@/assets/regulattice-logo.jpg";
 import { BookingWindow } from "@/components/site/booking-window";
+import { SandboxLink } from "@/components/site/sandbox-link";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -33,6 +35,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { trackCta } from "@/lib/cta";
 import { CONTACT_EMAIL, ENTITY_DEFINITION } from "@/lib/seo";
 
 /* ----------------------------- Navigation ----------------------------- */
@@ -230,7 +233,7 @@ export function Brand({ compact = false }: { compact?: boolean }) {
 /** Request type that opens the booking calendar instead of the email form. */
 const DEMO_REQUEST = "Schedule Technical Demo";
 
-const DemoRequestContext = createContext<(type: string) => void>(() => {});
+const DemoRequestContext = createContext<(type: string, placement?: string) => void>(() => {});
 
 /** Opens the demo / access request dialog from anywhere inside <DemoRequestProvider>. */
 export function useDemoRequest() {
@@ -252,7 +255,8 @@ export function DemoRequestProvider({ children }: { children: ReactNode }) {
   const [bookingOpen, setBookingOpen] = useState(false);
 
   // Demo bookings go to the calendar; access and sandbox requests use the email form.
-  const openDemoModal = (type: string) => {
+  const openDemoModal = (type: string, placement = "unspecified") => {
+    trackCta(type === DEMO_REQUEST ? "demo" : "request", placement);
     if (type === DEMO_REQUEST) {
       setBookingOpen(true);
       return;
@@ -493,7 +497,7 @@ export function SiteHeader() {
             variant="ink"
             size="sm"
             className="h-9 px-4"
-            onClick={() => openRequest("Request Access")}
+            onClick={() => openRequest("Request Access", "header")}
           >
             Request access
           </Button>
@@ -628,7 +632,7 @@ export function SiteFooter() {
               <li>
                 <button
                   type="button"
-                  onClick={() => openRequest("Schedule Technical Demo")}
+                  onClick={() => openRequest("Schedule Technical Demo", "footer")}
                   className={linkClass}
                 >
                   Book a demo
@@ -648,6 +652,56 @@ export function SiteFooter() {
 }
 
 /** Page chrome shared by every route: header, footer and the demo request dialog. */
+/** Demo + sandbox bar that follows the visitor once they scroll past the first screen. */
+function StickyCta() {
+  const openRequest = useDemoRequest();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const update = () => {
+      const nearBottom =
+        window.innerHeight + window.scrollY > document.documentElement.scrollHeight - 480;
+      setVisible(window.scrollY > 640 && !nearBottom);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return (
+    <div
+      aria-hidden={!visible}
+      className={`fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-all duration-300 sm:bottom-4 sm:px-0 ${
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
+      }`}
+    >
+      <div className="glass mx-auto flex max-w-xl items-center gap-2 rounded-2xl border border-white/10 bg-popover/90 p-2 shadow-2xl sm:gap-3 sm:rounded-full sm:pl-5">
+        <span className="hidden flex-1 text-sm text-muted-foreground sm:block">
+          Find the AI you didn&apos;t approve.
+        </span>
+        <Button
+          variant="ink"
+          size="sm"
+          className="h-10 flex-1 px-4 sm:flex-none"
+          tabIndex={visible ? 0 : -1}
+          onClick={() => openRequest(DEMO_REQUEST, "sticky-bar")}
+        >
+          Book a demo
+        </Button>
+        <Button asChild variant="architectural" size="sm" className="h-10 flex-1 px-4 sm:flex-none">
+          <SandboxLink placement="sticky-bar" tabIndex={visible ? 0 : -1}>
+            <Code2 className="size-4" /> Try sandbox
+          </SandboxLink>
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <DemoRequestProvider>
@@ -655,6 +709,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <SiteHeader />
         {children}
         <SiteFooter />
+        <StickyCta />
       </div>
     </DemoRequestProvider>
   );

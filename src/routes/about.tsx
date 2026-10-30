@@ -274,7 +274,7 @@ function AboutContent() {
               <Button
                 variant="hero"
                 size="lg"
-                onClick={() => openRequest("Schedule Technical Demo")}
+                onClick={() => openRequest("Schedule Technical Demo", "about")}
               >
                 Request a technical demo <ArrowRight className="size-4" />
               </Button>
@@ -549,7 +549,7 @@ function AboutContent() {
                 <Button
                   variant="hero"
                   size="lg"
-                  onClick={() => openRequest("Schedule Technical Demo")}
+                  onClick={() => openRequest("Schedule Technical Demo", "about")}
                 >
                   Request a technical demo <ArrowRight className="size-4" />
                 </Button>

@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
+import { captureFirstTouch } from "@/lib/cta";
 import { HOME_DESCRIPTION } from "@/lib/seo";
 
 function NotFoundComponent() {
@@ -121,6 +122,10 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const location = useLocation();
+
+  useEffect(() => {
+    captureFirstTouch();
+  }, []);
 
   useEffect(() => {
     try {

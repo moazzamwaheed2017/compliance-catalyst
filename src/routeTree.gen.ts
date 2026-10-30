@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AiAgentGovernanceRouteImport } from './routes/ai-agent-governance'
 import { Route as AiGovernancePlatformRouteImport } from './routes/ai-governance-platform'
 import { Route as ShadowAiRouteImport } from './routes/shadow-ai'
+import { Route as ApiPublicCtaClickRouteImport } from './routes/api/public/cta-click'
 import { Route as ApiPublicDemoRequestRouteImport } from './routes/api/public/demo-request'
 import { Route as ApiPublicLogVisitorRouteImport } from './routes/api/public/log-visitor'
 
@@ -42,6 +43,11 @@ const ShadowAiRoute = ShadowAiRouteImport.update({
   path: '/shadow-ai',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicCtaClickRoute = ApiPublicCtaClickRouteImport.update({
+  id: '/api/public/cta-click',
+  path: '/api/public/cta-click',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicDemoRequestRoute = ApiPublicDemoRequestRouteImport.update({
   id: '/api/public/demo-request',
   path: '/api/public/demo-request',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/ai-agent-governance': typeof AiAgentGovernanceRoute
   '/ai-governance-platform': typeof AiGovernancePlatformRoute
   '/shadow-ai': typeof ShadowAiRoute
+  '/api/public/cta-click': typeof ApiPublicCtaClickRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/ai-agent-governance': typeof AiAgentGovernanceRoute
   '/ai-governance-platform': typeof AiGovernancePlatformRoute
   '/shadow-ai': typeof ShadowAiRoute
+  '/api/public/cta-click': typeof ApiPublicCtaClickRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/ai-agent-governance': typeof AiAgentGovernanceRoute
   '/ai-governance-platform': typeof AiGovernancePlatformRoute
   '/shadow-ai': typeof ShadowAiRoute
+  '/api/public/cta-click': typeof ApiPublicCtaClickRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/ai-agent-governance'
     | '/ai-governance-platform'
     | '/shadow-ai'
+    | '/api/public/cta-click'
     | '/api/public/demo-request'
     | '/api/public/log-visitor'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/ai-agent-governance'
     | '/ai-governance-platform'
     | '/shadow-ai'
+    | '/api/public/cta-click'
     | '/api/public/demo-request'
     | '/api/public/log-visitor'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/ai-agent-governance'
     | '/ai-governance-platform'
     | '/shadow-ai'
+    | '/api/public/cta-click'
     | '/api/public/demo-request'
     | '/api/public/log-visitor'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   AiAgentGovernanceRoute: typeof AiAgentGovernanceRoute
   AiGovernancePlatformRoute: typeof AiGovernancePlatformRoute
   ShadowAiRoute: typeof ShadowAiRoute
+  ApiPublicCtaClickRoute: typeof ApiPublicCtaClickRoute
   ApiPublicDemoRequestRoute: typeof ApiPublicDemoRequestRoute
   ApiPublicLogVisitorRoute: typeof ApiPublicLogVisitorRoute
 }
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShadowAiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/cta-click': {
+      id: '/api/public/cta-click'
+      path: '/api/public/cta-click'
+      fullPath: '/api/public/cta-click'
+      preLoaderRoute: typeof ApiPublicCtaClickRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/demo-request': {
       id: '/api/public/demo-request'
       path: '/api/public/demo-request'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   AiAgentGovernanceRoute: AiAgentGovernanceRoute,
   AiGovernancePlatformRoute: AiGovernancePlatformRoute,
   ShadowAiRoute: ShadowAiRoute,
+  ApiPublicCtaClickRoute: ApiPublicCtaClickRoute,
   ApiPublicDemoRequestRoute: ApiPublicDemoRequestRoute,
   ApiPublicLogVisitorRoute: ApiPublicLogVisitorRoute,
 }

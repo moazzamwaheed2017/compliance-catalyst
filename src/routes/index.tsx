@@ -19,7 +19,7 @@ import { Eyebrow, Reveal } from "@/components/landing/reveal";
 import { UseCases } from "@/components/landing/use-cases";
 import { SiteLayout, useDemoRequest } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
-import { SANDBOX_URL } from "@/lib/booking";
+import { SandboxLink } from "@/components/site/sandbox-link";
 import {
   ENTITY_DEFINITION,
   ENTITY_EXPANSION,
@@ -332,14 +332,14 @@ function HomeContent() {
                   variant="ink"
                   size="lg"
                   className="w-full sm:w-auto"
-                  onClick={() => openDemoModal("Schedule Technical Demo")}
+                  onClick={() => openDemoModal("Schedule Technical Demo", "home-hero")}
                 >
                   Book a technical demo <ArrowRight className="size-4" />
                 </Button>
                 <Button asChild variant="architectural" size="lg" className="w-full sm:w-auto">
-                  <a href={SANDBOX_URL}>
+                  <SandboxLink placement="home-hero">
                     <Code2 className="size-4" /> Start sandbox
-                  </a>
+                  </SandboxLink>
                 </Button>
               </div>
               <p
@@ -661,14 +661,14 @@ function HomeContent() {
                     variant="ink"
                     size="lg"
                     className="w-full sm:w-auto"
-                    onClick={() => openDemoModal("Schedule Technical Demo")}
+                    onClick={() => openDemoModal("Schedule Technical Demo", "home-final")}
                   >
                     Book a technical demo <ArrowRight className="size-4" />
                   </Button>
                   <Button asChild variant="architectural" size="lg" className="w-full sm:w-auto">
-                    <a href={SANDBOX_URL}>
+                    <SandboxLink placement="home-final">
                       <Code2 className="size-4" /> Start sandbox
-                    </a>
+                    </SandboxLink>
                   </Button>
                 </div>
               </div>
