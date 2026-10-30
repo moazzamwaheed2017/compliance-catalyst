@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronRight, Code2 } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { Eyebrow } from "@/components/landing/reveal";
+import { SandboxLink } from "@/components/site/sandbox-link";
 import { SiteLayout, useDemoRequest } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
 import { contentPageStructuredData, jsonLd, type ContentPageMeta } from "@/lib/seo";
@@ -33,8 +34,37 @@ function formatDate(iso: string) {
   });
 }
 
-function Cta({ cta }: { cta: ContentPageProps["cta"] }) {
+/** Demo + sandbox buttons; `placement` records where on the page they were clicked. */
+function CtaButtons({
+  cta,
+  placement,
+  className = "",
+}: {
+  cta: ContentPageProps["cta"];
+  placement: string;
+  className?: string;
+}) {
   const openRequest = useDemoRequest();
+  return (
+    <div className={`flex flex-col gap-3 sm:flex-row ${className}`}>
+      <Button
+        variant="ink"
+        size="lg"
+        className="w-full sm:w-auto"
+        onClick={() => openRequest(cta.requestType, placement)}
+      >
+        {cta.button} <ArrowRight className="size-4" />
+      </Button>
+      <Button asChild variant="architectural" size="lg" className="w-full sm:w-auto">
+        <SandboxLink placement={placement}>
+          <Code2 className="size-4" /> Start sandbox
+        </SandboxLink>
+      </Button>
+    </div>
+  );
+}
+
+function Cta({ cta, page }: { cta: ContentPageProps["cta"]; page: string }) {
   return (
     <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-card px-6 py-12 text-center sm:px-10">
       <div className="lattice-grid absolute inset-0 opacity-70" aria-hidden="true" />
@@ -47,14 +77,7 @@ function Cta({ cta }: { cta: ContentPageProps["cta"] }) {
           {cta.title}
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-muted-foreground">{cta.text}</p>
-        <Button
-          variant="hero"
-          size="lg"
-          className="mt-8"
-          onClick={() => openRequest(cta.requestType)}
-        >
-          {cta.button} <ArrowRight className="size-4" />
-        </Button>
+        <CtaButtons cta={cta} placement={`${page}-final`} className="mt-8 justify-center" />
       </div>
     </div>
   );
@@ -63,6 +86,7 @@ function Cta({ cta }: { cta: ContentPageProps["cta"] }) {
 /** Long-form guide or entity page with a consistent, answer-first structure. */
 export function ContentPage(props: ContentPageProps) {
   const { meta, eyebrow, shortAnswer, sections, references, related, cta } = props;
+  const pageKey = meta.path.replace(/^\//, "") || "home";
   const toc = [
     ...sections.map((s) => ({ id: s.id, title: s.title })),
     ...(meta.faqs.length ? [{ id: "faq", title: "Frequently asked questions" }] : []),
@@ -121,6 +145,8 @@ export function ContentPage(props: ContentPageProps) {
             </div>
             <div className="mt-3 text-lg leading-8 text-foreground/90">{shortAnswer}</div>
           </section>
+
+          <CtaButtons cta={cta} placement={`${pageKey}-top`} className="mt-6 max-w-3xl" />
 
           <div className="mt-16 grid gap-12 lg:grid-cols-[220px_1fr] lg:gap-16">
             <aside className="hidden lg:block">
@@ -220,7 +246,7 @@ export function ContentPage(props: ContentPageProps) {
                 </section>
               )}
 
-              <Cta cta={cta} />
+              <Cta cta={cta} page={pageKey} />
             </article>
           </div>
         </div>
