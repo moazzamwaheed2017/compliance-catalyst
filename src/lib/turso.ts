@@ -45,6 +45,7 @@ export async function ensureTablesExist() {
       CREATE TABLE IF NOT EXISTS cta_clicks (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         cta TEXT NOT NULL,
+        ip_address TEXT DEFAULT '',
         placement TEXT DEFAULT '',
         page TEXT DEFAULT '',
         landing TEXT DEFAULT '',
@@ -63,6 +64,7 @@ export async function ensureTablesExist() {
       CREATE TABLE IF NOT EXISTS page_engagement (
         view_id TEXT PRIMARY KEY,
         session_id TEXT NOT NULL,
+        ip_address TEXT DEFAULT '',
         page TEXT DEFAULT '',
         landing TEXT DEFAULT '',
         referrer TEXT DEFAULT '',
@@ -78,6 +80,14 @@ export async function ensureTablesExist() {
     await turso.execute(
       "CREATE INDEX IF NOT EXISTS idx_page_engagement_session ON page_engagement (session_id)",
     );
+
+    // Tables created before ip_address existed: add the column (fails harmlessly if present).
+    for (const table of ["cta_clicks", "page_engagement"]) {
+      await turso
+        .execute(`ALTER TABLE ${table} ADD COLUMN ip_address TEXT DEFAULT ''`)
+        .catch(() => {});
+      await turso.execute(`CREATE INDEX IF NOT EXISTS idx_${table}_ip ON ${table} (ip_address)`);
+    }
   } catch (error) {
     console.error("[Turso DB] Error ensuring tables exist:", error);
   }

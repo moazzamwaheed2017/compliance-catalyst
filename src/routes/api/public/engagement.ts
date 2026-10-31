@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
+import { extractClientIp } from "@/lib/client-ip";
 import { ensureTablesExist, turso } from "@/lib/turso";
 
 const text = (max: number) => z.string().max(max).optional().default("");
@@ -54,14 +55,15 @@ export const Route = createFileRoute("/api/public/engagement")({
           await ensureTablesExist();
           // A page view is reported each time the tab is hidden; keep the largest total.
           await turso.execute({
-            sql: `INSERT INTO page_engagement (view_id, session_id, page, landing, referrer, utm_source, utm_medium, utm_campaign, country, active_seconds, started_at, updated_at)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            sql: `INSERT INTO page_engagement (view_id, session_id, ip_address, page, landing, referrer, utm_source, utm_medium, utm_campaign, country, active_seconds, started_at, updated_at)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                   ON CONFLICT(view_id) DO UPDATE SET
                     active_seconds = MAX(active_seconds, excluded.active_seconds),
                     updated_at = excluded.updated_at`,
             args: [
               d.viewId,
               d.sessionId,
+              extractClientIp(request.headers),
               d.page,
               d.landing,
               d.referrer,
