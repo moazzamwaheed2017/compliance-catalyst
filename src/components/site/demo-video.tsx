@@ -27,6 +27,13 @@ export const DEMO_VIDEOS = {
     title: "How ReguLattice keeps AI agents accountable",
     duration: "1:25",
   },
+  aiGovernancePlatform: {
+    mp4: "/ai-governance-platform-demo.mp4",
+    webm: "/ai-governance-platform-demo.webm",
+    poster: "/ai-governance-platform-demo-poster.jpg",
+    title: "What an AI governance platform does: the ReguLattice lifecycle",
+    duration: "1:36",
+  },
 } satisfies Record<string, DemoVideoSource>;
 
 /**
