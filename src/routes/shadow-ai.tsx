@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { ContentPage } from "@/components/site/content-page";
+import { DEMO_VIDEOS } from "@/components/site/demo-video";
 import { pageHead, type ContentPageMeta } from "@/lib/seo";
 
 const meta: ContentPageMeta = {
@@ -49,7 +50,7 @@ export const Route = createFileRoute("/shadow-ai")({
 function ShadowAiPage() {
   return (
     <ContentPage
-      showDemoVideo
+      demoVideo={DEMO_VIDEOS.shadowAi}
       meta={meta}
       eyebrow="Shadow AI governance"
       shortAnswer={
