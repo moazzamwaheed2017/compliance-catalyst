@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
+import { extractClientIp } from "@/lib/client-ip";
 import { ensureTablesExist, turso } from "@/lib/turso";
 
 const text = (max: number) => z.string().max(max).optional().default("");
@@ -40,10 +41,11 @@ export const Route = createFileRoute("/api/public/cta-click")({
         try {
           await ensureTablesExist();
           await turso.execute({
-            sql: `INSERT INTO cta_clicks (cta, placement, page, landing, referrer, utm_source, utm_medium, utm_campaign, utm_content, country, click_time)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            sql: `INSERT INTO cta_clicks (cta, ip_address, placement, page, landing, referrer, utm_source, utm_medium, utm_campaign, utm_content, country, click_time)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             args: [
               d.cta,
+              extractClientIp(request.headers),
               d.placement,
               d.page,
               d.landing,

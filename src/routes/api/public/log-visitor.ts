@@ -1,20 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { extractClientIp } from "@/lib/client-ip";
 import { ensureTablesExist, turso } from "@/lib/turso";
-
-function extractClientIp(headers: Headers): string {
-  const forwarded = headers.get("x-forwarded-for");
-  if (forwarded) {
-    const firstIp = forwarded.split(",")[0].trim();
-    if (firstIp) return firstIp;
-  }
-  const realIp = headers.get("x-real-ip");
-  if (realIp) return realIp.trim();
-
-  const cfIp = headers.get("cf-connecting-ip");
-  if (cfIp) return cfIp.trim();
-
-  return "127.0.0.1";
-}
 
 async function fetchGeoIpFallback(ip: string): Promise<{ country: string; city: string; region: string }> {
   if (!ip || ip === "127.0.0.1" || ip === "::1" || ip.startsWith("192.168.") || ip.startsWith("10.")) {
