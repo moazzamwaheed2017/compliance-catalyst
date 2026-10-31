@@ -81,6 +81,28 @@ export async function ensureTablesExist() {
       "CREATE INDEX IF NOT EXISTS idx_page_engagement_session ON page_engagement (session_id)",
     );
 
+    // 5. AI governance readiness check: one row per attempt; email filled in if they ask for the report
+    await turso.execute(`
+      CREATE TABLE IF NOT EXISTS readiness_assessments (
+        id TEXT PRIMARY KEY,
+        ip_address TEXT DEFAULT '',
+        answers TEXT NOT NULL,
+        score INTEGER NOT NULL,
+        tier TEXT NOT NULL,
+        email TEXT DEFAULT '',
+        name TEXT DEFAULT '',
+        company TEXT DEFAULT '',
+        role TEXT DEFAULT '',
+        report_sent INTEGER DEFAULT 0,
+        utm_source TEXT DEFAULT '',
+        utm_medium TEXT DEFAULT '',
+        utm_campaign TEXT DEFAULT '',
+        country TEXT DEFAULT 'Unknown',
+        created_at TEXT DEFAULT (datetime('now')),
+        updated_at TEXT DEFAULT (datetime('now'))
+      );
+    `);
+
     // Tables created before ip_address existed: add the column (fails harmlessly if present).
     for (const table of ["cta_clicks", "page_engagement"]) {
       await turso

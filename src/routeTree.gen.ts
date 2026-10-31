@@ -13,11 +13,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AiAgentGovernanceRouteImport } from './routes/ai-agent-governance'
 import { Route as AiGovernancePlatformRouteImport } from './routes/ai-governance-platform'
+import { Route as AiGovernanceReadinessRouteImport } from './routes/ai-governance-readiness'
 import { Route as ShadowAiRouteImport } from './routes/shadow-ai'
 import { Route as ApiPublicCtaClickRouteImport } from './routes/api/public/cta-click'
 import { Route as ApiPublicDemoRequestRouteImport } from './routes/api/public/demo-request'
 import { Route as ApiPublicEngagementRouteImport } from './routes/api/public/engagement'
 import { Route as ApiPublicLogVisitorRouteImport } from './routes/api/public/log-visitor'
+import { Route as ApiPublicReadinessRouteImport } from './routes/api/public/readiness'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -37,6 +39,11 @@ const AiAgentGovernanceRoute = AiAgentGovernanceRouteImport.update({
 const AiGovernancePlatformRoute = AiGovernancePlatformRouteImport.update({
   id: '/ai-governance-platform',
   path: '/ai-governance-platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiGovernanceReadinessRoute = AiGovernanceReadinessRouteImport.update({
+  id: '/ai-governance-readiness',
+  path: '/ai-governance-readiness',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShadowAiRoute = ShadowAiRouteImport.update({
@@ -64,28 +71,37 @@ const ApiPublicLogVisitorRoute = ApiPublicLogVisitorRouteImport.update({
   path: '/api/public/log-visitor',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicReadinessRoute = ApiPublicReadinessRouteImport.update({
+  id: '/api/public/readiness',
+  path: '/api/public/readiness',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ai-agent-governance': typeof AiAgentGovernanceRoute
   '/ai-governance-platform': typeof AiGovernancePlatformRoute
+  '/ai-governance-readiness': typeof AiGovernanceReadinessRoute
   '/shadow-ai': typeof ShadowAiRoute
   '/api/public/cta-click': typeof ApiPublicCtaClickRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
   '/api/public/engagement': typeof ApiPublicEngagementRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
+  '/api/public/readiness': typeof ApiPublicReadinessRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ai-agent-governance': typeof AiAgentGovernanceRoute
   '/ai-governance-platform': typeof AiGovernancePlatformRoute
+  '/ai-governance-readiness': typeof AiGovernanceReadinessRoute
   '/shadow-ai': typeof ShadowAiRoute
   '/api/public/cta-click': typeof ApiPublicCtaClickRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
   '/api/public/engagement': typeof ApiPublicEngagementRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
+  '/api/public/readiness': typeof ApiPublicReadinessRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,11 +109,13 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/ai-agent-governance': typeof AiAgentGovernanceRoute
   '/ai-governance-platform': typeof AiGovernancePlatformRoute
+  '/ai-governance-readiness': typeof AiGovernanceReadinessRoute
   '/shadow-ai': typeof ShadowAiRoute
   '/api/public/cta-click': typeof ApiPublicCtaClickRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
   '/api/public/engagement': typeof ApiPublicEngagementRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
+  '/api/public/readiness': typeof ApiPublicReadinessRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -106,33 +124,39 @@ export interface FileRouteTypes {
     | '/about'
     | '/ai-agent-governance'
     | '/ai-governance-platform'
+    | '/ai-governance-readiness'
     | '/shadow-ai'
     | '/api/public/cta-click'
     | '/api/public/demo-request'
     | '/api/public/engagement'
     | '/api/public/log-visitor'
+    | '/api/public/readiness'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/ai-agent-governance'
     | '/ai-governance-platform'
+    | '/ai-governance-readiness'
     | '/shadow-ai'
     | '/api/public/cta-click'
     | '/api/public/demo-request'
     | '/api/public/engagement'
     | '/api/public/log-visitor'
+    | '/api/public/readiness'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/ai-agent-governance'
     | '/ai-governance-platform'
+    | '/ai-governance-readiness'
     | '/shadow-ai'
     | '/api/public/cta-click'
     | '/api/public/demo-request'
     | '/api/public/engagement'
     | '/api/public/log-visitor'
+    | '/api/public/readiness'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -140,11 +164,13 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AiAgentGovernanceRoute: typeof AiAgentGovernanceRoute
   AiGovernancePlatformRoute: typeof AiGovernancePlatformRoute
+  AiGovernanceReadinessRoute: typeof AiGovernanceReadinessRoute
   ShadowAiRoute: typeof ShadowAiRoute
   ApiPublicCtaClickRoute: typeof ApiPublicCtaClickRoute
   ApiPublicDemoRequestRoute: typeof ApiPublicDemoRequestRoute
   ApiPublicEngagementRoute: typeof ApiPublicEngagementRoute
   ApiPublicLogVisitorRoute: typeof ApiPublicLogVisitorRoute
+  ApiPublicReadinessRoute: typeof ApiPublicReadinessRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -175,6 +201,13 @@ declare module '@tanstack/react-router' {
       path: '/ai-governance-platform'
       fullPath: '/ai-governance-platform'
       preLoaderRoute: typeof AiGovernancePlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-governance-readiness': {
+      id: '/ai-governance-readiness'
+      path: '/ai-governance-readiness'
+      fullPath: '/ai-governance-readiness'
+      preLoaderRoute: typeof AiGovernanceReadinessRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shadow-ai': {
@@ -212,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicLogVisitorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/readiness': {
+      id: '/api/public/readiness'
+      path: '/api/public/readiness'
+      fullPath: '/api/public/readiness'
+      preLoaderRoute: typeof ApiPublicReadinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -220,11 +260,13 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AiAgentGovernanceRoute: AiAgentGovernanceRoute,
   AiGovernancePlatformRoute: AiGovernancePlatformRoute,
+  AiGovernanceReadinessRoute: AiGovernanceReadinessRoute,
   ShadowAiRoute: ShadowAiRoute,
   ApiPublicCtaClickRoute: ApiPublicCtaClickRoute,
   ApiPublicDemoRequestRoute: ApiPublicDemoRequestRoute,
   ApiPublicEngagementRoute: ApiPublicEngagementRoute,
   ApiPublicLogVisitorRoute: ApiPublicLogVisitorRoute,
+  ApiPublicReadinessRoute: ApiPublicReadinessRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

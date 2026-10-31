@@ -31,4 +31,5 @@ Core message: You can't govern AI you don't know exists.
 - [What is an AI governance platform?](https://www.regulattice.com/ai-governance-platform): definition, capabilities, alternatives (GRC suites, ML monitoring, AI security gateways), evaluation criteria
 - [Shadow AI](https://www.regulattice.com/shadow-ai): what shadow AI is, how to discover it, and how to govern it
 - [AI agent governance](https://www.regulattice.com/ai-agent-governance): controls, human oversight and audit trails for AI agents
+- [AI governance readiness check](https://www.regulattice.com/ai-governance-readiness): free 8-question self-assessment with an instant score and first steps
 - [Homepage](https://www.regulattice.com/): overview, how it works, use cases, frameworks and FAQ

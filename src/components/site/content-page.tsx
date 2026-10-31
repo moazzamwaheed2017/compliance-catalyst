@@ -3,9 +3,11 @@ import { ArrowRight, ChevronRight, Code2 } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { Eyebrow } from "@/components/landing/reveal";
+import { DemoVideo } from "@/components/site/demo-video";
 import { SandboxLink } from "@/components/site/sandbox-link";
 import { SiteLayout, useDemoRequest } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
+import { trackCta } from "@/lib/cta";
 import { contentPageStructuredData, jsonLd, type ContentPageMeta } from "@/lib/seo";
 
 export type ContentSection = { id: string; title: string; content: ReactNode };
@@ -23,6 +25,8 @@ type ContentPageProps = {
   references: Reference[];
   related: RelatedLink[];
   cta: { title: string; text: string; button: string; requestType: string };
+  /** Show the product walkthrough video under the top call-to-action buttons. */
+  showDemoVideo?: boolean;
 };
 
 function formatDate(iso: string) {
@@ -78,6 +82,13 @@ function Cta({ cta, page }: { cta: ContentPageProps["cta"]; page: string }) {
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-muted-foreground">{cta.text}</p>
         <CtaButtons cta={cta} placement={`${page}-final`} className="mt-8 justify-center" />
+        <Link
+          to="/ai-governance-readiness"
+          onClick={() => trackCta("readiness", `${page}-final`)}
+          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+        >
+          Not ready to talk? Take the 3-minute readiness check <ArrowRight className="size-3.5" />
+        </Link>
       </div>
     </div>
   );
@@ -85,7 +96,7 @@ function Cta({ cta, page }: { cta: ContentPageProps["cta"]; page: string }) {
 
 /** Long-form guide or entity page with a consistent, answer-first structure. */
 export function ContentPage(props: ContentPageProps) {
-  const { meta, eyebrow, shortAnswer, sections, references, related, cta } = props;
+  const { meta, eyebrow, shortAnswer, sections, references, related, cta, showDemoVideo } = props;
   const pageKey = meta.path.replace(/^\//, "") || "home";
   const toc = [
     ...sections.map((s) => ({ id: s.id, title: s.title })),
@@ -147,6 +158,8 @@ export function ContentPage(props: ContentPageProps) {
           </section>
 
           <CtaButtons cta={cta} placement={`${pageKey}-top`} className="mt-6 max-w-3xl" />
+
+          {showDemoVideo && <DemoVideo placement={pageKey} className="mt-10 max-w-3xl" />}
 
           <div className="mt-16 grid gap-12 lg:grid-cols-[220px_1fr] lg:gap-16">
             <aside className="hidden lg:block">

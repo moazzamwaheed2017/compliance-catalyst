@@ -102,6 +102,7 @@ export const CONTENT_PAGES = [
   { path: "/ai-governance-platform", label: "AI governance platform" },
   { path: "/shadow-ai", label: "Shadow AI governance" },
   { path: "/ai-agent-governance", label: "AI agent governance" },
+  { path: "/ai-governance-readiness", label: "AI governance readiness check" },
   { path: "/about", label: "About ReguLattice" },
 ];
 
@@ -223,7 +224,26 @@ export function homeStructuredData() {
         inLanguage: "en",
       },
       faqNode(`${SITE_URL}/#faq`, HOME_FAQS),
+      demoVideoNode(),
     ],
+  };
+}
+
+/** The product walkthrough video shown on the homepage (#watch) and /shadow-ai. */
+export function demoVideoNode() {
+  return {
+    "@type": "VideoObject",
+    "@id": `${SITE_URL}/#demo-video`,
+    name: "How shadow AI enters your company, and how ReguLattice governs it",
+    description:
+      "A 78-second walkthrough of ReguLattice: shadow AI arrives through browser tabs, developer tools, local models and company sign-ins; ReguLattice collects every sighting into one review queue where a person approves or blocks each tool, and endpoint agents enforce the decision.",
+    thumbnailUrl: `${SITE_URL}/shadow-ai-demo-poster.jpg`,
+    contentUrl: `${SITE_URL}/shadow-ai-demo.mp4`,
+    uploadDate: "2026-10-31",
+    duration: "PT1M18S",
+    publisher: { "@id": ORG_ID },
+    about: { "@id": APP_ID },
+    inLanguage: "en",
   };
 }
 

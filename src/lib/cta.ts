@@ -30,7 +30,7 @@ export function captureFirstTouch() {
 }
 
 /** Record a call-to-action click (no personal data), e.g. `trackCta("sandbox", "hero")`. */
-export function trackCta(cta: "demo" | "sandbox" | "request", placement: string) {
+export function trackCta(cta: "demo" | "sandbox" | "request" | "video" | "readiness", placement: string) {
   if (typeof window === "undefined") return;
   const body = JSON.stringify({
     cta,

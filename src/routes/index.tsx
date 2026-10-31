@@ -4,9 +4,11 @@ import {
   Check,
   Code2,
   Cpu as CpuIcon,
+  Gauge,
   Layers,
   Lock,
   Network,
+  Play,
   Server,
   ShieldCheck,
 } from "lucide-react";
@@ -17,9 +19,11 @@ import { ControlLoop } from "@/components/landing/control-loop";
 import { HeroDashboard } from "@/components/landing/hero-dashboard";
 import { Eyebrow, Reveal } from "@/components/landing/reveal";
 import { UseCases } from "@/components/landing/use-cases";
+import { DemoVideo } from "@/components/site/demo-video";
+import { SandboxLink } from "@/components/site/sandbox-link";
 import { SiteLayout, useDemoRequest } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
-import { SandboxLink } from "@/components/site/sandbox-link";
+import { trackCta } from "@/lib/cta";
 import {
   ENTITY_DEFINITION,
   ENTITY_EXPANSION,
@@ -88,6 +92,20 @@ const lifecycle = [
     title: "Close the loop",
     text: "Turn incidents, human overrides and audit findings into remediation tasks, stronger controls and audit-ready evidence.",
   },
+];
+
+// Terms are placeholders to confirm before launch.
+const designPartnerGets = [
+  "Free access to ReguLattice during the programme",
+  "Direct input into what we build next",
+  "Hands-on help setting up discovery and policies",
+  "A direct line to the team",
+];
+
+const designPartnerAsks = [
+  "A real AI governance problem to work on",
+  "Regular feedback sessions",
+  "Honest feedback on what works and what doesn't",
 ];
 
 const ecosystem = [
@@ -342,6 +360,13 @@ function HomeContent() {
                   </SandboxLink>
                 </Button>
               </div>
+              <a
+                href="#watch"
+                className="rise-in mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                style={{ animationDelay: "280ms" }}
+              >
+                <Play className="size-3.5 fill-current" /> Watch the 78-second demo
+              </a>
               <p
                 className="rise-in mt-4 font-mono text-[11px] text-muted-foreground/80"
                 style={{ animationDelay: "300ms" }}
@@ -375,6 +400,48 @@ function HomeContent() {
                 </span>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Product walkthrough video */}
+        <section id="watch" className="scroll-mt-24 px-5 pt-20 lg:px-8">
+          <div className="mx-auto max-w-5xl">
+            <Reveal className="mx-auto max-w-2xl text-center">
+              <Eyebrow>See it in 78 seconds</Eyebrow>
+              <h2 className="mt-5 text-balance font-display text-3xl font-semibold leading-tight sm:text-4xl">
+                How shadow AI gets in, and how ReguLattice governs it
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                Browser tabs, developer tools, local models and company sign-ins land in one review
+                queue, where a person approves or blocks each tool.
+              </p>
+            </Reveal>
+            <Reveal delay={120}>
+              <DemoVideo placement="home" className="mt-10" />
+            </Reveal>
+            <Reveal delay={160}>
+              <Link
+                to="/ai-governance-readiness"
+                onClick={() => trackCta("readiness", "home-video")}
+                className="group mt-6 flex flex-col items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-primary/40 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                    <Gauge className="size-5" />
+                  </span>
+                  <span>
+                    <span className="block font-medium">Not ready for a demo yet?</span>
+                    <span className="block text-sm text-muted-foreground">
+                      Score your AI governance in 3 minutes, free, with first steps to take.
+                    </span>
+                  </span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                  Take the readiness check
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                </span>
+              </Link>
+            </Reveal>
           </div>
         </section>
 
@@ -628,6 +695,66 @@ function HomeContent() {
                 </details>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Design partner programme */}
+        <section id="design-partners" className="scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8">
+          <div className="mx-auto max-w-6xl">
+            <Reveal className="relative overflow-hidden rounded-[2rem] border border-primary/25 bg-primary/[0.05] p-6 sm:p-12">
+              <div className="lattice-grid absolute inset-0 opacity-50" aria-hidden="true" />
+              <div className="relative grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+                <div>
+                  <Eyebrow>Design partner programme</Eyebrow>
+                  <h2 className="mt-5 text-balance font-display text-3xl font-semibold leading-tight sm:text-4xl">
+                    Shape ReguLattice with us
+                  </h2>
+                  <p className="mt-4 max-w-lg text-muted-foreground">
+                    We&apos;re working with a small number of early organizations to build
+                    ReguLattice around real AI governance problems. If shadow AI, AI agents or
+                    upcoming AI regulation are on your list, we&apos;d like to work on it with you.
+                  </p>
+                  <Button
+                    variant="ink"
+                    size="lg"
+                    className="mt-8 w-full sm:w-auto"
+                    onClick={() =>
+                      openDemoModal("Design Partner Application", "home-design-partner")
+                    }
+                  >
+                    Apply to be a design partner <ArrowRight className="size-4" />
+                  </Button>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                  <div className="rounded-2xl border border-white/10 bg-background/60 p-6">
+                    <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-primary">
+                      What you get
+                    </div>
+                    <ul className="mt-4 space-y-2.5 text-sm">
+                      {designPartnerGets.map((item) => (
+                        <li key={item} className="flex gap-2.5">
+                          <Check className="mt-0.5 size-4 shrink-0 text-primary" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-background/60 p-6">
+                    <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                      What we ask
+                    </div>
+                    <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
+                      {designPartnerAsks.map((item) => (
+                        <li key={item} className="flex gap-2.5">
+                          <span className="mt-2 size-1.5 shrink-0 rounded-full bg-muted-foreground/60" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </section>
 
