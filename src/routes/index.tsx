@@ -7,6 +7,7 @@ import {
   Layers,
   Lock,
   Network,
+  Play,
   Server,
   ShieldCheck,
 } from "lucide-react";
@@ -17,9 +18,10 @@ import { ControlLoop } from "@/components/landing/control-loop";
 import { HeroDashboard } from "@/components/landing/hero-dashboard";
 import { Eyebrow, Reveal } from "@/components/landing/reveal";
 import { UseCases } from "@/components/landing/use-cases";
+import { DemoVideo } from "@/components/site/demo-video";
+import { SandboxLink } from "@/components/site/sandbox-link";
 import { SiteLayout, useDemoRequest } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
-import { SandboxLink } from "@/components/site/sandbox-link";
 import {
   ENTITY_DEFINITION,
   ENTITY_EXPANSION,
@@ -342,6 +344,13 @@ function HomeContent() {
                   </SandboxLink>
                 </Button>
               </div>
+              <a
+                href="#watch"
+                className="rise-in mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                style={{ animationDelay: "280ms" }}
+              >
+                <Play className="size-3.5 fill-current" /> Watch the 78-second demo
+              </a>
               <p
                 className="rise-in mt-4 font-mono text-[11px] text-muted-foreground/80"
                 style={{ animationDelay: "300ms" }}
@@ -375,6 +384,25 @@ function HomeContent() {
                 </span>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Product walkthrough video */}
+        <section id="watch" className="scroll-mt-24 px-5 pt-20 lg:px-8">
+          <div className="mx-auto max-w-5xl">
+            <Reveal className="mx-auto max-w-2xl text-center">
+              <Eyebrow>See it in 78 seconds</Eyebrow>
+              <h2 className="mt-5 text-balance font-display text-3xl font-semibold leading-tight sm:text-4xl">
+                How shadow AI gets in, and how ReguLattice governs it
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                Browser tabs, developer tools, local models and company sign-ins land in one review
+                queue, where a person approves or blocks each tool.
+              </p>
+            </Reveal>
+            <Reveal delay={120}>
+              <DemoVideo placement="home" className="mt-10" />
+            </Reveal>
           </div>
         </section>
 

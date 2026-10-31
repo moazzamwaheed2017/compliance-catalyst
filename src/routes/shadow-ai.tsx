@@ -49,6 +49,7 @@ export const Route = createFileRoute("/shadow-ai")({
 function ShadowAiPage() {
   return (
     <ContentPage
+      showDemoVideo
       meta={meta}
       eyebrow="Shadow AI governance"
       shortAnswer={

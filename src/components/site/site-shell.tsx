@@ -655,20 +655,31 @@ export function SiteFooter() {
 /** Demo + sandbox bar that follows the visitor once they scroll past the first screen. */
 function StickyCta() {
   const openRequest = useDemoRequest();
-  const [visible, setVisible] = useState(false);
+  const [scrolledIn, setScrolledIn] = useState(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const visible = scrolledIn && !videoPlaying;
 
   useEffect(() => {
     const update = () => {
       const nearBottom =
         window.innerHeight + window.scrollY > document.documentElement.scrollHeight - 480;
-      setVisible(window.scrollY > 640 && !nearBottom);
+      setScrolledIn(window.scrollY > 640 && !nearBottom);
     };
+    // Media events don't bubble, so listen in the capture phase; hide while a video plays.
+    const onPlay = () => setVideoPlaying(true);
+    const onStop = () => setVideoPlaying(false);
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
+    document.addEventListener("play", onPlay, true);
+    document.addEventListener("pause", onStop, true);
+    document.addEventListener("ended", onStop, true);
     return () => {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
+      document.removeEventListener("play", onPlay, true);
+      document.removeEventListener("pause", onStop, true);
+      document.removeEventListener("ended", onStop, true);
     };
   }, []);
 
