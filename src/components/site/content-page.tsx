@@ -7,6 +7,7 @@ import { DemoVideo } from "@/components/site/demo-video";
 import { SandboxLink } from "@/components/site/sandbox-link";
 import { SiteLayout, useDemoRequest } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
+import { trackCta } from "@/lib/cta";
 import { contentPageStructuredData, jsonLd, type ContentPageMeta } from "@/lib/seo";
 
 export type ContentSection = { id: string; title: string; content: ReactNode };
@@ -81,6 +82,13 @@ function Cta({ cta, page }: { cta: ContentPageProps["cta"]; page: string }) {
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-muted-foreground">{cta.text}</p>
         <CtaButtons cta={cta} placement={`${page}-final`} className="mt-8 justify-center" />
+        <Link
+          to="/ai-governance-readiness"
+          onClick={() => trackCta("readiness", `${page}-final`)}
+          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+        >
+          Not ready to talk? Take the 3-minute readiness check <ArrowRight className="size-3.5" />
+        </Link>
       </div>
     </div>
   );

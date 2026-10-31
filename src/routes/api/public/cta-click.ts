@@ -7,7 +7,7 @@ import { ensureTablesExist, turso } from "@/lib/turso";
 const text = (max: number) => z.string().max(max).optional().default("");
 
 const schema = z.object({
-  cta: z.enum(["demo", "sandbox", "request", "video"]),
+  cta: z.enum(["demo", "sandbox", "request", "video", "readiness"]),
   placement: text(60),
   page: text(200),
   landing: text(200),

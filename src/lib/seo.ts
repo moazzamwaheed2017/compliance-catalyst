@@ -102,6 +102,7 @@ export const CONTENT_PAGES = [
   { path: "/ai-governance-platform", label: "AI governance platform" },
   { path: "/shadow-ai", label: "Shadow AI governance" },
   { path: "/ai-agent-governance", label: "AI agent governance" },
+  { path: "/ai-governance-readiness", label: "AI governance readiness check" },
   { path: "/about", label: "About ReguLattice" },
 ];
 

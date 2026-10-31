@@ -8,6 +8,7 @@ import {
   ChevronDown,
   Code2,
   EyeOff,
+  Gauge,
   Instagram,
   Layers,
   Linkedin,
@@ -53,7 +54,12 @@ export const sectionItems: { id: string; label: string }[] = [
   { id: "faq", label: "FAQ" },
 ];
 
-type ResourcePath = "/ai-governance-platform" | "/shadow-ai" | "/ai-agent-governance" | "/about";
+type ResourcePath =
+  | "/ai-governance-platform"
+  | "/shadow-ai"
+  | "/ai-agent-governance"
+  | "/ai-governance-readiness"
+  | "/about";
 
 /** Guides and company pages, combined into one "Resources" menu. */
 export const resourceGroups: {
@@ -81,6 +87,12 @@ export const resourceGroups: {
         text: "Controls and human oversight for AI agents",
         icon: Bot,
       },
+      {
+        to: "/ai-governance-readiness",
+        label: "Readiness check",
+        text: "Score your AI governance in 3 minutes",
+        icon: Gauge,
+      },
     ],
   },
   {
@@ -107,6 +119,7 @@ const footerColumns: { title: string; items: NavItem[] }[] = [
       { to: "/ai-governance-platform", label: "What is an AI governance platform?" },
       { to: "/shadow-ai", label: "Shadow AI governance" },
       { to: "/ai-agent-governance", label: "AI agent governance" },
+      { to: "/ai-governance-readiness", label: "AI governance readiness check" },
     ],
   },
 ];
@@ -403,7 +416,11 @@ export function DemoRequestProvider({ children }: { children: ReactNode }) {
               <Textarea
                 id="notes"
                 rows={3}
-                placeholder="Tell us about your AI footprint or compliance target..."
+                placeholder={
+                  requestType.includes("Design Partner")
+                    ? "What AI governance problem would you like to work on with us?"
+                    : "Tell us about your AI footprint or compliance target..."
+                }
                 value={formData.notes}
                 onChange={(e) => setFormData((prev) => ({ ...prev, notes: e.target.value }))}
                 className="resize-none border-white/10 bg-background/60"
