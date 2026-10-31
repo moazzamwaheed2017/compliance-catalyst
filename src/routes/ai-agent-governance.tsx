@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { ContentPage } from "@/components/site/content-page";
+import { DEMO_VIDEOS } from "@/components/site/demo-video";
 import { pageHead, type ContentPageMeta } from "@/lib/seo";
 
 const meta: ContentPageMeta = {
@@ -45,6 +46,7 @@ export const Route = createFileRoute("/ai-agent-governance")({
 function AiAgentGovernancePage() {
   return (
     <ContentPage
+      demoVideo={DEMO_VIDEOS.aiAgents}
       meta={meta}
       eyebrow="AI agent governance"
       shortAnswer={
