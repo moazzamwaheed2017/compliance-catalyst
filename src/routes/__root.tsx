@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
 import { captureFirstTouch } from "@/lib/cta";
+import { trackPageView } from "@/lib/engagement";
 import { HOME_DESCRIPTION } from "@/lib/seo";
 
 function NotFoundComponent() {
@@ -93,7 +94,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap",
+      },
       { rel: "icon", href: "/favicon-48.png", type: "image/png", sizes: "48x48" },
       { rel: "icon", href: "/favicon.png", type: "image/png", sizes: "192x192" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
@@ -126,6 +130,10 @@ function RootComponent() {
   useEffect(() => {
     captureFirstTouch();
   }, []);
+
+  useEffect(() => {
+    trackPageView(location.pathname);
+  }, [location.pathname]);
 
   useEffect(() => {
     try {

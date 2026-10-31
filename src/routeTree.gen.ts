@@ -16,6 +16,7 @@ import { Route as AiGovernancePlatformRouteImport } from './routes/ai-governance
 import { Route as ShadowAiRouteImport } from './routes/shadow-ai'
 import { Route as ApiPublicCtaClickRouteImport } from './routes/api/public/cta-click'
 import { Route as ApiPublicDemoRequestRouteImport } from './routes/api/public/demo-request'
+import { Route as ApiPublicEngagementRouteImport } from './routes/api/public/engagement'
 import { Route as ApiPublicLogVisitorRouteImport } from './routes/api/public/log-visitor'
 
 const IndexRoute = IndexRouteImport.update({
@@ -53,6 +54,11 @@ const ApiPublicDemoRequestRoute = ApiPublicDemoRequestRouteImport.update({
   path: '/api/public/demo-request',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicEngagementRoute = ApiPublicEngagementRouteImport.update({
+  id: '/api/public/engagement',
+  path: '/api/public/engagement',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicLogVisitorRoute = ApiPublicLogVisitorRouteImport.update({
   id: '/api/public/log-visitor',
   path: '/api/public/log-visitor',
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/shadow-ai': typeof ShadowAiRoute
   '/api/public/cta-click': typeof ApiPublicCtaClickRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
+  '/api/public/engagement': typeof ApiPublicEngagementRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/shadow-ai': typeof ShadowAiRoute
   '/api/public/cta-click': typeof ApiPublicCtaClickRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
+  '/api/public/engagement': typeof ApiPublicEngagementRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/shadow-ai': typeof ShadowAiRoute
   '/api/public/cta-click': typeof ApiPublicCtaClickRoute
   '/api/public/demo-request': typeof ApiPublicDemoRequestRoute
+  '/api/public/engagement': typeof ApiPublicEngagementRoute
   '/api/public/log-visitor': typeof ApiPublicLogVisitorRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/shadow-ai'
     | '/api/public/cta-click'
     | '/api/public/demo-request'
+    | '/api/public/engagement'
     | '/api/public/log-visitor'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/shadow-ai'
     | '/api/public/cta-click'
     | '/api/public/demo-request'
+    | '/api/public/engagement'
     | '/api/public/log-visitor'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/shadow-ai'
     | '/api/public/cta-click'
     | '/api/public/demo-request'
+    | '/api/public/engagement'
     | '/api/public/log-visitor'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   ShadowAiRoute: typeof ShadowAiRoute
   ApiPublicCtaClickRoute: typeof ApiPublicCtaClickRoute
   ApiPublicDemoRequestRoute: typeof ApiPublicDemoRequestRoute
+  ApiPublicEngagementRoute: typeof ApiPublicEngagementRoute
   ApiPublicLogVisitorRoute: typeof ApiPublicLogVisitorRoute
 }
 
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicDemoRequestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/engagement': {
+      id: '/api/public/engagement'
+      path: '/api/public/engagement'
+      fullPath: '/api/public/engagement'
+      preLoaderRoute: typeof ApiPublicEngagementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/log-visitor': {
       id: '/api/public/log-visitor'
       path: '/api/public/log-visitor'
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShadowAiRoute: ShadowAiRoute,
   ApiPublicCtaClickRoute: ApiPublicCtaClickRoute,
   ApiPublicDemoRequestRoute: ApiPublicDemoRequestRoute,
+  ApiPublicEngagementRoute: ApiPublicEngagementRoute,
   ApiPublicLogVisitorRoute: ApiPublicLogVisitorRoute,
 }
 export const routeTree = rootRouteImport
