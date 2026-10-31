@@ -2,7 +2,7 @@
 export function extractClientIp(headers: Headers): string {
   const forwarded = headers.get("x-forwarded-for");
   if (forwarded) {
-    const firstIp = forwarded.split(",")[0].trim();
+    const firstIp = forwarded.split(",")[0]?.trim();
     if (firstIp) return firstIp;
   }
   const realIp = headers.get("x-real-ip");
