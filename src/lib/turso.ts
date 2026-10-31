@@ -57,6 +57,27 @@ export async function ensureTablesExist() {
         click_time TEXT DEFAULT (datetime('now'))
       );
     `);
+
+    // 4. Time on site: visible seconds per page view, grouped into anonymous sessions
+    await turso.execute(`
+      CREATE TABLE IF NOT EXISTS page_engagement (
+        view_id TEXT PRIMARY KEY,
+        session_id TEXT NOT NULL,
+        page TEXT DEFAULT '',
+        landing TEXT DEFAULT '',
+        referrer TEXT DEFAULT '',
+        utm_source TEXT DEFAULT '',
+        utm_medium TEXT DEFAULT '',
+        utm_campaign TEXT DEFAULT '',
+        country TEXT DEFAULT 'Unknown',
+        active_seconds INTEGER DEFAULT 0,
+        started_at TEXT DEFAULT (datetime('now')),
+        updated_at TEXT DEFAULT (datetime('now'))
+      );
+    `);
+    await turso.execute(
+      "CREATE INDEX IF NOT EXISTS idx_page_engagement_session ON page_engagement (session_id)",
+    );
   } catch (error) {
     console.error("[Turso DB] Error ensuring tables exist:", error);
   }

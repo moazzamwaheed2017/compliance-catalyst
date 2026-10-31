@@ -6,7 +6,7 @@ const STORAGE_KEY = "rl_first_touch";
 type FirstTouch = Partial<Record<(typeof UTM_KEYS)[number], string>> & { landing?: string };
 
 /** Campaign tags from the visitor's first page this session (e.g. a YouTube ad link). */
-function firstTouch(): FirstTouch {
+export function firstTouch(): FirstTouch {
   if (typeof window === "undefined") return {};
   try {
     const saved = window.sessionStorage.getItem(STORAGE_KEY);
