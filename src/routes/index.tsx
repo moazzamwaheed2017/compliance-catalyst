@@ -1,21 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  Check,
-  Code2,
-  Cpu as CpuIcon,
-  Gauge,
-  Layers,
-  Lock,
-  Network,
-  Play,
-  Server,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowRight, Check, Code2, Gauge, Layers, Lock, Play, ShieldCheck } from "lucide-react";
 
 import logoAsset from "@/assets/regulattice-logo.jpg";
-import { AgentShowcase } from "@/components/landing/agent-showcase";
-import { ControlLoop } from "@/components/landing/control-loop";
 import { HeroDashboard } from "@/components/landing/hero-dashboard";
 import { Eyebrow, Reveal } from "@/components/landing/reveal";
 import { UseCases } from "@/components/landing/use-cases";
@@ -125,21 +111,6 @@ const ecosystem = [
   "xAI Grok",
 ];
 
-const stats = [
-  {
-    value: "4",
-    label: "Autonomous governance agents",
-    sub: "Discover · Verify · Monitor · Remediate",
-  },
-  { value: "2-pass", label: "Evidence verification", sub: "Deterministic RAG + model consensus" },
-  { value: "5s", label: "Telemetry granularity", sub: "Live Flight Recorder event stream" },
-  {
-    value: "3",
-    label: "Frameworks mapped natively",
-    sub: "EU AI Act · ISO/IEC 42001 · NIST AI RMF",
-  },
-];
-
 const frameworks = [
   {
     id: "01",
@@ -186,49 +157,6 @@ const frameworks = [
       { code: "MAP", text: "AI asset inventory and data exposure categorizations." },
       { code: "MEASURE", text: "Dual-pass semantic evidence evaluation." },
       { code: "MANAGE", text: "Gated autonomy risk remediation Kanban." },
-    ],
-  },
-];
-
-const connectorCategories = [
-  {
-    category: "Private & self-hosted models",
-    icon: Server,
-    items: [
-      "Private on-prem LLM clusters",
-      "Self-hosted runtimes (vLLM, TGI)",
-      "Fine-tuned enterprise models",
-      "Kubernetes & air-gapped weight repos",
-    ],
-  },
-  {
-    category: "Local & open-source LLMs",
-    icon: CpuIcon,
-    items: [
-      "Ollama (Llama 3, Mistral, Qwen)",
-      "DeepSeek-R1 & open weights",
-      "Local workstation runtimes",
-      "Edge & on-device AI deployments",
-    ],
-  },
-  {
-    category: "Public LLMs & commercial APIs",
-    icon: Network,
-    items: [
-      "ChatGPT / OpenAI",
-      "Anthropic Claude",
-      "Google Gemini Pro & Ultra",
-      "xAI Grok, Perplexity & Cohere",
-    ],
-  },
-  {
-    category: "Developer AI & coding tools",
-    icon: Code2,
-    items: [
-      "Cursor IDE & Windsurf",
-      "Claude Code (Admin API telemetry)",
-      "Antigravity agentic IDE",
-      "GitHub Copilot & coding assistants",
     ],
   },
 ];
@@ -445,23 +373,6 @@ function HomeContent() {
           </div>
         </section>
 
-        {/* Stats */}
-        <section className="px-5 py-20 lg:px-8">
-          <div className="mx-auto grid max-w-6xl gap-px overflow-hidden rounded-3xl border border-white/[0.07] bg-white/[0.07] sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((s, i) => (
-              <Reveal key={s.label} delay={i * 80} className="bg-background">
-                <div className="h-full p-7">
-                  <div className="font-display text-5xl font-semibold tracking-tight text-gradient">
-                    {s.value}
-                  </div>
-                  <div className="mt-3 text-sm font-medium text-foreground">{s.label}</div>
-                  <div className="mt-1 text-xs text-muted-foreground">{s.sub}</div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-
         {/* How it works: AI governance lifecycle */}
         <section id="how-it-works" className="scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8">
           <div className="mx-auto max-w-6xl">
@@ -503,21 +414,6 @@ function HomeContent() {
           </div>
         </section>
 
-        {/* Platform: four agents */}
-        <section id="platform" className="scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8">
-          <div className="mx-auto max-w-6xl">
-            <SectionHeader
-              eyebrow="The platform"
-              title="Four AI governance agents."
-              accent="One platform."
-              text="Specialized agents for AI discovery, evidence verification, AI risk monitoring and remediation work together across your entire AI footprint, without slowing your engineers down."
-            />
-            <Reveal className="mt-16">
-              <AgentShowcase />
-            </Reveal>
-          </div>
-        </section>
-
         {/* Use cases */}
         <section id="use-cases" className="scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8">
           <div className="mx-auto max-w-6xl">
@@ -538,25 +434,6 @@ function HomeContent() {
                 Guide: how to govern AI agents →
               </Link>
             </div>
-          </div>
-        </section>
-
-        {/* Architecture */}
-        <section id="architecture" className="relative scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8">
-          <div
-            className="dot-grid absolute inset-0 -z-0 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]"
-            aria-hidden="true"
-          />
-          <div className="relative mx-auto max-w-6xl">
-            <SectionHeader
-              eyebrow="Architecture"
-              title="From AI systems to"
-              accent="audit-ready evidence."
-              text="Live model endpoints, agentic IDEs and evidence pipelines flow through one governance engine and come out as verified evidence mapped to your AI compliance frameworks."
-            />
-            <Reveal className="mt-16">
-              <ControlLoop />
-            </Reveal>
           </div>
         </section>
 
@@ -611,55 +488,6 @@ function HomeContent() {
                           CONTROLS MAPPED
                         </span>
                       </div>
-                    </article>
-                  </Reveal>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* Integrations */}
-        <section id="integrations" className="scroll-mt-24 px-5 py-20 sm:py-28 lg:px-8">
-          <div className="mx-auto max-w-6xl">
-            <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-              <SectionHeader
-                center={false}
-                eyebrow="Integrations"
-                title="Govern AI across every model,"
-                accent="everywhere it runs."
-              />
-              <Reveal className="max-w-sm">
-                <p className="text-sm leading-6 text-muted-foreground">
-                  Connect live cloud models, local LLMs, code repositories, and IAM policy engines
-                  directly to your governance plane — public cloud, private VPC, or fully
-                  air-gapped.
-                </p>
-              </Reveal>
-            </div>
-            <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {connectorCategories.map((group, i) => {
-                const Icon = group.icon;
-                return (
-                  <Reveal key={group.category} delay={i * 80} className="h-full">
-                    <article className="group h-full rounded-3xl border border-white/[0.07] bg-card/60 p-6 transition-all duration-500 hover:border-primary/30 hover:bg-card">
-                      <div className="flex items-center justify-between">
-                        <div className="flex size-10 items-center justify-center rounded-xl bg-white/[0.05] text-primary transition-transform duration-500 group-hover:scale-110">
-                          <Icon className="size-5" />
-                        </div>
-                        <span className="font-mono text-xs text-muted-foreground">0{i + 1}</span>
-                      </div>
-                      <h3 className="mt-5 font-display text-lg font-semibold text-foreground">
-                        {group.category}
-                      </h3>
-                      <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
-                        {group.items.map((item) => (
-                          <li key={item} className="flex items-start gap-2">
-                            <span className="mt-2 size-1 shrink-0 rounded-full bg-primary" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
                     </article>
                   </Reveal>
                 );

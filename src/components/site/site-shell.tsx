@@ -46,11 +46,8 @@ type NavItem = { label: string } & ({ to: string } | { href: string });
 /** Main menu: each item maps to a section of the homepage. */
 export const sectionItems: { id: string; label: string }[] = [
   { id: "how-it-works", label: "How it works" },
-  { id: "platform", label: "Platform" },
   { id: "use-cases", label: "Use cases" },
-  { id: "architecture", label: "Architecture" },
   { id: "frameworks", label: "Frameworks" },
-  { id: "integrations", label: "Integrations" },
   { id: "faq", label: "FAQ" },
 ];
 
