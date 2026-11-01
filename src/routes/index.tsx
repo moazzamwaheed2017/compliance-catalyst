@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Code2, Gauge, Layers, Lock, Play, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, Code2, Gauge, Layers, Lock, ShieldCheck } from "lucide-react";
 
 import logoAsset from "@/assets/regulattice-logo.jpg";
-import { HeroDashboard } from "@/components/landing/hero-dashboard";
 import { Eyebrow, Reveal } from "@/components/landing/reveal";
 import { UseCases } from "@/components/landing/use-cases";
 import { DemoVideo } from "@/components/site/demo-video";
@@ -11,8 +10,6 @@ import { SiteLayout, useDemoRequest } from "@/components/site/site-shell";
 import { Button } from "@/components/ui/button";
 import { trackCta } from "@/lib/cta";
 import {
-  ENTITY_DEFINITION,
-  ENTITY_EXPANSION,
   HOME_DESCRIPTION,
   HOME_FAQS,
   HOME_TITLE,
@@ -237,7 +234,7 @@ function HomeContent() {
       />
       <main className="relative">
         {/* Hero */}
-        <section className="relative px-5 pb-20 pt-36 sm:pt-44 lg:px-8">
+        <section className="relative px-5 pb-20 pt-32 sm:pt-36 lg:px-8">
           <AuroraBackground />
           <div className="relative mx-auto max-w-6xl">
             <div className="mx-auto max-w-4xl text-center">
@@ -246,28 +243,30 @@ function HomeContent() {
                 className="rise-in group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] py-1 pl-1 pr-3 text-xs text-muted-foreground backdrop-blur-md transition-colors hover:border-primary/30 hover:text-foreground"
               >
                 <span className="shrink-0 whitespace-nowrap rounded-full bg-brand-gradient px-2 py-0.5 font-semibold text-primary-foreground">
-                  AI governance
+                  AI governance platform
                 </span>
                 You can&apos;t govern AI you don&apos;t know exists
                 <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
               </a>
 
               <h1
-                className="rise-in mt-8 text-balance font-display text-[2.75rem] font-semibold leading-[1.02] text-foreground sm:text-6xl lg:text-[5.25rem]"
+                className="rise-in mt-8 text-balance font-display text-[2.6rem] font-semibold leading-[1.02] text-foreground sm:text-6xl lg:text-[4.5rem]"
                 style={{ animationDelay: "80ms" }}
               >
-                The AI governance platform for{" "}
+                Find{" "}
                 <span className="font-serif text-[1.08em] font-normal italic tracking-normal text-gradient">
-                  every AI system
+                  every AI tool
                 </span>{" "}
-                and agent.
+                your company uses. Decide which ones are allowed.
               </h1>
 
               <p
                 className="rise-in mx-auto mt-7 max-w-2xl text-pretty text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8"
                 style={{ animationDelay: "160ms" }}
               >
-                {ENTITY_DEFINITION} {ENTITY_EXPANSION}
+                ReguLattice finds the AI tools, models and agents your teams already use, puts a
+                person in charge of approving or blocking each one, and keeps audit-ready evidence
+                as you go.
               </p>
 
               <div
@@ -280,7 +279,7 @@ function HomeContent() {
                   className="w-full sm:w-auto"
                   onClick={() => openDemoModal("Schedule Technical Demo", "home-hero")}
                 >
-                  Book a technical demo <ArrowRight className="size-4" />
+                  Book a demo <ArrowRight className="size-4" />
                 </Button>
                 <Button asChild variant="architectural" size="lg" className="w-full sm:w-auto">
                   <SandboxLink placement="home-hero">
@@ -288,13 +287,6 @@ function HomeContent() {
                   </SandboxLink>
                 </Button>
               </div>
-              <a
-                href="#watch"
-                className="rise-in mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
-                style={{ animationDelay: "280ms" }}
-              >
-                <Play className="size-3.5 fill-current" /> Watch the 78-second demo
-              </a>
               <p
                 className="rise-in mt-4 font-mono text-[11px] text-muted-foreground/80"
                 style={{ animationDelay: "300ms" }}
@@ -303,10 +295,14 @@ function HomeContent() {
               </p>
             </div>
 
-            <div className="rise-in mt-16 sm:mt-20" style={{ animationDelay: "380ms" }}>
-              <HeroDashboard />
-              <p className="mt-4 text-center font-mono text-[10px] text-muted-foreground/70">
-                Illustrative product view with sample data.
+            <div
+              id="watch"
+              className="rise-in mx-auto mt-12 max-w-5xl scroll-mt-24"
+              style={{ animationDelay: "380ms" }}
+            >
+              <DemoVideo placement="home-hero" />
+              <p className="mt-4 text-center text-sm text-muted-foreground">
+                78 seconds: how shadow AI gets in, and how ReguLattice governs it.
               </p>
             </div>
           </div>
@@ -328,48 +324,6 @@ function HomeContent() {
                 </span>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Product walkthrough video */}
-        <section id="watch" className="scroll-mt-24 px-5 pt-20 lg:px-8">
-          <div className="mx-auto max-w-5xl">
-            <Reveal className="mx-auto max-w-2xl text-center">
-              <Eyebrow>See it in 78 seconds</Eyebrow>
-              <h2 className="mt-5 text-balance font-display text-3xl font-semibold leading-tight sm:text-4xl">
-                How shadow AI gets in, and how ReguLattice governs it
-              </h2>
-              <p className="mt-4 text-muted-foreground">
-                Browser tabs, developer tools, local models and company sign-ins land in one review
-                queue, where a person approves or blocks each tool.
-              </p>
-            </Reveal>
-            <Reveal delay={120}>
-              <DemoVideo placement="home" className="mt-10" />
-            </Reveal>
-            <Reveal delay={160}>
-              <Link
-                to="/ai-governance-readiness"
-                onClick={() => trackCta("readiness", "home-video")}
-                className="group mt-6 flex flex-col items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-primary/40 sm:flex-row sm:items-center sm:justify-between"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                    <Gauge className="size-5" />
-                  </span>
-                  <span>
-                    <span className="block font-medium">Not ready for a demo yet?</span>
-                    <span className="block text-sm text-muted-foreground">
-                      Score your AI governance in 3 minutes, free, with first steps to take.
-                    </span>
-                  </span>
-                </span>
-                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                  Take the readiness check
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </Link>
-            </Reveal>
           </div>
         </section>
 
@@ -404,7 +358,28 @@ function HomeContent() {
                 </li>
               ))}
             </ol>
-            <p className="mt-10 text-center text-sm text-muted-foreground">
+            <Link
+              to="/ai-governance-readiness"
+              onClick={() => trackCta("readiness", "home-how-it-works")}
+              className="group mt-10 flex flex-col items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-primary/40 sm:flex-row sm:items-center sm:justify-between"
+            >
+              <span className="flex items-center gap-3">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                  <Gauge className="size-5" />
+                </span>
+                <span>
+                  <span className="block font-medium">Not ready for a demo yet?</span>
+                  <span className="block text-sm text-muted-foreground">
+                    Score your AI governance in 3 minutes, free, with first steps to take.
+                  </span>
+                </span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                Take the readiness check
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+            <p className="mt-8 text-center text-sm text-muted-foreground">
               New to the category?{" "}
               <Link to="/ai-governance-platform" className="text-primary hover:underline">
                 Read what an AI governance platform is and how to choose one
@@ -618,7 +593,7 @@ function HomeContent() {
                     className="w-full sm:w-auto"
                     onClick={() => openDemoModal("Schedule Technical Demo", "home-final")}
                   >
-                    Book a technical demo <ArrowRight className="size-4" />
+                    Book a demo <ArrowRight className="size-4" />
                   </Button>
                   <Button asChild variant="architectural" size="lg" className="w-full sm:w-auto">
                     <SandboxLink placement="home-final">
